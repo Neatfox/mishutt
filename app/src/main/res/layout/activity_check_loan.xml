@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.activity.CheckLoanActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_loan_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loan"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:lineSpacingExtra="5dp" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="textCapWords"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="+91 "
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_mobile_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/mobile_number"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_date_of_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/date_of_birth"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="date"
+                        android:maxLength="10"
+                        android:cursorVisible="false"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_annual_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/annual_income"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_loan_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/loan_amount"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/layout_tenure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:suffixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_tenure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/tenure"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:suffixText="@string/percent"
+                    app:suffixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_interest_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/interest_rate_per_annum"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="numberDecimal"
+                        android:maxLength="5"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_other_emi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/other_emi"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--....................................Blank....................................-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="2" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_no_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/no_data"
+                android:textColor="?attr/textColor"
+                android:textSize="15sp"
+                android:visibility="gone"/>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="?attr/itemBackgroundColor"
+        app:layout_constraintEnd_toEndOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="@id/scrollView"
+        app:layout_constraintBottom_toTopOf="@id/layout_blank"
+        android:animateLayoutChanges="true">
+
+        <Button
+            android:id="@+id/button_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bottom_layout_background"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/check_loan"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="?attr/backgroundColor"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,35 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Mishutt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorSecondaryVariant">@color/green</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <item name="backgroundColor">#ffffff</item>
+        <item name="textColor">#000E47</item>
+        <item name="metaTextColor">#27AE60</item>
+        <item name="hintColor">#c5877f7f</item>
+        <item name="metaHintColor">#c5877f7f</item>
+        <item name="commonTextColor">#27AE60</item>
+        <item name="commonIconTintColor">#27AE60</item>
+        <item name="itemBackgroundColor">#ffffff</item>
+        <item name="homeBackgroundColor">#5BDDDDDD</item>
+        <item name="bottomBackgroundColor">#ffffff</item>
+        <item name="circleColor">#ffffff</item>
+        <item name="defaultIconColor">#c5877f7f</item>
+        <item name="selectedIconColor">#27AE60</item>
+        <item name="shadowColor">#c5877f7f</item>
+        <item name="countBackgroundColor">#F44336</item>
+        <item name="countTextColor">#ffffff</item>
+        <item name="placeholderColor">#ffffff</item>
+    </style>
+</resources>

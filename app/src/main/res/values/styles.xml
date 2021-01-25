@@ -1,0 +1,109 @@
+<resources>
+
+    <!-- Light base activity theme -->
+    <style name="AppThemeLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#27AE60</item>
+        <item name="colorPrimaryDark">#27AE60</item>
+        <item name="colorAccent">#27AE60</item>
+        <item name="backgroundColor">#ffffff</item>
+        <item name="textColor">#FF000000</item>
+        <item name="metaTextColor">#27AE60</item>
+        <item name="hintColor">#c5877f7f</item>
+        <item name="metaHintColor">#c5877f7f</item>
+        <item name="commonTextColor">#27AE60</item>
+        <item name="commonIconTintColor">#27AE60</item>
+        <item name="itemBackgroundColor">#ffffff</item>
+        <item name="homeBackgroundColor">#32DDDDDD</item>
+        <item name="bottomBackgroundColor">#ffffff</item>
+        <item name="circleColor">#ffffff</item>
+        <item name="defaultIconColor">#c5877f7f</item>
+        <item name="selectedIconColor">#27AE60</item>
+        <item name="shadowColor">#c5877f7f</item>
+        <item name="countBackgroundColor">#F44336</item>
+        <item name="countTextColor">#ffffff</item>
+    </style>
+
+    <!-- Dark base activity theme -->
+    <style name="AppThemeDark"    parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#17202A</item>
+        <item name="colorPrimaryDark">#17202A</item>
+        <item name="colorAccent">#27AE60</item>
+        <item name="backgroundColor">#17202A</item>
+        <item name="textColor">#ffffff</item>
+        <item name="metaTextColor">#ffffff</item>
+        <item name="hintColor">#27AE60</item>
+        <item name="metaHintColor">#ffffff</item>
+        <item name="commonTextColor">#27AE60</item>
+        <item name="commonIconTintColor">#27AE60</item>
+        <item name="itemBackgroundColor">#17202A</item>
+        <item name="homeBackgroundColor">#2C3E50</item>
+        <item name="bottomBackgroundColor">#2C3E50</item>
+        <item name="circleColor">#2C3E50</item>
+        <item name="defaultIconColor">#c5877f7f</item>
+        <item name="selectedIconColor">#ffffff</item>
+        <item name="shadowColor">#c5877f7f</item>
+        <item name="countBackgroundColor">#F44336</item>
+        <item name="countTextColor">#ffffff</item>
+    </style>
+
+    <style name="AppThemeLightSplash"    parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#ffffff</item>
+        <item name="colorAccent">#27AE60</item>
+        <item name="backgroundColor">#ffffff</item>
+        <item name="commonTextColor">#27AE60</item>
+    </style>
+
+    <style name="AppThemeDarkSplash"    parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#17202A</item>
+        <item name="colorPrimaryDark">#17202A</item>
+        <item name="colorAccent">#27AE60</item>
+        <item name="backgroundColor">#17202A</item>
+        <item name="commonTextColor">#27AE60</item>
+    </style>
+
+    <style name="TextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="TextStyleWallet" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="TextHintStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="TextGoalStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="GridViewMessageStyle" parent="TextAppearance.AppCompat">
+        <item name="android:background">@drawable/background_yellow</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="GridViewTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:itemBackground">@drawable/action_button</item>
+        <item name="android:itemTextAppearance">@style/TextStyle</item>
+    </style>
+
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_main"
+    tools:context=".ui.activity.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:padding="1dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/mishutt"
+                android:visibility="gone"
+                android:contentDescription="@string/image" />
+
+            <TextView
+                android:id="@+id/tv_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="bottom"
+        app:mbn_circleColor="?attr/circleColor"
+        app:mbn_backgroundBottomColor="?attr/bottomBackgroundColor"
+        app:mbn_defaultIconColor="?attr/defaultIconColor"
+        app:mbn_selectedIconColor="?attr/selectedIconColor"
+        app:mbn_shadowColor="?attr/shadowColor"
+        app:mbn_countBackgroundColor="?attr/countBackgroundColor"
+        app:mbn_countTextColor="?attr/countTextColor"/>
+
+    <include layout="@layout/bottom_sheet_main" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

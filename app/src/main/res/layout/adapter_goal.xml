@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.adapter.GoalAdapter">
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_rectangle"
+        android:layout_margin="1dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:elevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="?attr/itemBackgroundColor"
+            android:padding="10dp"
+            android:animateLayoutChanges="true">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/goal_type"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tv_goal_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/goal_type"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/goal_amount"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tv_goal_amount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/goal_amount"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/future_value"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_future_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/rupee"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/duration"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_duration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/date_hint"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/down_payment"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_down_payment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/rupee"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/emi"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_emi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/rupee"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/ripple_rectangle"
+                android:src="@drawable/ic_delete"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/image"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

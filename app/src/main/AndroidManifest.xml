@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.neatfox.mishutt">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <application
+        android:name=".notification.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/Theme.Mishutt">
+        <activity android:name=".ui.activity.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.SignInActivity" />
+        <activity android:name=".ui.activity.SignUpActivity" />
+        <activity android:name=".ui.activity.VerificationActivity" />
+        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.HomeActivity" />
+        <activity android:name=".ui.activity.CardActivity" />
+        <activity android:name=".ui.activity.ExpenseManagerActivity" />
+        <activity android:name=".ui.activity.AddTransactionActivity" />
+        <activity android:name=".ui.activity.AddTransactionCategoryActivity" />
+        <activity android:name=".ui.activity.GoalManagerActivity" />
+        <activity android:name=".ui.activity.AddGoalActivity" />
+        <activity android:name=".ui.activity.LoanManagerActivity" />
+        <activity android:name=".ui.activity.InvestmentManagerActivity" />
+        <activity android:name=".ui.activity.FundManagerActivity" />
+        <activity android:name=".ui.activity.CreditScoreActivity" />
+        <activity android:name=".ui.activity.EMICalculatorActivity" />
+        <activity android:name=".ui.activity.FDCalculatorActivity" />
+        <activity android:name=".ui.activity.DescriptionActivity" />
+        <activity android:name=".ui.activity.TaxActivity" />
+        <activity android:name=".ui.activity.SupportActivity" />
+        <activity android:name=".ui.activity.CheckLoanActivity" />
+        <activity android:name=".ui.activity.CheckInsuranceActivity" />
+        <activity android:name=".ui.activity.CheckInvestmentActivity" />
+        <activity android:name=".ui.activity.ShowImageActivity" />
+        <activity android:name=".ui.activity.DashboardActivity" />
+        <activity android:name=".ui.activity.AddProfileActivity" />
+        <activity android:name=".ui.activity.AddDependentActivity" />
+        <activity android:name=".ui.activity.AddProductActivity" />
+        <activity android:name=".ui.activity.AddPortfolioActivity" />
+        <activity android:name=".ui.activity.WalletActivity" />
+        <activity android:name=".ui.activity.AddMoneyActivity" />
+        <activity android:name=".ui.activity.PaymentActivity" />
+        <activity android:name=".ui.activity.TransactionMessagesActivity" />
+        <activity
+            android:name=".image_cropper.ImageCropper"
+            android:screenOrientation="portrait" />
+        <!--..................................Cropping Activity..................................-->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" />
+        <!--.........................cache directory file provider paths.........................-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.neatfox.mishutt.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

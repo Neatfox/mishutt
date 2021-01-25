@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/dialog_background"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.activity.PaymentActivity">
+
+    <ImageView
+        android:id="@+id/iv_cancel_action"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="2dp"
+        android:layout_gravity="end"
+        app:srcCompat="@drawable/cancel"
+        android:contentDescription="@string/image"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/verify_account"
+        android:textColor="?attr/textColor"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="@string/verification_msg"
+        android:textSize="15sp"
+        android:textColor="?attr/textColor"/>
+
+    <TextView
+        android:id="@+id/tv_email_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/email_id"
+        android:textSize="15sp"
+        android:textColor="?attr/textColor"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/mobile_number"
+        android:textSize="15sp"
+        android:textColor="?attr/textColor"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/edit_text_one"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank" />
+
+        <EditText
+            android:id="@+id/edit_text_two"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank"/>
+
+        <EditText
+            android:id="@+id/edit_text_three"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank"/>
+
+        <EditText
+            android:id="@+id/edit_text_four"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank"/>
+
+        <EditText
+            android:id="@+id/edit_text_five"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank"/>
+
+        <EditText
+            android:id="@+id/edit_text_six"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:gravity="center"
+            android:hint="@string/blank"
+            android:textStyle="bold"
+            android:textColor="?attr/textColor"
+            android:inputType="number"
+            android:maxLength="1"
+            android:longClickable="false"
+            android:autofillHints="@string/blank"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/resend"
+            android:textColor="?attr/itemBackgroundColor"
+            android:textStyle="bold"/>
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/submit"
+            android:textColor="?attr/itemBackgroundColor"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

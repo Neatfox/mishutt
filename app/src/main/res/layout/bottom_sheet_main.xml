@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/itemBackgroundColor"
+    android:orientation="horizontal"
+    android:animateLayoutChanges="true"
+    android:paddingBottom="5dp"
+    app:behavior_peekHeight="25dp"
+    app:behavior_hideable="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".ui.activity.MainActivity">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/payments"
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/dashboard"
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/menu_home"
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/wallet"
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/support"
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
+</LinearLayout>

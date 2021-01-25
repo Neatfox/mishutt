@@ -1,0 +1,491 @@
+<resources>
+    <string name="app_name">Mishutt</string>
+    <string name="mishutt_finances">Mishutt Financial</string>
+    <string name="welcome">Welcome to Mishutt Financial</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="press_again_to_exit">Press again to exit</string>
+    <string name="blank"> </string>
+    <string name="image">Image</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="rupee">\u20B9</string>
+    <string name="percent">%</string>
+    <string name="more">More</string>
+    <string name="service_mobile_number">+91 94313 48343</string>
+    <string name="service_email_id">info@mishutt.com</string>
+    <string name="version">Version</string>
+    <!--.........................................Sign In.........................................-->
+    <string name="sign_in_to_continue">Please sign in to continue…</string>
+    <string name="or">OR</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="forgot_password_heading">Forgot Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="mobile_number_length">Mobile Number must be 10 digit</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="not_registered">Doesn\'t have an Account?</string>
+    <string name="sign_up">Sign Up</string>
+    <!--.........................................Sign Up.........................................-->
+    <string name="sign_up_to_continue">Please sign up to continue…</string>
+    <string name="name">Name</string>
+    <string name="email_id">Email ID</string>
+    <string name="referral_code">Referral Code (if any)</string>
+    <string name="next">Next</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email_id">Enter Email ID</string>
+    <string name="enter_valid_email_id">Enter valid Email ID</string>
+    <string name="already_registered">Already have an Account?</string>
+    <!--......................................Verification.......................................-->
+    <string name="verification_code">Verification Code</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="verification_msg">Please type the verification code sent to</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="verification_code_length">Verification Code must be 4 digit</string>
+    <string name="verification_code_length_six">Verification Code must be 6 digit</string>
+    <string name="submit">Submit</string>
+    <string name="resend">Resend</string>
+    <!--......................................Main Activity......................................-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_profile">Profile</string>
+    <string name="home_second">Home Second</string>
+    <string name="action_settings">Settings</string>
+    <string name="choose_theme">Theme</string>
+    <string name="action_contact_us">Contact Us</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="action_light_theme">Light</string>
+    <string name="action_dark_theme">Dark</string>
+    <string name="action_system_default">System Default</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <!--......................................Home Activity......................................-->
+    <string name="string_new">New</string>
+    <string name="why_choose_us">Why Choose Us</string>
+    <string name="credit_score_header_one">Increase chances of application approval</string>
+    <string name="credit_score_header_two">Better offers</string>
+    <string name="credit_score_header_three">Take charge of your finances</string>
+    <string name="credit_score_description_one">A score of 750+ boosts your chances of getting a loan/Credit Card</string>
+    <string name="credit_score_description_two">The better your score, the more offers you\'ll be eligible for</string>
+    <string name="credit_score_description_three">Understanding your score helps you take the right next steps</string>
+    <!--.....................................Expense Manager.....................................-->
+    <string name="expense_manager">Expense Manager</string>
+    <string name="no_earning_expense">No Expense or Earning Data Added Yet</string>
+    <string name="expense_manager_text">Looking for an expense and budget tool? Stop searching. Expense Manager is simple, intuitive, stable and feature-rich app that is just designed for you. Everything you need at your fingertips to manage the expenditures, checkbook and budgets.</string>
+    <string name="view_category_wise">Tap here to view Category-wise</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="select_start_date">Select Start Date</string>
+    <string name="select_end_date">Select End Date</string>
+    <string name="select_start_end_date">Select Start Date &amp; End Date</string>
+    <string name="no_data">No Data Found</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string name="earning">Earning(s)</string>
+    <string name="spending">Expense(s)</string>
+    <string name="description">Description</string>
+    <string name="spend_analyzer">Spend Analyzer</string>
+    <string name="earnings_vs_expenses_chart">Earnings vs Expenses Chart and Suggestions</string>
+    <string name="earnings_category_wise_chart">Earnings Category-wise</string>
+    <string name="expenses_category_wise_chart">Expenses Category-wise</string>
+    <string name="no_earning">No Earning Data Found</string>
+    <string name="no_spending">No Expense Data Found</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="transaction_date">Date of Transaction</string>
+    <string name="amount">Amount</string>
+    <string name="transaction_type_credited_debited">Transaction Type (Credit/Debit)</string>
+    <string name="transaction_type_earning_expense">Transaction Type (Earning/Expense)</string>
+    <string name="remarks">Remarks</string>
+    <string name="select_transaction_date">Select Transaction Date</string>
+    <string name="enter_transaction_amount">Enter Transaction Amount</string>
+    <string name="select_transaction_category">Select Transaction Category</string>
+    <string name="select_transaction_type">Select Transaction Type</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="enter_remarks">Enter Remarks</string>
+    <string name="submit_transaction">Submit Transaction Info</string>
+    <string name="frequency">Frequency</string>
+    <string name="add_transaction_category">Add Transaction Category</string>
+    <string name="category_name">Category Name (e.g Rent,Salary etc)</string>
+    <string name="interval">Interval</string>
+    <string name="enter_category_name">Enter Category Name</string>
+    <string name="select_interval">Select Interval</string>
+    <string name="add_category_info">Add Category</string>
+    <string-array name="transaction_type">
+        <item>All Earnings &amp; Expenses</item>
+        <item>Earnings</item>
+        <item>Expenses</item>
+    </string-array>
+    <!--......................................Goal Manager.......................................-->
+    <string name="goal_manager">Goal Manager</string>
+    <string name="no_goal">No Goal Added Yet</string>
+    <string name="goal_manager_text">The long-term objective of financial management is ultimately to help the company maximize profits. In order to do that, a financial manager needs to focus on smaller, more specific goals of financial management: planning, cost containment, cash flow management and legal compliance.</string>
+    <string name="note_saved_goal">Note : You will get notifications on your saved goals in Expense Manager</string>
+    <string name="no_saved_goal">No Goal Saved Yet</string>
+    <string name="goal_type">Goal Type</string>
+    <string name="goal_amount">Goal Amount</string>
+    <string name="future_value">Future Value</string>
+    <string name="duration">Duration</string>
+    <string name="down_payment">Down Payment</string>
+    <string name="emi">EMI</string>
+    <string name="add_goal">Add Goal</string>
+    <string name="select_goal">Select Goal</string>
+    <string name="period_to_achieve_goal">Period to achieve Goal</string>
+    <string name="year">Year(s)</string>
+    <string name="month">Months(s)</string>
+    <string name="inflation_rate">Inflation Rate</string>
+    <string name="get_goal">Get Goal</string>
+    <string name="proceed">Proceed</string>
+    <string name="save_goal">Save Goal</string>
+    <string name="select_goal_type">Select Goal Type</string>
+    <string name="enter_goal_amount">Enter Goal Amount</string>
+    <string name="enter_year">Enter Year(s)</string>
+    <string name="enter_month">Enter Month(s)</string>
+    <string name="enter_inflation_rate">Enter Inflation Rate</string>
+    <string-array name="goal_type">
+        <item>Home</item>
+        <item>Buy a car</item>
+        <item>Education</item>
+        <item>Save tax</item>
+        <item>Go on vacation</item>
+        <item>Plan for wedding</item>
+        <item>Others</item>
+    </string-array>
+    <!--......................................Loan Manager.......................................-->
+    <string name="loan_manager">Loan Manager</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="processing_fee">Processing Fee</string>
+    <string name="tenure">Tenure</string>
+    <string name="apply">Apply</string>
+    <!--....................................Investment Manager...................................-->
+    <string name="investment_manager">Investment Manager</string>
+    <string name="investment_manager_text">In today’s day and age, maintaining financial stability has become quite difficult for most of the individuals. Understanding the requirement of financial stability in an individual’s life, the insurance companies have come up with guaranteed income plans.</string>
+    <string name="investment_type">Investment Type</string>
+    <string name="scheme_name">Scheme Name</string>
+    <string name="aum">AUM</string>
+    <string name="exit_load">Exit Load</string>
+    <!--.......................................Fund Manager......................................-->
+    <string name="fund_management">Funds Management</string>
+    <string name="fund_management_title">If you are looking to fund your business/startup, please fill details below</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="credit_quality">Credit Quality</string>
+    <string name="add_photo">Add Your Photo</string>
+    <string name="add_presentation">Add Presentation</string>
+    <string name="loan_information">Loan Information</string>
+    <string name="requested_loan_amount">Amount Requested</string>
+    <string name="number_of_deposits">Number of Deposits in Last Month</string>
+    <string name="total_amount_deposit">Total Amount Deposited in Last Month</string>
+    <string name="ending_balance">Last Month Ending Balance</string>
+    <string name="use_of_funds">Use of Funds</string>
+    <string name="business_information">Business Information</string>
+    <string name="business_name">Business Name</string>
+    <string name="business_type">Business Type</string>
+    <string name="number_of_employees">Number of Employees</string>
+    <string name="years_in_business">Years In Business</string>
+    <string name="tax_liens">Tax Liens</string>
+    <string name="average_annual_revenue">Average Annual Revenue</string>
+    <string name="permission_to_pull_credit">Permission to Pull Credit</string>
+    <string name="best_time_to_call">Best Time to Call</string>
+    <string name="select_credit_quality">Select Credit Quality</string>
+    <string name="enter_requested_loan_amount">Enter Amount Requested</string>
+    <string name="enter_number_of_deposits">Enter Number of Deposits in Last Month</string>
+    <string name="enter_total_amount_deposit">Enter Total Amount Deposited in Last Month</string>
+    <string name="enter_ending_balance">Enter Last Month Ending Balance</string>
+    <string name="select_use_of_funds">Select Use of Funds</string>
+    <string name="enter_business_name">Enter Business Name</string>
+    <string name="select_business_type">Select Business Address</string>
+    <string name="enter_number_of_employees">Enter Number of Employees</string>
+    <string name="select_years_in_business">Select Years In Business</string>
+    <string name="select_tax_liens">Select Tax Liens</string>
+    <string name="enter_average_annual_revenue">Enter Average Annual Revenue</string>
+    <string name="select_permission_to_pull_credit">Select Permission to Pull Credit</string>
+    <string name="enter_best_time_to_call">Enter Best Time to Call</string>
+
+    <string-array name="credit_quality">
+        <item>499 or Below</item>
+        <item>500 – 599</item>
+        <item>600 – 649</item>
+        <item>650 – 679</item>
+        <item>680 – 719</item>
+        <item>720 – Higher</item>
+    </string-array>
+    <string-array name="use_of_funds">
+        <item>Working Capital</item>
+        <item>Inventory</item>
+        <item>Equipment Purchase</item>
+        <item>Payroll</item>
+        <item>Expansion</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="business_type">
+        <item>Start Up</item>
+        <item>Sole Proprietor (DBA)</item>
+        <item>Corp</item>
+        <item>S-Corp</item>
+        <item>LLC</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="years_in_business">
+        <item>below 6 months</item>
+        <item>6 months – 1yr</item>
+        <item>1 – 2 years</item>
+        <item>2 – 5 years</item>
+        <item>Above 5 years</item>
+    </string-array>
+    <string-array name="tax_liens">
+        <item>No Liens</item>
+        <item>Under 10K</item>
+        <item>10K – 25K</item>
+        <item>25K – 75K</item>
+        <item>Over 75K</item>
+    </string-array>
+    <string-array name="permission">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <!--......................................Credit Score.......................................-->
+    <string name="credit_score">Credit Score</string>
+    <string name="get_credit_score">Get Your Credit Score Here</string>
+    <string name="credit_score_title">Your credit score is a number that represents the risk a lender takes when you borrow money. A FICO score is a well-known measure created by the Fair Isaac Corporation and used by credit agencies to indicate a borrower\'s risk.</string>
+    <string name="add_residence_proof">Add Residence Proof (Aadhaar,Voter,Passport)</string>
+    <string name="add_ID_proof">Add ID Proof (PAN,Driving License)</string>
+    <string name="rectification_for">Rectification For</string>
+    <string name="occupation">Occupation</string>
+    <string name="office_name_address">Office Name &amp; Address (Optional)</string>
+    <string name="bank_name_wBranch">Bank Name &amp; Branch Name</string>
+    <string name="have_previous_credit_report">Do you have any previous Credit Report</string>
+    <string name="plan_opted">Plan Opted</string>
+    <string name="mode_of_payment">Mode of Payment</string>
+    <string name="select_rectification_for">Select Rectification Type</string>
+    <string name="select_occupation">Select Occupation</string>
+    <string name="enter_bank_name_wBranch">Enter Bank Name &amp; Branch Name</string>
+    <string name="select_have_previous_credit_report">Do you have any previous Credit Report</string>
+    <string name="select_plan">Select Plan</string>
+    <string name="select_mode_of_payment">Select Mode of Payment</string>
+    <string-array name="rectification_for">
+        <item>CIBIL</item>
+        <item>EQUIFAX</item>
+        <item>EXPERIAN</item>
+        <item>Crif-HIGH MARK</item>
+    </string-array>
+    <string-array name="occupation">
+        <item>BUSINESS - Self employed</item>
+        <item>JOB/SERVICE (Govt/Private)</item>
+        <item>OTHERS (Agriculture/ Retired/ Housewife)</item>
+    </string-array>
+    <string-array name="credit_score_plan">
+        <item>Plan - A (online report only) Rs 1000</item>
+        <item>Plan - B (Report with detailed loan account analysis) Rs 3000</item>
+        <item>Plan - C (Report, Analysis, Rectification &amp; Uploading ) Rs 9000* (*3 a/c)</item>
+    </string-array>
+    <string-array name="mode_of_payment">
+        <item>Cash</item>
+        <item>Online</item>
+    </string-array>
+    <!--...........................................Card..........................................-->
+    <string name="card_name">Card Name</string>
+    <string name="fee">Fee (First Year)</string>
+    <string name="rewards">Rewards</string>
+    <string name="joining_perks">Joining Perks</string>
+    <string name="documents">Documents</string>
+    <string name="fee_details">Fee Details</string>
+    <!--......................................EMI Calculator.....................................-->
+    <string name="EMI_calculator">EMI Calculator</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="total_interest_payable">Total Interest Payable</string>
+    <string name="monthly_instalment">Monthly Instalment (EMI)</string>
+    <!--......................................FD Calculator......................................-->
+    <string name="FD_calculator">FD Calculator</string>
+    <string name="fixed_deposit_amount">Fixed Deposit Amount</string>
+    <string name="p">10000</string>
+    <string name="r">6.25</string>
+    <string name="t">5</string>
+    <string name="compounded">Compounded</string>
+    <string name="monthly">Monthly</string>
+    <string name="quarterly">Quarterly</string>
+    <string name="half_yearly">Half-Yearly</string>
+    <string name="annually">Annually</string>
+    <string name="time_period">Time Period</string>
+    <string name="total_interest">Total Interest</string>
+    <!--.......................................Check Loan........................................-->
+    <string name="loan">Loan</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="tenure_in_year">Tenure (In Years)</string>
+    <string name="tenure_in_month">Tenure (In Months)</string>
+    <string name="interest_rate_per_annum">Interest Rate (Per Annum)</string>
+    <string name="other_emi">Other EMI(s) (Monthly)</string>
+    <string name="check_loan">Check Loan Offers</string>
+    <string name="enter_loan_amount">Enter Loan Amount</string>
+    <string name="enter_tenure">Enter Tenure</string>
+    <string name="enter_interest_rate">Enter Interest Rate</string>
+    <string name="add_to_wishlist">Add</string>
+    <string name="added_to_wishlist">Added to Wishlist</string>
+    <!--.....................................Check Insurance.....................................-->
+    <string name="insurance">Insurance</string>
+    <string name="insurance_name">Insurance Name</string>
+    <string name="life_cover">Life Cover</string>
+    <string name="cover_up_to">Cover Up to</string>
+    <string name="add_on">Add on</string>
+    <string name="insurance_amount">Insurance Amount</string>
+    <string name="existing_insurance_value">Existing Insurance Value</string>
+    <string name="current_annual_premium">Current Insurance Annual Premium</string>
+    <string name="check_insurance">Check Insurance Offers</string>
+    <string name="enter_insurance_amount">Enter Insurance Amount</string>
+    <string name="enter_existing_insurance_value">Enter Existing Insurance Value</string>
+    <string name="enter_current_insurance_annual_premium">Enter Current Insurance Annual Premium</string>
+    <!--.....................................Check Investment....................................-->
+    <string name="investment">Investment</string>
+    <string name="invest_amount">Amount Expected to Save</string>
+    <string name="monthly_savings">Monthly Savings</string>
+    <string name="check_investment">Check Investment Offers</string>
+    <string name="enter_invest_amount">Enter Amount Expected to Save</string>
+    <string name="enter_monthly_savings">Enter Monthly Savings</string>
+    <!--.....................................Tax Description.....................................-->
+    <string name="tax_title">File Your ITR Now</string>
+    <string name="tax_description">Get your ITR filing done by Mishutt. Submit your PAN, Aadhaar,
+        Salary Statement and Bank Statement. Drop your contact details, and our staff will get back to you soon.</string>
+    <!--.........................................Support.........................................-->
+    <string name="support">Support</string>
+    <string name="send_message">Send Message</string>
+    <string name="send_message_description">Please fill out the form below, and we will get back to you as soon as possible.</string>
+    <string name="message">Message</string>
+    <string name="enter_message">Enter Message</string>
+    <!--........................................Dashboard........................................-->
+    <string name="dashboard">Dashboard</string>
+    <string name="profile">Profile</string>
+    <string name="product">Product</string>
+    <string name="products">Products</string>
+    <string name="portfolio">Portfolio</string>
+    <!--.........................................Profile.........................................-->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="set_profile_picture">Set Profile Picture</string>
+    <string name="profile_picture_updated">Profile Picture Updated</string>
+    <string name="profile_picture_failed">Failed to update Profile Picture</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="address">Address</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="PIN_code">PIN Code</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="spouse_name">Spouse\'s Name</string>
+    <string name="spouse_date_of_birth">Spouse\'s Date of Birth</string>
+    <string name="wedding_anniversary">Wedding Anniversary</string>
+    <string name="number_of_children">Number of Children</string>
+    <string name="profession">Profession</string>
+    <string name="annual_income">Annual Income</string>
+    <string name="number_of_dependents">Number of Dependents in Family</string>
+    <string name="aadhaar_number">Aadhaar Number</string>
+    <string name="pan_no">PAN No</string>
+    <string name="date_hint">DD/MM/YYYY</string>
+    <string name="email_id_hint">pqrs@xyz.com</string>
+    <string name="verify">Verify</string>
+    <string name="update_profile">Update Profile Info</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_city">Enter City Name</string>
+    <string name="enter_state">Enter State Name</string>
+    <string name="enter_pin_code">Enter PIN Code</string>
+    <string name="enter_pin_code_six_digit">PIN Code Must be 6 digit</string>
+    <string name="select_date_of_birth">Select Date of Birth</string>
+    <string name="select_spouse_date_of_birth">Select Spouse\'s Date of Birth</string>
+    <string name="select_wedding_anniversary">Select Wedding Anniversary</string>
+    <string name="enter_annual_income">Enter Annual Income</string>
+    <string name="enter_aadhaar_number">Aadhaar Number must be 12 digit</string>
+    <string name="invalid_aadhaar_number">Invalid Aadhaar Number</string>
+    <string name="enter_pan_no">PAN No. must be 10 digit</string>
+    <string name="invalid_pan_no">Invalid Pan No.</string>
+    <string name="verifying_aadhaar">Verifying Aadhaar Number. Please Wait…</string>
+    <string name="verifying_pan">Verifying PAN. Please Wait…</string>
+    <!--........................................Dependents.......................................-->
+    <string name="add_dependent">Add Dependent Info</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="relation">Relation</string>
+    <string name="age">Age</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_relation">Enter Relation</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="submit_dependent">Submit Dependent Info</string>
+    <!--.........................................Product.........................................-->
+    <string name="no_product">No Product Added Yet</string>
+    <string name="add_product">Add Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="investment_amount">Investment Amount</string>
+    <string name="product_category">Product Category</string>
+    <string name="product_subcategory">Product Subcategory</string>
+    <string name="product_purchaser">Product Purchaser</string>
+    <string name="product_value">Product Value</string>
+    <string name="premium_frequency">Premium Frequency (Months)</string>
+    <string name="premium_amount">Premium Amount</string>
+    <string name="purchase_date">Purchase Date</string>
+    <string name="next_due_date">Next Due Date</string>
+    <string name="maturity_value">Maturity Value</string>
+    <string name="valid_till">Valid Till</string>
+    <string name="nominee_name">Nominee Name</string>
+    <string name="enter_product_name">Enter Product Name</string>
+    <string name="enter_investment_amount">Enter Investment Amount</string>
+    <string name="select_product_category">Select Product Category</string>
+    <string name="select_product_subcategory">Select Product Subcategory</string>
+    <string name="enter_product_purchaser">Enter Product Purchaser</string>
+    <string name="enter_product_value">Enter Product Value</string>
+    <string name="enter_premium_frequency">Enter Premium Frequency in Months</string>
+    <string name="enter_premium_amount">Enter Premium Amount</string>
+    <string name="select_purchase_date">Select Purchase Date</string>
+    <string name="select_next_due_date">Select Next Due Date</string>
+    <string name="enter_maturity_value">Enter Maturity Value</string>
+    <string name="select_valid_till">Select Validity of the Product</string>
+    <string name="enter_nominee_name">Enter Nominee Name</string>
+    <string name="submit_product">Submit Product Info</string>
+    <string-array name="product_category">
+        <item>Loan</item>
+        <item>Insurance</item>
+        <item>Investment</item>
+    </string-array>
+    <!--........................................Portfolio........................................-->
+    <string name="add_portfolio">Add Portfolio</string>
+    <string name="credit">Credit</string>
+    <string name="debit">Debit</string>
+    <string name="invested">Invested</string>
+    <string name="withdrawn">Withdrawn</string>
+    <string name="profit">Profit</string>
+    <string name="loss">Loss</string>
+    <string name="date_of_investment">Date of Investment</string>
+    <string name="total_investment">Total Investment</string>
+    <string name="total_value">Total Value</string>
+    <string name="portfolio_type">Transaction Type</string>
+    <string name="type_of_income">Type of Income</string>
+    <string name="submit_portfolio">Submit Portfolio Details</string>
+    <string name="enter_product_category">Enter Product Category</string>
+    <string name="select_date_of_investment">Select Date of Investment</string>
+    <string name="enter_invest_withdraw_amount">Enter Invest/Withdraw Amount</string>
+    <string name="select_income_type">Select Income Type</string>
+    <string name="enter_profit_loss_amount">Enter Profit/Loss Amount</string>
+    <string-array name="portfolio_transaction_type">
+        <item>Invest</item>
+        <item>Withdraw</item>
+    </string-array>
+    <string-array name="income_type">
+        <item>Profit</item>
+        <item>Loss</item>
+    </string-array>
+    <!--.........................................Wallet..........................................-->
+    <string name="wallet">Wallet</string>
+    <string name="wallet_balance">Wallet Balance</string>
+    <string name="add_money">Add Money</string>
+    <string name="transfer_money">Transfer Money</string>
+    <string name="add_money_to_wallet">Add Money to Wallet</string>
+    <string name="enter_wallet_amount">Enter Amount You Want To Add</string>
+    <string name="please_wait">Please wait…\nDo not click on refresh or back button</string>
+    <!--......................................Bill Payments......................................-->
+    <string name="payments">Payments</string>
+    <string name="bill_payments">Bill Payments</string>
+    <string name="recharge">Recharge</string>
+    <string name="bill_payment">Bill Payment</string>
+    <string name="powered_by">Powered By</string>
+</resources>

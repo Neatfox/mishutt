@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.EMICalculatorActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_loan_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/loan_amount"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:suffixText="@string/percent"
+                    app:suffixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_interest_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/interest_rate_per_annum"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="numberDecimal"
+                        android:maxLength="5"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/time_period"
+                android:textSize="15sp"
+                android:textColor="@color/green"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/year"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/month"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_total_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/total_payment"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:prefixText="@string/rupee"
+                    app:prefixTextAppearance="@style/TextStyle"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_total_interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/total_interest_payable"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textColor"
+                android:textColorHint="?attr/metaHintColor"
+                app:prefixText="@string/rupee"
+                app:prefixTextAppearance="@style/TextStyle"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_monthly_instalment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/monthly_instalment"
+                    android:textSize="15sp"
+                    android:textColor="?attr/textColor"
+                    android:inputType="number"
+                    android:enabled="false"
+                    android:selectAllOnFocus="true"
+                    android:importantForAutofill="no" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="6dp"
+                card_view:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="320dp"
+                        android:background="@color/white"
+                        android:padding="10dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

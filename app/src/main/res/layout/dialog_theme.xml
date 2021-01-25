@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    android:layout_margin="20dp"
+    android:padding="20dp"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.activity.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_theme"
+        android:textColor="?attr/commonTextColor"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <RadioButton
+        android:id="@+id/radio_light_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/action_light_theme"
+        android:textColor="?attr/textColor"
+        android:shadowColor="?attr/textColor"/>
+
+    <RadioButton
+        android:id="@+id/radio_dark_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/action_dark_theme"
+        android:textColor="?attr/textColor"
+        android:shadowColor="?attr/textColor"/>
+
+    <RadioButton
+        android:id="@+id/radio_system_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/action_system_default"
+        android:textColor="?attr/textColor"
+        android:shadowColor="?attr/textColor"/>
+
+    <TextView
+        android:id="@+id/tv_action_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_rectangle"
+        android:layout_gravity="end"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/action_cancel"
+        android:textAllCaps="true"
+        android:textColor="?attr/commonTextColor"/>
+</LinearLayout>

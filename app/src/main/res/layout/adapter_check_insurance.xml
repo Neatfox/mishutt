@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.adapter.CheckInsuranceAdapter">
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_rectangle"
+        android:layout_margin="1dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:elevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="?attr/itemBackgroundColor"
+            android:padding="10dp"
+            android:animateLayoutChanges="true"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/mishutt"
+                    android:visibility="gone"
+                    android:contentDescription="@string/image"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/add_on"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tv_add_on"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/add_on"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/insurance_name"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tv_insurance_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/insurance_name"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/life_cover"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tv_life_cover"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/rupee"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cover_up_to"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tv_cover_up_to"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/rupee"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_wish_list"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/add_to_wishlist"
+                    android:textColor="?attr/itemBackgroundColor"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button_apply"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/apply"
+                    android:textColor="?attr/itemBackgroundColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
