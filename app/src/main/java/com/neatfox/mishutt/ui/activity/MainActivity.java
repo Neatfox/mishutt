@@ -1,12 +1,10 @@
 package com.neatfox.mishutt.ui.activity;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -31,8 +29,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.AuthFailureError;
@@ -67,7 +63,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-import static com.neatfox.mishutt.Constants.REQUEST_CALL_PERMISSION;
 import static com.neatfox.mishutt.Constants.api_about_us;
 import static com.neatfox.mishutt.Constants.api_profile_details;
 import static com.neatfox.mishutt.Constants.api_terms_conditions;
@@ -308,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
             contact_us();
 
         } else if (id == R.id.action_mobile_no) {
-            checkCallPermission();
+            startCall();
 
         } else if (id == R.id.action_mail) {
             OmegaIntentBuilder
@@ -637,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
         layout_service_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkCallPermission();
+                startCall();
             }
         });
 
@@ -700,44 +695,16 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
     /*............................................Call............................................*/
-    public void checkCallPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-        } else {
-            startCall();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //CALL ACCESS
-        if (requestCode == REQUEST_CALL_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCall();
-            }
-        }
-    }
-
-    public void startCall() {
-        String calling_number = "+91 94313 48343";
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + calling_number));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    Activity#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return;
-            }
-        }
-        startActivity(callIntent);
+    private void startCall(){
+        OmegaIntentBuilder
+                .call("+91 94313 48343")
+                .createIntentHandler(MainActivity.this)
+                .failCallback(new FailCallback() {
+                    @Override
+                    public void onActivityStartError(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "You don't have app for calling", Toast.LENGTH_SHORT).show();
+                    }
+                }).startActivity();
     }
     /*.....................................Profile Details........................................*/
     private void getProfileDetails(){

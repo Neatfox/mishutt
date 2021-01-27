@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
 
      final String[] image_title_more = { "Loans", "Investment","Funding", "Student Finance",
              "Start Up Funding", "Education Loan", "Term Insurance", "Credit Score",
-             "EMI Calculator", "FD Calculator", "Debit Card", "Tax", "CIBIL", "Bank IFSC Code",
+             "EMI Calculator", "FD Calculator", "Credit Card", "Tax", "CIBIL", "Bank IFSC Code",
              "Less"
      };
 
@@ -479,7 +479,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("item_name",itemType);
                 context.startActivity(intent);
 
-            } else if ("Debit Card".equalsIgnoreCase(itemType)) {
+            } else if ("Credit Card".equalsIgnoreCase(itemType)) {
                 Intent intent = new Intent (context, CardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("item_name",itemType);
