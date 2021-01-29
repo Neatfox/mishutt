@@ -90,7 +90,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            finishAffinity();
+                            showLayout();
                         }
                     });
             AlertDialog alert = builder.create();
@@ -121,10 +121,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (requestCode == REQUEST_SMS_PERMISSION){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 System.out.println("Permission Granted");
-               showLayout();
-            } else {
-                finishAffinity();
             }
+            showLayout();
         }
     }
 
