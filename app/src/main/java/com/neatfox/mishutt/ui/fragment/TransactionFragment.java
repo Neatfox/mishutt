@@ -81,6 +81,7 @@ public class TransactionFragment extends Fragment {
     long milliseconds;
     int start_date_flag = 0,end_date_flag = 0,spinner_position;
     String start_date = "",end_date = "";
+    public static String _salary = "0";
 
     public void noNetwork() {
         Snackbar.make(layout, R.string.no_internet, Snackbar.LENGTH_SHORT).show();
@@ -323,6 +324,9 @@ public class TransactionFragment extends Fragment {
                             transaction.setDescription(jsonObject.optString("description"));
                             transaction.setRemarks(jsonObject.optString("remarks"));
                             transaction.setDate(jsonObject.optString("entdate"));
+                            if ("Salary".equalsIgnoreCase(jsonObject.optString("expcategory")) &&
+                                    _salary.equalsIgnoreCase("0"))
+                                _salary = jsonObject.optString("earning");
                             if (spinner_position == 0)
                                 transaction_list.add(transaction);
                             else if (spinner_position == 1 && "0.00".equalsIgnoreCase(jsonObject.optString("spent")))

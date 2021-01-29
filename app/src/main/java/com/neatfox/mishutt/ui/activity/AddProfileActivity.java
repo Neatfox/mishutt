@@ -243,7 +243,7 @@ public class AddProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkName(view) && checkMobileNumber(view) && checkEmailId(view)  &&
-                        checkDateOfBirth(view) && checkSpouseDateOfBirth(view) &&
+                        checkDateOfBirth(view) && checkSpouseDateOfBirth(view) && checkAnnualIncome(view) &&
                         checkWeddingAnniversary(view) && checkAadhaarNumber(view) && checkPANNo(view)){
                     if (isNetworkAvailable()) {
                         noNetwork();
@@ -342,8 +342,7 @@ public class AddProfileActivity extends AppCompatActivity {
     }
     /*.....................................Check Date of Birth....................................*/
     public boolean checkDateOfBirth (View view) {
-        if (date_of_birth.getText().toString().trim().length()>0 &&
-                date_of_birth.getText().toString().trim().length()<10){
+        if (date_of_birth.getText().toString().trim().length()<10){
             date_of_birth.setText("");
             date_of_birth.requestFocus();
             Snackbar.make(view, R.string.select_date_of_birth, Snackbar.LENGTH_SHORT).show();
@@ -369,6 +368,16 @@ public class AddProfileActivity extends AppCompatActivity {
             wedding_anniversary.setText("");
             wedding_anniversary.requestFocus();
             Snackbar.make(view, R.string.select_wedding_anniversary, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
+    }
+    /*.....................................Check Annual Income....................................*/
+    public boolean checkAnnualIncome (View view) {
+        if (annual_income.getText().toString().trim().length()<1){
+            annual_income.setText("");
+            annual_income.requestFocus();
+            Snackbar.make(view, R.string.enter_annual_income, Snackbar.LENGTH_SHORT).show();
             return false;
         } else
             return true;

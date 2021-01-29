@@ -1,11 +1,9 @@
 package com.neatfox.mishutt.ui.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,8 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -78,7 +74,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.neatfox.mishutt.Constants.REQUEST_SMS_PERMISSION;
 import static com.neatfox.mishutt.Constants.addCommaDouble;
 import static com.neatfox.mishutt.Constants.addCommaString;
 import static com.neatfox.mishutt.Constants.api_ad;
@@ -376,11 +371,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) ==
-                PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions( activity,
-                    new String[]{Manifest.permission.READ_SMS}, REQUEST_SMS_PERMISSION);
-        }
         return view;
     }
 

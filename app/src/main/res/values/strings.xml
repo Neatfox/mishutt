@@ -102,7 +102,7 @@
     <string name="remarks">Remarks</string>
     <string name="select_transaction_date">Select Transaction Date</string>
     <string name="enter_transaction_amount">Enter Transaction Amount</string>
-    <string name="select_transaction_category">Select Transaction Category</string>
+    <string name="enter_transaction_category">Enter Transaction Category</string>
     <string name="select_transaction_type">Select Transaction Type</string>
     <string name="enter_description">Enter Description</string>
     <string name="enter_remarks">Enter Remarks</string>
@@ -116,6 +116,11 @@
     <string name="add_category_info">Add Category</string>
     <string-array name="transaction_type">
         <item>All Earnings &amp; Expenses</item>
+        <item>Earnings</item>
+        <item>Expenses</item>
+    </string-array>
+    <string-array name="transaction_type_chart">
+        <item>Earnings vs Expenses</item>
         <item>Earnings</item>
         <item>Expenses</item>
     </string-array>

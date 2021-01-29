@@ -267,17 +267,12 @@ public class AddTransactionActivity extends AppCompatActivity {
     }
     /*.................................Check Transaction Category.................................*/
     public boolean checkTransactionCategory(View view) {
-        if (category.getText().toString().trim().length() >= 1) {
-            for (int i = 0; i < category_list.size(); i++) {
-                if (category.getText().toString().trim().equals(category_list.get(i).toString())) {
-                    return true;
-                }
-            }
-            category.setText("");
-        }
-        category.requestFocus();
-        Snackbar.make(view, R.string.select_transaction_category, Snackbar.LENGTH_SHORT).show();
-        return false;
+        if (category.getText().toString().trim().length() < 1) {
+            category.requestFocus();
+            Snackbar.make(view, R.string.enter_transaction_category, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
     }
     /*..................................Check Transaction Amount..................................*/
     public boolean checkTransactionAmount(View view) {

@@ -68,7 +68,6 @@
         <activity android:name=".ui.activity.WalletActivity" />
         <activity android:name=".ui.activity.AddMoneyActivity" />
         <activity android:name=".ui.activity.PaymentActivity" />
-        <activity android:name=".ui.activity.TransactionMessagesActivity" />
         <activity
             android:name=".image_cropper.ImageCropper"
             android:screenOrientation="portrait" />

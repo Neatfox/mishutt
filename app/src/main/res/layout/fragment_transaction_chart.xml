@@ -204,7 +204,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_suggestions"
+                        android:id="@+id/layout_suggestions_earning_spending"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -249,6 +249,16 @@
                                 android:enabled="false"
                                 android:importantForAutofill="no" />
                         </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_suggestions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        android:animateLayoutChanges="true">
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

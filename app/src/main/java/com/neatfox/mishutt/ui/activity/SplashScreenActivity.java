@@ -1,14 +1,21 @@
 package com.neatfox.mishutt.ui.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,6 +24,8 @@ import com.neatfox.mishutt.ui.adapter.ImageSliderSplashScreenAdapter;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
+import static com.neatfox.mishutt.Constants.REQUEST_SMS_PERMISSION;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -54,21 +63,40 @@ public class SplashScreenActivity extends AppCompatActivity {
         layout_slider = findViewById(R.id.layout_slider);
         layout_loading = findViewById(R.id.layout_loading);
         fab_next = findViewById(R.id.fab_next);
+        layout_slider.setVisibility(View.GONE);
+        layout_loading.setVisibility(View.GONE);
 
         final SliderView sliderView = findViewById(R.id.imageSlider);
         ImageSliderSplashScreenAdapter adapter = new ImageSliderSplashScreenAdapter(SplashScreenActivity.this,slider_image,slider_text);
         sliderView.setSliderAdapter(adapter);
         sliderView.setIndicatorAnimation(IndicatorAnimations.SWAP);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setScrollTimeInSec(5); //set scroll delay in seconds :
+        sliderView.setScrollTimeInSec(5); //set scroll delay in seconds
 
-        if (sharedPreference.getString("isLoggedIn", "").equals("1")) {
-            layout_slider.setVisibility(View.GONE);
-            layout_loading.setVisibility(View.VISIBLE);
-            runInBackground();
+        if (ContextCompat.checkSelfPermission(SplashScreenActivity.this,
+                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED){
+            AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreenActivity.this);
+            builder.setTitle("Mishutt needs access to SMS")
+                    .setMessage("Mishutt auto-organises your earnings & expenses by reading your business SMS." +
+                            "\nNo personal SMS are read in any circumstances.")
+                    .setCancelable(false)
+                    .setIcon(R.drawable.mishutt)
+                    .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ActivityCompat.requestPermissions( SplashScreenActivity.this,
+                                    new String[]{Manifest.permission.READ_SMS}, REQUEST_SMS_PERMISSION);
+                        }
+                    })
+                    .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finishAffinity();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         } else {
-            layout_slider.setVisibility(View.VISIBLE);
-            layout_loading.setVisibility(View.GONE);
+            showLayout();
         }
 
         fab_next.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +116,29 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_SMS_PERMISSION){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                System.out.println("Permission Granted");
+               showLayout();
+            } else {
+                finishAffinity();
+            }
+        }
+    }
+
+    private void showLayout(){
+        if (sharedPreference.getString("isLoggedIn", "").equals("1")) {
+            layout_slider.setVisibility(View.GONE);
+            layout_loading.setVisibility(View.VISIBLE);
+            runInBackground();
+        } else {
+            layout_slider.setVisibility(View.VISIBLE);
+            layout_loading.setVisibility(View.GONE);
+        }
+    }
+
     private void runInBackground(){
         Thread background = new Thread() {
             public void run() {
@@ -100,7 +151,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     } else {
                         editor.clear();
                         editor.commit();
-                        startActivity(new Intent(SplashScreenActivity.this, SignInActivity.class));
+                        startActivity(new Intent(SplashScreenActivity.this, SignUpActivity.class));
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                     }
                 } catch (Exception e) {
@@ -110,6 +161,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         };
         background.start();
     }
+
     /*.......................................For BackPress........................................*/
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onBackPressed() {

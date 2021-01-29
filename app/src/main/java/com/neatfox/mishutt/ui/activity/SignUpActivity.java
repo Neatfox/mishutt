@@ -252,6 +252,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void backPressed(){
         startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        //overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 }

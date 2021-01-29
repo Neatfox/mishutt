@@ -2,6 +2,7 @@ package com.neatfox.mishutt.ui.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -80,9 +82,26 @@ public class ExpenseManagerActivity extends MainActivity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         if (ContextCompat.checkSelfPermission(ExpenseManagerActivity.this,
-                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions( ExpenseManagerActivity.this,
-                    new String[]{Manifest.permission.READ_SMS}, REQUEST_SMS_PERMISSION);
+                Manifest.permission.READ_SMS) == PackageManager.PERMISSION_DENIED){
+            AlertDialog.Builder builder = new AlertDialog.Builder(ExpenseManagerActivity.this);
+            builder.setTitle("Mishutt needs access to SMS")
+                    .setMessage("Mishutt auto-organises your earnings & expenses by reading your business SMS." +
+                            "\nNo personal SMS are read in any circumstances.")
+                    .setCancelable(false)
+                    .setIcon(R.drawable.mishutt)
+                    .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ActivityCompat.requestPermissions( ExpenseManagerActivity.this,
+                                    new String[]{Manifest.permission.READ_SMS}, REQUEST_SMS_PERMISSION);
+                        }
+                    })
+                    .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         } else {
             getTransactionMessages();
         }
@@ -225,10 +244,21 @@ public class ExpenseManagerActivity extends MainActivity {
 
                 if (address.trim().length()==6 && isAlpha(address)){
                     if (body.contains("Rs")) {
-                        if(body.contains("credited")|| body.contains("debited") || body.contains("withdrawn") ||
+                        if (body.contains("credited")|| body.contains("debited") || body.contains("withdrawn") ||
+                                body.contains("Credited")|| body.contains("Debited") || body.contains("Withdrawn") ||
                                 body.contains("payment") || body.contains("Transaction ID") || body.contains("Txn ID") ||
+                                body.contains("Payment") || body.contains("transaction ID") || body.contains("txn ID") ||
                                 body.contains("recharge") || body.contains("added") || body.contains("paid") ||
-                                body.contains("received")) {
+                                body.contains("Recharge") || body.contains("Added") || body.contains("Paid") ||
+                                body.contains("received") || body.contains("bill") || body.contains("rent") ||
+                                body.contains("Received") || body.contains("Bill") || body.contains("Rent") ||
+                                body.contains("loan") || body.contains("salary") || body.contains("Salary") ||
+                                body.contains("Loan") || body.contains("Premium") || body.contains("ATM") ||
+                                body.contains("premium") || body.contains("swiggy") || body.contains("Swiggy") ||
+                                body.contains("zomato") || body.contains("Zomato") || body.contains("McDonald") ||
+                                body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
+                                body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
+                                body.contains("EMI")) {
 
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
@@ -265,12 +295,44 @@ public class ExpenseManagerActivity extends MainActivity {
         SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String _date = sdf.format(Date);
         /*------------------------------------Transaction Type------------------------------------*/
-        String type = "";
-        if (body.contains("credited") || body.contains("added")  || body.contains("received")) {
+        String type = "",category;
+        if (body.contains("credited") || body.contains("added")  || body.contains("received") || body.contains("salary") ||
+                body.contains("Salary") || body.contains("Credited") || body.contains("Added")  || body.contains("Received")) {
             type = "Earning";
-        } else if (body.contains("debited") || body.contains("withdrawn") || body.contains("payment")
-                || body.contains("recharge") || body.contains("paid")){
+        } else if (body.contains("debited") || body.contains("withdrawn") || body.contains("payment") ||
+                body.contains("recharge") || body.contains("paid") || body.contains("Debited") ||
+                body.contains("Withdrawn") || body.contains("Payment") || body.contains("Recharge") ||
+                body.contains("Paid") || body.contains("Bill") || body.contains("Rent") ||
+                body.contains("loan") || body.contains("Loan") || body.contains("Premium") ||
+                body.contains("premium") || body.contains("swiggy") || body.contains("Swiggy") ||
+                body.contains("zomato") || body.contains("Zomato") || body.contains("McDonald") ||
+                body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
+                body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
+                body.contains("ATM") || body.contains("EMI")){
             type = "Expense";
+        }
+
+        if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
+                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
+                body.contains("Pizza") || body.contains("pizza")) {
+            category = "Food";
+        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
+                body.contains("car") || body.contains("Car") || body.contains("bike") ||
+                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
+            category = "Loan";
+        } else if (body.contains("Bill") || body.contains("bill")) {
+            category = "Bill";
+        } else if (body.contains("Rent") || body.contains("rent")) {
+            category = "Rent";
+        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
+                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler")) {
+            category = "Premium";
+        } else if (body.contains("ATM")) {
+            category = "ATM";
+        } else {
+            category = "Others";
         }
         /*-----------------------------------Transaction Amount-----------------------------------*/
         if (body.contains("Rs.")){
@@ -303,14 +365,16 @@ public class ExpenseManagerActivity extends MainActivity {
         else if ("Expense".equalsIgnoreCase(type))
             type = "spent";
 
-        if (isNetworkAvailable()) noNetwork();
-        else submitDetails(_date,type,body,address);
+        if (isNetworkAvailable()) {
+            noNetwork();
+        } else {
+            submitDetails(_date,type,category,body,address);
+        }
 
         sms.add("\nFrom : "+address+"\n\nRs. : "+body +" "+type+"\n\nDate : "+_date+"\n");
     }
-
     /*.......................................Submit Details.......................................*/
-    private void submitDetails(final String date, final String type, final String amount, final String address){
+    private void submitDetails(final String date, final String type, final String category, final String amount, final String address){
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_add, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -342,7 +406,7 @@ public class ExpenseManagerActivity extends MainActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("uid", sharedPreference.getString("register_id", ""));
                 params.put("entdate", changeDateFormatDB(date));
-                params.put("expcategory", "Others");
+                params.put("expcategory", category);
                 params.put("amount", amount);
                 params.put("type", type);
                 params.put("description", address);

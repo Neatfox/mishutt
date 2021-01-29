@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +37,12 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.snackbar.Snackbar;
 import com.neatfox.mishutt.R;
@@ -66,6 +70,7 @@ import static com.neatfox.mishutt.Constants.api_transaction_earning_spending_by_
 import static com.neatfox.mishutt.Constants.api_transaction_spending_category_wise;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
 import static com.neatfox.mishutt.ui.activity.MainActivity._annual_income;
+import static com.neatfox.mishutt.ui.fragment.TransactionFragment._salary;
 
 public class TransactionChartFragment extends Fragment {
 
@@ -76,7 +81,7 @@ public class TransactionChartFragment extends Fragment {
     Activity activity;
     Context context;
     CoordinatorLayout layout;
-    LinearLayout layout_alert,layout_recommendation,layout_suggestions;
+    LinearLayout layout_alert,layout_recommendation,layout_suggestions_earning_spending,layout_suggestions;
     TextView chart_title;
     AppCompatSpinner spinner;
     EditText alert,recommendation_one,recommendation_two,suggestion_one,suggestion_two,suggestion_three,
@@ -91,7 +96,7 @@ public class TransactionChartFragment extends Fragment {
     double double_total_earning,double_total_spending = 0,annual_income = 0.0;
     long milliseconds;
     int start_date_flag = 0,end_date_flag = 0;
-    String start_date = "",end_date = "";
+    String start_date = "",end_date = "",_earnings,_expenses;
 
     public void noNetwork() {
         Snackbar.make(layout, R.string.no_internet, Snackbar.LENGTH_SHORT).show();
@@ -125,6 +130,7 @@ public class TransactionChartFragment extends Fragment {
         layout = view.findViewById(R.id.layout);
         layout_alert = view.findViewById(R.id.layout_alert);
         layout_recommendation = view.findViewById(R.id.layout_recommendation);
+        layout_suggestions_earning_spending = view.findViewById(R.id.layout_suggestions_earning_spending);
         layout_suggestions = view.findViewById(R.id.layout_suggestions);
         spinner = view.findViewById(R.id.spinner_transaction_type);
         button_start_date = view.findViewById(R.id.button_start_date);
@@ -147,17 +153,15 @@ public class TransactionChartFragment extends Fragment {
 
         layout_alert.setVisibility(View.GONE);
         layout_recommendation.setVisibility(View.GONE);
+        layout_suggestions_earning_spending.setVisibility(View.GONE);
         layout_suggestions.setVisibility(View.GONE);
 
-        /*------------------------------------Recommendations-------------------------------------*/
-        annual_income = Double.parseDouble( _annual_income);
-        if (annual_income == 0)
-            layout_recommendation.setVisibility(View.GONE);
-        else {
-            recommendation_one.setText(String.format("Our Recommendation : You have to save at least ₹%s of your current CTC for any emergency condition in a year.", addCommaDouble(annual_income * 25 / 100)));
-            recommendation_two.setText(String.format("Our Recommendation : You have to save at least ₹%s of your total gross for household expenses in a year.", addCommaDouble(annual_income * 28 / 100)));
-            layout_recommendation.setVisibility(View.VISIBLE);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                recommendations_suggestions();
+            }
+        },2000);
 
         chart.setDrawHoleEnabled(false);
         chart.getDescription().setEnabled(false);
@@ -176,7 +180,7 @@ public class TransactionChartFragment extends Fragment {
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-                R.array.transaction_type, R.layout.adapter_spinner_item);
+                R.array.transaction_type_chart, R.layout.adapter_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -186,6 +190,7 @@ public class TransactionChartFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinner.setSelection(position);
+                recommendations_suggestions();
                 if (networkInfo != null && networkInfo.isConnected()) {
                     chart_title.setVisibility(View.INVISIBLE);
                     loading.setVisibility(View.VISIBLE);
@@ -255,9 +260,59 @@ public class TransactionChartFragment extends Fragment {
             }
         });
 
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                System.out.println(e);
+                System.out.println(h);
+                if (e.toString().contains(":")){
+                    String[] separated = e.toString().split(":");
+                    if (spinner.getSelectedItemPosition() == 0){
+                        if (Math.abs(Double.parseDouble(_earnings) - Double.parseDouble(separated[2].trim())) <= 1)
+                            spinner.setSelection(1);
+                        else if (Math.abs(Double.parseDouble(_expenses) - Double.parseDouble(separated[2].trim())) <= 1)
+                            spinner.setSelection(2);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected() { }
+        });
+
         return view;
     }
 
+    private void recommendations_suggestions(){
+        /*------------------------------------Recommendations-------------------------------------*/
+        if (!"0".equalsIgnoreCase(_annual_income))
+            annual_income = Double.parseDouble( _annual_income);
+        else if (!"0".equalsIgnoreCase(_salary))
+            annual_income = Double.parseDouble( _salary)*12;
+
+        System.out.println("Annual Income :"+annual_income);
+
+        if (annual_income == 0)
+            layout_recommendation.setVisibility(View.GONE);
+        else {
+            recommendation_one.setText(String.format("Our Recommendation : You have to save at least ₹%s of your current CTC for any emergency condition in a year.", addCommaDouble(annual_income * 25 / 100)));
+            recommendation_two.setText(String.format("Our Recommendation : You have to save at least ₹%s of your total gross for household expenses in a year.", addCommaDouble(annual_income * 28 / 100)));
+            layout_recommendation.setVisibility(View.VISIBLE);
+        }
+
+        if (annual_income == 0)
+            layout_suggestions.setVisibility(View.GONE);
+        else {
+            double monthly_income = annual_income/12;
+            suggestion_three.setText(String.format("Your minimum savings to avail loans should be : ₹%s/month", addCommaDouble(monthly_income * 30 / 100)));
+            suggestion_four.setText(String.format("Your maximum expenses not more than : ₹%s/month", addCommaDouble(monthly_income * 60 / 100)));
+            suggestion_five.setText(String.format("Your total maximum EMI should not be grater than : ₹%s/month", addCommaDouble(monthly_income * 40 / 100)));
+            suggestion_six.setText(String.format("Your minimum retirement fund should be : ₹%s/month", addCommaDouble(monthly_income * 10 / 100)));
+            suggestion_seven.setText(String.format("Your maximum withdrawal from retirement fund not more than : ₹%s/month", addCommaDouble(monthly_income * 4/1000)));
+            suggestion_eight.setText(String.format("Your minimum savings should be : ₹%s/month", addCommaDouble(monthly_income * 40 / 100)));
+            layout_suggestions.setVisibility(View.VISIBLE);
+        }
+    }
     /*........................................Date Picker.........................................*/
     private void getDate(){
         DatePickerDialog datePicker = new DatePickerDialog(context,
@@ -328,6 +383,7 @@ public class TransactionChartFragment extends Fragment {
     }
 
     private void getTransactionTotalEarningSpendingByDate(){
+        layout_suggestions_earning_spending.setVisibility(View.GONE);
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_earning_spending_by_date, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -346,6 +402,8 @@ public class TransactionChartFragment extends Fragment {
 
                 if (status == 1) {
                     try {
+                        _earnings = resObj.getString("total_earnings");
+                        _expenses = resObj.getString("total_spents");
                         total_earning = Float.parseFloat(resObj.getString("total_earnings"));
                         total_spending = Float.parseFloat(resObj.getString("total_spents"));
                         double_total_earning = Double.parseDouble(resObj.getString("total_earnings"));
@@ -376,20 +434,9 @@ public class TransactionChartFragment extends Fragment {
                         e.printStackTrace();
                     }
                     /*---------------------------------Suggestions--------------------------------*/
-                    if (annual_income == 0)
-                        layout_suggestions.setVisibility(View.GONE);
-                    else {
-                        double monthly_income = annual_income/12;
-                        suggestion_one.setText(String.format("Your total earnings : ₹%s", addCommaDouble(double_total_earning)));
-                        suggestion_two.setText(String.format("Your total expenses : ₹%s", addCommaDouble(double_total_spending)));
-                        suggestion_three.setText(String.format("Your minimum savings to avail loans should be : ₹%s/month", addCommaDouble(monthly_income * 30 / 100)));
-                        suggestion_four.setText(String.format("Your maximum expenses not more than : ₹%s/month", addCommaDouble(monthly_income * 60 / 100)));
-                        suggestion_five.setText(String.format("Your total maximum EMI should not be grater than : ₹%s/month", addCommaDouble(monthly_income * 40 / 100)));
-                        suggestion_six.setText(String.format("Your minimum retirement fund should be : ₹%s/month", addCommaDouble(monthly_income * 10 / 100)));
-                        suggestion_seven.setText(String.format("Your maximum withdrawal from retirement fund not more than : ₹%s/month", addCommaDouble(monthly_income * 4/1000)));
-                        suggestion_eight.setText(String.format("Your minimum savings should be : ₹%s/month", addCommaDouble(monthly_income * 40 / 100)));
-                        layout_suggestions.setVisibility(View.VISIBLE);
-                    }
+                    suggestion_one.setText(String.format("Your total earnings : ₹%s", addCommaDouble(double_total_earning)));
+                    suggestion_two.setText(String.format("Your total expenses : ₹%s", addCommaDouble(double_total_spending)));
+                    layout_suggestions_earning_spending.setVisibility(View.VISIBLE);
                 } else {
                     loading.setVisibility(View.GONE);
                 }
@@ -435,16 +482,22 @@ public class TransactionChartFragment extends Fragment {
 
                 if (status == 1) { 
                     try {
+                        _earnings = resObj.getString("total_earnings");
+                        _expenses = resObj.getString("total_spents");
                         total_earning = Float.parseFloat(resObj.getString("total_earnings"));
                         total_spending = Float.parseFloat(resObj.getString("total_spents"));
                         entries.add(new PieEntry(total_earning,"Earnings"));
                         entries.add(new PieEntry(total_spending,"Expenses"));
 
+                        /*---------------------------------Suggestions--------------------------------*/
+                        suggestion_one.setText(String.format("Your total earnings : ₹%s", addCommaDouble(Double.parseDouble(_earnings))));
+                        suggestion_two.setText(String.format("Your total expenses : ₹%s", addCommaDouble(Double.parseDouble(_expenses))));
+                        layout_suggestions_earning_spending.setVisibility(View.VISIBLE);
+
                         if (total_earning < total_spending){
                             alert.setText(String.format("Your Expenses is more than your earnings by ₹%s", addCommaDouble(total_spending - total_earning)));
-                            layout_alert.setVisibility(View.GONE);
-                        } else
-                            layout_alert.setVisibility(View.GONE);
+                        }
+                        layout_alert.setVisibility(View.GONE);
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setColors(colors);
