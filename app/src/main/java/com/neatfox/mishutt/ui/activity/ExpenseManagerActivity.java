@@ -86,7 +86,7 @@ public class ExpenseManagerActivity extends MainActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(ExpenseManagerActivity.this);
             builder.setTitle("Mishutt needs access to SMS")
                     .setMessage("Mishutt auto-organises your earnings & expenses by reading your business SMS." +
-                            "\nNo personal SMS are read in any circumstances.")
+                            "\nNo personal SMS are read.")
                     .setCancelable(false)
                     .setIcon(R.drawable.mishutt)
                     .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
@@ -312,7 +312,10 @@ public class ExpenseManagerActivity extends MainActivity {
             type = "Expense";
         }
 
-        if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+        if (type.equalsIgnoreCase("Expense") &&
+                (body.contains("card") || body.contains("Card"))){
+            category = "Debit/Credit Card Expense";
+        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
                 body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
                 body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
                 body.contains("Pizza") || body.contains("pizza")) {

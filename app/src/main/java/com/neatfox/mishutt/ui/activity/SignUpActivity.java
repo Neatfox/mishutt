@@ -244,7 +244,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void onBackPressed() {
         backPress++;
         if (backPress == 1) {
-            backPressed();
+            Snackbar.make(layout, R.string.press_again_to_exit, Snackbar.LENGTH_SHORT).show();
         } else {
             finishAffinity();
         }

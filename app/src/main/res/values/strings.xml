@@ -15,6 +15,14 @@
     <string name="service_mobile_number">+91 94313 48343</string>
     <string name="service_email_id">info@mishutt.com</string>
     <string name="version">Version</string>
+    <string name="get_started">Let\'s get you started!</string>
+    <string name="mishutt_access">Mishutt needs access to SMS and Location</string>
+    <string name="sms_permission">Mishutt auto-organises your earnings &amp; expenses by reading your business SMS.
+        \nNo personal SMS are read.\n\nRestore your Mishutt data when you move to a new phone.</string>
+    <string name="location_optional">Location</string>
+    <string name="location_permission">Mishutt needs location permission for bill payments.</string>
+    <string name="agree">I Agree</string>
+    <string name="exit">Exit</string>
     <!--.........................................Sign In.........................................-->
     <string name="sign_in_to_continue">Please sign in to continue…</string>
     <string name="or">OR</string>
