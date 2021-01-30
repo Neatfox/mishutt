@@ -464,6 +464,7 @@ public class TransactionChartFragment extends Fragment {
     }
 
     private void getTransactionTotalEarningSpending(){
+        layout_suggestions_earning_spending.setVisibility(View.GONE);
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_earning_spending, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

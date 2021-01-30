@@ -142,8 +142,6 @@ public class WalletActivity extends MainActivity {
         resend = dialog_otp.findViewById(R.id.button_resend);
         submit = dialog_otp.findViewById(R.id.button_submit);
 
-        action_cancel.setVisibility(View.INVISIBLE);
-
         String sourceStringEmailId = "<b>"+ _email_id + "</b>";
         email_id.setText(Html.fromHtml(sourceStringEmailId));
 
