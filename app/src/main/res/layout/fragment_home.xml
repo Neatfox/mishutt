@@ -364,6 +364,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:textAlignment="center"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="@string/no_goal"
                                 android:textColor="?attr/placeholderColor"
                                 android:textSize="12sp"

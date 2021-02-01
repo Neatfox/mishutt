@@ -111,6 +111,7 @@ public class PaymentActivity extends MainActivity {
     String TAG = "LOCATION";
     boolean has_location_permission = false;
     String _page_name;
+    boolean flag = false;
     int backPress = 0;
 
     final String[] recharge_string = { "Mobile Prepaid", "DTH", "FASTag"};
@@ -152,7 +153,7 @@ public class PaymentActivity extends MainActivity {
         webView = findViewById(R.id.webView);
         loading = findViewById(R.id.loading);
 
-        layout_gridView.setVisibility(View.GONE);
+        layout_gridView.setVisibility(View.VISIBLE);
         webView.setVisibility(View.GONE);
         webView.setWebViewClient(new WebViewClient());
         WebSettings webSettings = webView.getSettings();
@@ -161,14 +162,38 @@ public class PaymentActivity extends MainActivity {
         adapterRecharge = new GridViewAdapter(recharge_image, recharge_string, PaymentActivity.this);
         adapterBillPayment = new GridViewAdapter(bill_payment_image, bill_payment_string, PaymentActivity.this);
 
+        mShimmerViewContainerOne.setVisibility(View.VISIBLE);
+        mShimmerViewContainerTwo.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                gridViewRecharge.setAdapter(adapterRecharge);
+                setDynamicHeight(gridViewRecharge);
+
+                gridViewBillPayment.setAdapter(adapterBillPayment);
+                setDynamicHeight(gridViewBillPayment);
+                // stop animating Shimmer and hide the layout
+                mShimmerViewContainerOne.stopShimmer();
+                mShimmerViewContainerOne.setVisibility(View.GONE);
+
+                mShimmerViewContainerTwo.stopShimmer();
+                mShimmerViewContainerTwo.setVisibility(View.GONE);
+            }
+        },1000);
+
         gridViewRecharge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (checkPermission()){
-                    displayLocationSettingsRequest(PaymentActivity.this);
-                    hideLayout();
-                    _page_name = recharge_string[+position];
-                    loadWebView();
+                if (flag){
+                    if (checkPermission()){
+                        displayLocationSettingsRequest(PaymentActivity.this);
+                        hideLayout();
+                        _page_name = recharge_string[+position];
+                        loadWebView();
+                    }
+                } else {
+                    checkFlag();
                 }
             }
         });
@@ -176,11 +201,15 @@ public class PaymentActivity extends MainActivity {
         gridViewBillPayment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (checkPermission()){
-                    displayLocationSettingsRequest(PaymentActivity.this);
-                    hideLayout();
-                    _page_name = bill_payment_string[+position];
-                    loadWebView();
+                if (flag){
+                    if (checkPermission()){
+                        displayLocationSettingsRequest(PaymentActivity.this);
+                        hideLayout();
+                        _page_name = bill_payment_string[+position];
+                        loadWebView();
+                    }
+                } else {
+                    checkFlag();
                 }
             }
         });
@@ -275,9 +304,9 @@ public class PaymentActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 if (verification_code.length()<1)
-                    Snackbar.make(layout, R.string.enter_verification_code, Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this,R.string.enter_verification_code,Toast.LENGTH_SHORT).show();
                 else if (verification_code.length()<6)
-                    Snackbar.make(layout, R.string.verification_code_length_six, Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this,R.string.verification_code_length_six,Toast.LENGTH_SHORT).show();
                 else {
                     if (isNetworkAvailable()) {
                         noNetwork();
@@ -295,6 +324,14 @@ public class PaymentActivity extends MainActivity {
             }
         });
 
+        checkFlag();
+
+        /*....................................Bottom Navigation...................................*/
+        bottom_navigation_id = 1;
+        bottomNavigation.show(bottom_navigation_id,false);
+    }
+
+    private void checkFlag(){
         if ("N".equalsIgnoreCase(_payment_flag)){
             if (_pan_no.trim().length()<10){
                 AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
@@ -331,37 +368,14 @@ public class PaymentActivity extends MainActivity {
             if (isNetworkAvailable()) {
                 noNetwork();
             } else {
+                flag = true;
                 layout_gridView.setVisibility(View.VISIBLE);
-                mShimmerViewContainerOne.setVisibility(View.VISIBLE);
-                mShimmerViewContainerTwo.setVisibility(View.VISIBLE);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run(){
-                        gridViewRecharge.setAdapter(adapterRecharge);
-                        setDynamicHeight(gridViewRecharge);
-
-                        gridViewBillPayment.setAdapter(adapterBillPayment);
-                        setDynamicHeight(gridViewBillPayment);
-                        // stop animating Shimmer and hide the layout
-                        mShimmerViewContainerOne.stopShimmer();
-                        mShimmerViewContainerOne.setVisibility(View.GONE);
-
-                        mShimmerViewContainerTwo.stopShimmer();
-                        mShimmerViewContainerTwo.setVisibility(View.GONE);
-                    }
-                },1000);
-
                 if (checkPermission()){
                     displayLocationSettingsRequest(PaymentActivity.this);
                 }
                 loadWebView();
             }
-
         }
-        /*....................................Bottom Navigation...................................*/
-        bottom_navigation_id = 1;
-        bottomNavigation.show(bottom_navigation_id,false);
     }
 
     private void loadWebView(){
@@ -761,9 +775,11 @@ public class PaymentActivity extends MainActivity {
                 Log.d("VerifyOTP>>>",response);
                 JSONObject resObj;
                 int status = 0;
+                String msg = "";
                 try {
                     resObj = new JSONObject(response);
                     status = resObj.getInt("status");
+                    msg = resObj.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -772,7 +788,12 @@ public class PaymentActivity extends MainActivity {
                     System.out.println("OTP Verified");
                     onboardFlag();
                 } else {
-                    Snackbar.make(layout, "OTP Mismatch", Snackbar.LENGTH_SHORT).show();
+                    if ("All Fields Are Mandatory".equalsIgnoreCase(msg))
+                        Toast.makeText(PaymentActivity.this, "Update Profile Details First", Toast.LENGTH_SHORT).show();
+                    else if(msg.contains("PAN already registered"))
+                        Toast.makeText(PaymentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(PaymentActivity.this,"OTP Mismatch", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -822,6 +843,7 @@ public class PaymentActivity extends MainActivity {
                 loading.setVisibility(View.GONE);
                 if (status == 1) {
                     System.out.println("Onboard Flag Added");
+                    flag = true;
                     if (checkPermission()){
                         displayLocationSettingsRequest(PaymentActivity.this);
                     }

@@ -242,7 +242,7 @@ public class AddProfileActivity extends AppCompatActivity {
         update_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkName(view) && checkMobileNumber(view) && checkEmailId(view)  &&
+                if (checkName(view) && checkAddress(view) && checkMobileNumber(view) && checkEmailId(view)  &&
                         checkDateOfBirth(view) && checkSpouseDateOfBirth(view) && checkAnnualIncome(view) &&
                         checkWeddingAnniversary(view) && checkAadhaarNumber(view) && checkPANNo(view)){
                     if (isNetworkAvailable()) {
@@ -310,6 +310,15 @@ public class AddProfileActivity extends AppCompatActivity {
         if (name.getText().toString().trim().length()<1){
             name.requestFocus();
             Snackbar.make(view, R.string.enter_name, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
+    }
+    /*.......................................Check Address........................................*/
+    public boolean checkAddress (View view) {
+        if (address.getText().toString().trim().length()<1){
+            address.requestFocus();
+            Snackbar.make(view, R.string.enter_address, Snackbar.LENGTH_SHORT).show();
             return false;
         } else
             return true;

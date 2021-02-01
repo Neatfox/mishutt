@@ -171,9 +171,9 @@ public class WalletActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 if (verification_code.length()<1)
-                    Snackbar.make(layout, R.string.enter_verification_code, Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(WalletActivity.this,R.string.enter_verification_code,Toast.LENGTH_SHORT).show();
                 else if (verification_code.length()<6)
-                    Snackbar.make(layout, R.string.verification_code_length_six, Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(WalletActivity.this,R.string.verification_code_length_six,Toast.LENGTH_SHORT).show();
                 else {
                     if (isNetworkAvailable()) {
                         noNetwork();
@@ -508,9 +508,11 @@ public class WalletActivity extends MainActivity {
                 Log.d("VerifyOTP>>>",response);
                 JSONObject resObj;
                 int status = 0;
+                String msg = "";
                 try {
                     resObj = new JSONObject(response);
                     status = resObj.getInt("status");
+                    msg = resObj.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -519,7 +521,12 @@ public class WalletActivity extends MainActivity {
                     System.out.println("OTP Verified");
                     onboardFlag();
                 } else {
-                    Snackbar.make(layout, "OTP Mismatch", Snackbar.LENGTH_SHORT).show();
+                    if ("All Fields Are Mandatory".equalsIgnoreCase(msg))
+                        Toast.makeText(WalletActivity.this, "Update Profile Details First", Toast.LENGTH_SHORT).show();
+                    else if(msg.contains("PAN already registered"))
+                        Toast.makeText(WalletActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(WalletActivity.this,"OTP Mismatch", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
