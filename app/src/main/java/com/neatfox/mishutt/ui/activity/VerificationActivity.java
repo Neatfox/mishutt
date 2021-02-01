@@ -142,12 +142,12 @@ public class VerificationActivity extends AppCompatActivity {
             }
         });
         /*....................................Start Countdown.....................................*/
-        if (isNetworkAvailable()) {
+        startTimer();
+        /*if (isNetworkAvailable()) {
             noNetwork();
         } else {
-            startTimer();
             sendOTP();
-        }
+        }*/
         /*................................Resend Verification Code................................*/
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
