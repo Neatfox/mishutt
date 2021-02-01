@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.neatfox.mishutt.Constants.api_forgot_password;
 import static com.neatfox.mishutt.Constants.api_sign_in;
 
 public class SignInActivity extends AppCompatActivity {
@@ -123,7 +124,7 @@ public class SignInActivity extends AppCompatActivity {
                     if (isNetworkAvailable()) {
                         noNetwork();
                     } else {
-                        sentResetPassword();
+                        sentResetPassword(_email_id.getText().toString().trim());
                     }
                 }
             }
@@ -218,8 +219,58 @@ public class SignInActivity extends AppCompatActivity {
             return true;
     }
     /*.....................................Sent Reset Password....................................*/
-    public void sentResetPassword(){
+    public void sentResetPassword(final String emailId){
+        progressDialog = new ProgressDialog(SignInActivity.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
+        StringRequest request = new StringRequest(Request.Method.POST, api_forgot_password, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Password>>>",response);
+                JSONObject resObj;
+                int status = 0;
+                String msg = "";
+                try {
+                    resObj = new JSONObject(response);
+                    status = resObj.getInt("status");
+                    msg = resObj.getString("message");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                progressDialog.dismiss();
+                if (status == 1) {
+                    dialog_forgot_password.dismiss();
+                    Toast.makeText(SignInActivity.this,
+                            "A password reset link sent to Email ID : "+emailId,Toast.LENGTH_LONG).show();
+                } else {
+                    System.out.println(msg);
+                    snackBarError();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.getMessage();
+                progressDialog.dismiss();
+                snackBarError();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email",emailId);
+                Log.d("Password Params>>>",params.toString());
+                return params;
+            }
+        };
+        int socketTimeout = 5000;//5 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
+        Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
     /*...........................................Sign In..........................................*/
     public void signIn(){

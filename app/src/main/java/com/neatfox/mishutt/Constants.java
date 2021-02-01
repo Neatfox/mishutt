@@ -35,6 +35,7 @@ public class Constants {
 
     /*------------------------------------------Sign In-------------------------------------------*/
     public static String api_sign_in = basePath + middlePath + "dologin";
+    public static String api_forgot_password = basePath + middlePath + "recover_password";
     /*------------------------------------------Sign Up-------------------------------------------*/
     public static String api_sign_up = basePath + middlePath + "register";
     /*-----------------------------------------Verify OTP-----------------------------------------*/
