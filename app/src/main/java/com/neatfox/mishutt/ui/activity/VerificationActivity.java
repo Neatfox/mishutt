@@ -141,13 +141,6 @@ public class VerificationActivity extends AppCompatActivity {
                 }
             }
         });
-        /*....................................Start Countdown.....................................*/
-        startTimer();
-        /*if (isNetworkAvailable()) {
-            noNetwork();
-        } else {
-            sendOTP();
-        }*/
         /*................................Resend Verification Code................................*/
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +153,23 @@ public class VerificationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        /*....................................Start Countdown.....................................*/
+        /*if (isNetworkAvailable()) {
+            noNetwork();
+        } else {
+            sendOTP();
+        }*/
+        if ("Sign In wMobile Number".equalsIgnoreCase(getIntent().getStringExtra("type"))){
+            if (isNetworkAvailable()) {
+                noNetwork();
+            } else {
+                startTimer();
+                sendOTP();
+            }
+        } else {
+            startTimer();
+        }
     }
     /*......................................Verification Code.....................................*/
     private class GenericTextWatcher implements TextWatcher {
