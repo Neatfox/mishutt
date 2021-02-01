@@ -285,9 +285,9 @@ public class TransactionChartFragment extends Fragment {
 
     private void recommendations_suggestions(){
         /*------------------------------------Recommendations-------------------------------------*/
-        if (!"0".equalsIgnoreCase(_annual_income))
+        if (Double.parseDouble(_annual_income) != 0)
             annual_income = Double.parseDouble( _annual_income);
-        else if (!"0".equalsIgnoreCase(_salary))
+        else if (Double.parseDouble(_salary) != 0)
             annual_income = Double.parseDouble( _salary)*12;
 
         System.out.println("Annual Income :"+annual_income);

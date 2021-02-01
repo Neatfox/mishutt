@@ -291,6 +291,7 @@ public class TransactionFragment extends Fragment {
     }
 
     private void getTransactionList(){
+        _salary = "0";
         transaction_list = new ArrayList<>();
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_list, new Response.Listener<String>() {
             @Override
@@ -327,6 +328,9 @@ public class TransactionFragment extends Fragment {
                             if ("Salary".equalsIgnoreCase(jsonObject.optString("expcategory")) &&
                                     _salary.equalsIgnoreCase("0"))
                                 _salary = jsonObject.optString("earning");
+                            else
+                                _salary = "0";
+
                             if (spinner_position == 0)
                                 transaction_list.add(transaction);
                             else if (spinner_position == 1 && "0.00".equalsIgnoreCase(jsonObject.optString("spent")))
