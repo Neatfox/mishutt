@@ -64,7 +64,7 @@ public class AddProfileActivity extends AppCompatActivity {
     LinearLayout layout_back,layout_profile_info,layout_update;
     ImageButton ib_back;
     TextInputLayout layout_aadhaar_number,layout_pan_no;
-    EditText name,address,mobile_number,email_id,date_of_birth,spouse_name,spouse_date_of_birth,
+    EditText name,address,pin_code,mobile_number,email_id,date_of_birth,spouse_name,spouse_date_of_birth,
             wedding_anniversary,number_of_children,profession,annual_income,number_of_dependents,
             aadhaar_number,pan_no;
     Button update_profile;
@@ -112,6 +112,7 @@ public class AddProfileActivity extends AppCompatActivity {
         layout_pan_no = findViewById(R.id.layout_pan_no);
         name = findViewById(R.id.et_name);
         address = findViewById(R.id.et_address);
+        pin_code = findViewById(R.id.et_pin_code);
         mobile_number = findViewById(R.id.et_mobile_number);
         email_id = findViewById(R.id.et_email_id);
         date_of_birth = findViewById(R.id.et_date_of_birth);
@@ -242,9 +243,10 @@ public class AddProfileActivity extends AppCompatActivity {
         update_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkName(view) && checkAddress(view) && checkMobileNumber(view) && checkEmailId(view)  &&
-                        checkDateOfBirth(view) && checkSpouseDateOfBirth(view) && checkAnnualIncome(view) &&
-                        checkWeddingAnniversary(view) && checkAadhaarNumber(view) && checkPANNo(view)){
+                if (checkName(view) && checkAddress(view) && checkPINCode(view) && checkMobileNumber(view) &&
+                        checkEmailId(view) && checkDateOfBirth(view) && checkSpouseDateOfBirth(view) &&
+                        checkAnnualIncome(view) && checkWeddingAnniversary(view) && checkAadhaarNumber(view) &&
+                        checkPANNo(view)){
                     if (isNetworkAvailable()) {
                         noNetwork();
                     } else {
@@ -319,6 +321,15 @@ public class AddProfileActivity extends AppCompatActivity {
         if (address.getText().toString().trim().length()<1){
             address.requestFocus();
             Snackbar.make(view, R.string.enter_address, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
+    }
+    /*.......................................Check PIN Code.......................................*/
+    public boolean checkPINCode (View view) {
+        if (pin_code.getText().toString().trim().length()<1){
+            pin_code.requestFocus();
+            Snackbar.make(view, R.string.enter_pin_code, Snackbar.LENGTH_SHORT).show();
             return false;
         } else
             return true;
@@ -543,7 +554,12 @@ public class AddProfileActivity extends AppCompatActivity {
                         if (jsonObject.getString("address").length() < 1)
                             address.setText("");
                         else
-                            address.setText(jsonObject.getString("address"));
+                            address.setText(jsonObject.getString("zip_code"));
+
+                        if (jsonObject.getString("zip_code").length() < 1)
+                            pin_code.setText("");
+                        else
+                            pin_code.setText(jsonObject.getString("address"));
 
                         if (jsonObject.getString("dob").length() <= 5)
                             date_of_birth.setText("");
@@ -693,6 +709,7 @@ public class AddProfileActivity extends AppCompatActivity {
                 params.put("uid", sharedPreference.getString("register_id", ""));
                 params.put("name", name.getText().toString().trim());
                 params.put("address", address.getText().toString().trim());
+                params.put("zip_code", pin_code.getText().toString().trim());
                 params.put("phone_no", mobile_number.getText().toString().trim());
                 params.put("dob", changeDateFormatDB(date_of_birth.getText().toString().trim()));
                 params.put("name_of_spouse", spouse_name.getText().toString().trim());

@@ -122,6 +122,27 @@
                     android:layout_height="wrap_content"
                     android:textColor="?attr/textColor"
                     android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_pin_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/PIN_code"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
                     app:prefixText="+91 "
                     app:prefixTextAppearance="@style/TextStyle"
                     app:errorEnabled="true">

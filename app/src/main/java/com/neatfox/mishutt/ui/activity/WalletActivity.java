@@ -526,7 +526,9 @@ public class WalletActivity extends MainActivity {
                     else if(msg.contains("PAN already registered"))
                         Toast.makeText(WalletActivity.this, msg, Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(WalletActivity.this,"OTP Mismatch", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WalletActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                    //Toast.makeText(WalletActivity.this,"OTP Mismatch", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -546,7 +548,7 @@ public class WalletActivity extends MainActivity {
                 params.put("full_name", _name);
                 params.put("email_id", _email_id);
                 params.put("address",_address);
-                params.put("zip_code", "111111");
+                params.put("zip_code", _pin_code);
                 params.put("pan_no", _pan_no);
                 params.put("company", "Mishutt Finance");
                 Log.d("VerifyOTP Params>>>",params.toString());

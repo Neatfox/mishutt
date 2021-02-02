@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     Dialog dialog_theme,dialog_contact_us;
     ProgressDialog progressDialog;
     public static String emailPattern, _name = "",_mobile_number = "",_email_id = "",
-            _date_of_birth = "",_address = "",_annual_income = "0",_aadhaar_number = "",_pan_no = "",
+            _date_of_birth = "",_address = "",_pin_code = "",_annual_income = "0",_aadhaar_number = "",_pan_no = "",
             _payment_flag = "",_onboarding_flag = "";
     int backPress = 0,bottom_navigation_id;
 
@@ -731,6 +731,11 @@ public class MainActivity extends AppCompatActivity {
                             _address = "";
                         else
                             _address = jsonObject.getString("address");
+
+                        if (jsonObject.getString("zip_code").length() <1)
+                            _pin_code = "";
+                        else
+                            _pin_code = jsonObject.getString("zip_code");
 
                         if (jsonObject.getString("dob").length() <= 5)
                             _date_of_birth = "";

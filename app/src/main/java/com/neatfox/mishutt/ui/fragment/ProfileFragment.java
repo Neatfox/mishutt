@@ -70,6 +70,7 @@ import static com.neatfox.mishutt.Constants.api_profile_picture;
 import static com.neatfox.mishutt.Constants.basePath;
 import static com.neatfox.mishutt.Constants.changeDateFormatUI;
 import static com.neatfox.mishutt.Constants.getBase64ImageStringFromBitmap;
+import static com.neatfox.mishutt.ui.activity.MainActivity._pin_code;
 
 public class ProfileFragment extends Fragment {
 
@@ -349,7 +350,7 @@ public class ProfileFragment extends Fragment {
                             address.setText("");
                             layout_address.setVisibility(View.GONE);
                         } else {
-                            address.setText(jsonObject.getString("address"));
+                            address.setText(String.format("%s %s", jsonObject.getString("address"), _pin_code));
                             layout_address.setVisibility(View.VISIBLE);
                         }
 

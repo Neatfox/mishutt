@@ -667,7 +667,7 @@ public class PaymentActivity extends MainActivity {
                 params.put("mobile_no", _mobile_number);
                 params.put("address",_address);
                 params.put("dob",changeDateFormatDB(_date_of_birth));
-                params.put("zip_code", "111111");
+                params.put("zip_code", _pin_code);
                 params.put("pan_no", _pan_no);
                 params.put("aadhar_no", _aadhaar_number);
                 Log.d("Add User Params>>>",params.toString());
