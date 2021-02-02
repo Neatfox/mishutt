@@ -734,6 +734,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (jsonObject.getString("zip_code").length() <1)
                             _pin_code = "";
+                        else if (jsonObject.getString("zip_code").equalsIgnoreCase("null"))
+                            _pin_code = "";
                         else
                             _pin_code = jsonObject.getString("zip_code");
 

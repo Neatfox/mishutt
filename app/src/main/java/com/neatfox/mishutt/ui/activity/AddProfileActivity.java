@@ -554,12 +554,14 @@ public class AddProfileActivity extends AppCompatActivity {
                         if (jsonObject.getString("address").length() < 1)
                             address.setText("");
                         else
-                            address.setText(jsonObject.getString("zip_code"));
+                            address.setText(jsonObject.getString("address"));
 
                         if (jsonObject.getString("zip_code").length() < 1)
                             pin_code.setText("");
+                        else  if (jsonObject.getString("zip_code").equalsIgnoreCase("null"))
+                            pin_code.setText("");
                         else
-                            pin_code.setText(jsonObject.getString("address"));
+                            pin_code.setText(jsonObject.getString("zip_code"));
 
                         if (jsonObject.getString("dob").length() <= 5)
                             date_of_birth.setText("");
