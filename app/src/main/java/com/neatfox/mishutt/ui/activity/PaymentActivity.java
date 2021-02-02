@@ -214,7 +214,7 @@ public class PaymentActivity extends MainActivity {
             }
         });
 
-        webView.setWebChromeClient(new WebChromeClient() {
+        /*webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
@@ -243,7 +243,7 @@ public class PaymentActivity extends MainActivity {
                     _page_name = "";
                 }
             }
-        });
+        });*/
 
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
@@ -380,6 +380,7 @@ public class PaymentActivity extends MainActivity {
 
     private void loadWebView(){
         webView.loadUrl("https://billdesks.in/api/prime_send?sp_key=&pan_no="+_pan_no);
+        System.out.println("https://billdesks.in/api/prime_send?sp_key=&pan_no="+_pan_no);
         //webView.loadUrl("https://billdesks.in/api/prime_send?sp_key=&pan_no=BSTPM6647R");
     }
 
@@ -786,6 +787,7 @@ public class PaymentActivity extends MainActivity {
                 progressDialog.dismiss();
                 if (status == 1) {
                     System.out.println("OTP Verified");
+                    dialog_otp.dismiss();
                     onboardFlag();
                 } else {
                     if ("All Fields Are Mandatory".equalsIgnoreCase(msg))

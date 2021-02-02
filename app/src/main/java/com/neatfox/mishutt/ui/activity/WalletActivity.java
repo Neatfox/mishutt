@@ -519,6 +519,7 @@ public class WalletActivity extends MainActivity {
                 progressDialog.dismiss();
                 if (status == 1) {
                     System.out.println("OTP Verified");
+                    dialog_otp.dismiss();
                     onboardFlag();
                 } else {
                     if ("All Fields Are Mandatory".equalsIgnoreCase(msg))
