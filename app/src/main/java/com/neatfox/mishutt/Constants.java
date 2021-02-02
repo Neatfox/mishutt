@@ -113,6 +113,7 @@ public class Constants {
     public static String api_onboarding_otp_send = billDeskBasePath + middlePath + "send_onboarding_otp";
     public static String api_onboarding_otp_validate = billDeskBasePath + middlePath + "onboarding_registration";
     public static String api_add_onboarding_flag = basePath + middlePath + "update_onboarding_flag";
+    public static String api_service_type = billDeskBasePath + middlePath + "servicelist_typewise_product_code";
     //public static String api_get_web_view = billDeskBasePath + middlePath + "prime_send";
     /*-------------------------------------------Wallet-------------------------------------------*/
     public static String api_wallet_balance = billDeskBasePath + middlePath + "wallet";

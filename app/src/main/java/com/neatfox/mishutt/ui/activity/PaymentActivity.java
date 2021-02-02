@@ -88,6 +88,7 @@ import static com.neatfox.mishutt.Constants.api_add_onboarding_flag;
 import static com.neatfox.mishutt.Constants.api_add_payment_flag;
 import static com.neatfox.mishutt.Constants.api_onboarding_otp_send;
 import static com.neatfox.mishutt.Constants.api_onboarding_otp_validate;
+import static com.neatfox.mishutt.Constants.api_service_type;
 import static com.neatfox.mishutt.Constants.api_user_add;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
 
@@ -379,9 +380,26 @@ public class PaymentActivity extends MainActivity {
     }
 
     private void loadWebView(){
-        webView.loadUrl("https://billdesks.in/api/prime_send?sp_key=&pan_no="+_pan_no);
-        System.out.println("https://billdesks.in/api/prime_send?sp_key=&pan_no="+_pan_no);
-        //webView.loadUrl("https://billdesks.in/api/prime_send?sp_key=&pan_no=BSTPM6647R");
+        if ("Mobile Prepaid".equalsIgnoreCase(_page_name))
+            serviceType("PREPAID");
+        else if ("DTH".equalsIgnoreCase(_page_name))
+            serviceType("DTH");
+        else if ("FASTag".equalsIgnoreCase(_page_name))
+            serviceType("FASTAG");
+        else if ("Mobile Postpaid".equalsIgnoreCase(_page_name))
+            serviceType("POSTPAID");
+        else if ("Landline".equalsIgnoreCase(_page_name))
+            serviceType("LANDLINE");
+        else if ("Broadband".equalsIgnoreCase(_page_name))
+            serviceType("BROADBAND");
+        else if ("Electricity".equalsIgnoreCase(_page_name))
+            serviceType("ELECTRICITY");
+        else if ("Gas".equalsIgnoreCase(_page_name))
+            serviceType("GAS");
+        else if ("Municipal & Water".equalsIgnoreCase(_page_name))
+            serviceType("WATER");
+        _page_name = "";
+
     }
 
     private void hideLayout(){
@@ -870,6 +888,52 @@ public class PaymentActivity extends MainActivity {
             }
         };
         int socketTimeout = 5000;//5 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
+        Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    public void serviceType(final String service_type){
+        StringRequest request = new StringRequest(Request.Method.POST, api_service_type, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("Service Type>>>", "onResponse::::: " + response);
+                JSONObject resObj = null;
+                int status = 0;
+                try {
+                    resObj = new JSONObject(response);
+                    status = resObj.getInt("status");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                loading.setVisibility(View.GONE);
+                if (status == 1) {
+                    try {
+                        String _sp_key = resObj.getString("sp_key");
+                        webView.loadUrl("https://billdesks.in/api/prime_send?sp_key="+_sp_key+"&pan_no="+_pan_no);
+                        System.out.println("https://billdesks.in/api/prime_send?sp_key="+_sp_key+"&pan_no="+_pan_no);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    snackBarError();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.setVisibility(View.GONE);
+                snackBarError();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("service_type", service_type);
+                return params;
+            }
+        };
+        int socketTimeout = 5000; //5 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
