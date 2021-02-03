@@ -258,7 +258,8 @@ public class ExpenseManagerActivity extends MainActivity {
                                 body.contains("zomato") || body.contains("Zomato") || body.contains("McDonald") ||
                                 body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
                                 body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
-                                body.contains("EMI")) {
+                                body.contains("EMI") || body.contains("Due") || body.contains("due") ||
+                                body.contains("Reminder") || body.contains("reminder")) {
 
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
@@ -296,9 +297,8 @@ public class ExpenseManagerActivity extends MainActivity {
         String _date = sdf.format(Date);
         /*------------------------------------Transaction Type------------------------------------*/
         String type = "",category;
-        if (body.contains("credited") || body.contains("added")  || body.contains("received") || body.contains("salary") ||
-                body.contains("Salary") || body.contains("Credited") || body.contains("Added")  || body.contains("Received")) {
-            type = "Earning";
+        if (body.contains("due") || body.contains("Due")  || body.contains("Reminder") || body.contains("reminder")) {
+            type = "Reminders";
         } else if (body.contains("debited") || body.contains("withdrawn") || body.contains("payment") ||
                 body.contains("recharge") || body.contains("paid") || body.contains("Debited") ||
                 body.contains("Withdrawn") || body.contains("Payment") || body.contains("Recharge") ||
@@ -310,6 +310,9 @@ public class ExpenseManagerActivity extends MainActivity {
                 body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
                 body.contains("ATM") || body.contains("EMI")){
             type = "Expense";
+        } else if (body.contains("credited") || body.contains("added")  || body.contains("received") || body.contains("salary") ||
+                body.contains("Salary") || body.contains("Credited") || body.contains("Added")  || body.contains("Received")) {
+            type = "Earning";
         }
 
         if (type.equalsIgnoreCase("Expense") &&

@@ -84,6 +84,7 @@ import java.util.Objects;
 
 import static com.neatfox.mishutt.Constants.REQUEST_LOCATION_PERMISSION;
 import static com.neatfox.mishutt.Constants.REQUEST_LOCATION_SETTINGS;
+import static com.neatfox.mishutt.Constants.REQUEST_STORAGE_PERMISSION;
 import static com.neatfox.mishutt.Constants.api_add_onboarding_flag;
 import static com.neatfox.mishutt.Constants.api_add_payment_flag;
 import static com.neatfox.mishutt.Constants.api_onboarding_otp_send;
@@ -165,6 +166,8 @@ public class PaymentActivity extends MainActivity {
 
         mShimmerViewContainerOne.setVisibility(View.VISIBLE);
         mShimmerViewContainerTwo.setVisibility(View.VISIBLE);
+
+        requestStoragePermission();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -376,6 +379,14 @@ public class PaymentActivity extends MainActivity {
                 }
                 loadWebView();
             }
+        }
+    }
+
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(PaymentActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions( PaymentActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
         }
     }
 

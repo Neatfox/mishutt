@@ -178,7 +178,6 @@ public class TransactionChartFragment extends Fragment {
         for (int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
 
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.transaction_type_chart, R.layout.adapter_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -194,6 +193,8 @@ public class TransactionChartFragment extends Fragment {
                 if (networkInfo != null && networkInfo.isConnected()) {
                     chart_title.setVisibility(View.INVISIBLE);
                     loading.setVisibility(View.VISIBLE);
+                    layout_alert.setVisibility(View.GONE);
+                    layout_suggestions_earning_spending.setVisibility(View.GONE);
                     if (position == 0){
                         getTransactionTotalEarningSpending();
                     } else if (position == 1) {
@@ -464,7 +465,6 @@ public class TransactionChartFragment extends Fragment {
     }
 
     private void getTransactionTotalEarningSpending(){
-        layout_suggestions_earning_spending.setVisibility(View.GONE);
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_earning_spending, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -497,8 +497,9 @@ public class TransactionChartFragment extends Fragment {
 
                         if (total_earning < total_spending){
                             alert.setText(String.format("Your Expenses is more than your earnings by ₹%s", addCommaDouble(total_spending - total_earning)));
-                        }
-                        layout_alert.setVisibility(View.GONE);
+                            layout_alert.setVisibility(View.VISIBLE);
+                        } else
+                            layout_alert.setVisibility(View.GONE);
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setColors(colors);
