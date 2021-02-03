@@ -315,10 +315,7 @@ public class ExpenseManagerActivity extends MainActivity {
             type = "Earning";
         }
 
-        if (type.equalsIgnoreCase("Expense") &&
-                (body.contains("card") || body.contains("Card"))){
-            category = "Debit/Credit Card Expense";
-        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+        if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
                 body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
                 body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
                 body.contains("Pizza") || body.contains("pizza")) {
@@ -328,15 +325,20 @@ public class ExpenseManagerActivity extends MainActivity {
                 body.contains("car") || body.contains("Car") || body.contains("bike") ||
                 body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
             category = "Loan";
-        } else if (body.contains("Bill") || body.contains("bill")) {
-            category = "Bill";
-        } else if (body.contains("Rent") || body.contains("rent")) {
-            category = "Rent";
         } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
                 body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler")) {
             category = "Premium";
         } else if (body.contains("ATM")) {
             category = "ATM";
+        } else if (body.contains("Recharge") || body.contains("recharge")) {
+            category = "Recharge";
+        } else if (body.contains("Bill") || body.contains("bill")) {
+            category = "Bill";
+        } else if (type.equalsIgnoreCase("Expense") &&
+                (body.contains("card") || body.contains("Card"))){
+            category = "Debit/Credit Card Expense";
+        } else if (body.contains("Rent") || body.contains("rent")) {
+            category = "Rent";
         } else {
             category = "Others";
         }

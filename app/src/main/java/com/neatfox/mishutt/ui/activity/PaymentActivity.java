@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -27,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -82,6 +85,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.neatfox.mishutt.Constants.REQUEST_FILE;
 import static com.neatfox.mishutt.Constants.REQUEST_LOCATION_PERMISSION;
 import static com.neatfox.mishutt.Constants.REQUEST_LOCATION_SETTINGS;
 import static com.neatfox.mishutt.Constants.REQUEST_STORAGE_PERMISSION;
@@ -111,6 +115,7 @@ public class PaymentActivity extends MainActivity {
     long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     String verification_code = "";
     String TAG = "LOCATION";
+    ValueCallback<Uri[]> mUploadMessage;
     boolean has_location_permission = false;
     String _page_name;
     boolean flag = false;
@@ -160,6 +165,7 @@ public class PaymentActivity extends MainActivity {
         webView.setWebViewClient(new WebViewClient());
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccess(true);
 
         adapterRecharge = new GridViewAdapter(recharge_image, recharge_string, PaymentActivity.this);
         adapterBillPayment = new GridViewAdapter(bill_payment_image, bill_payment_string, PaymentActivity.this);
@@ -218,14 +224,36 @@ public class PaymentActivity extends MainActivity {
             }
         });
 
-        /*webView.setWebChromeClient(new WebChromeClient() {
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
 
+            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams)
+            {
+                if (mUploadMessage != null) {
+                    mUploadMessage.onReceiveValue(null);
+                    mUploadMessage = null;
+                }
+
+                mUploadMessage = filePathCallback;
+
+                Intent intent = fileChooserParams.createIntent();
+                try
+                {
+                    startActivityForResult(intent, REQUEST_FILE);
+                } catch (ActivityNotFoundException e)
+                {
+                    mUploadMessage = null;
+                    Toast.makeText(PaymentActivity.this.getApplicationContext(), "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                return true;
+            }
+
             public void onProgressChanged(WebView view, int progress) {
-                if (progress == 100) {
+                /*if (progress == 100) {
                     if ("Mobile Prepaid".equalsIgnoreCase(_page_name))
                         webView.loadUrl("https://prime.billdesks.in/utility/payments/prepaid");
                     else if ("DTH".equalsIgnoreCase(_page_name))
@@ -245,9 +273,9 @@ public class PaymentActivity extends MainActivity {
                     else if ("Municipal & Water".equalsIgnoreCase(_page_name))
                         webView.loadUrl("https://prime.billdesks.in/utility/payments/water");
                     _page_name = "";
-                }
+                }*/
             }
-        });*/
+        });
 
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
@@ -574,6 +602,11 @@ public class PaymentActivity extends MainActivity {
                     Log.i(TAG, "User chose not to make required location settings changes.");
                     break;
             }
+        } else if (requestCode==REQUEST_FILE) {
+            if (mUploadMessage == null)
+                return;
+            mUploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
+            mUploadMessage = null;
         }
     }
 

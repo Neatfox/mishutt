@@ -115,7 +115,7 @@
                         android:textSize="15sp"
                         android:textColor="?attr/textColor"
                         android:inputType="textCapWords"
-                        android:cursorVisible="false"
+                        android:cursorVisible="true"
                         android:selectAllOnFocus="true"
                         android:importantForAutofill="no" />
                 </com.google.android.material.textfield.TextInputLayout>
