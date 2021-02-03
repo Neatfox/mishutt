@@ -80,6 +80,8 @@ public class Constants {
     public static String api_transaction_earning_spending = basePath + middlePath + "getinitial";
     public static String api_transaction_earning_category_wise = basePath + middlePath + "categorywiseearning";
     public static String api_transaction_spending_category_wise = basePath + middlePath + "categorywiseexpense";
+    public static String api_add_reminder = basePath + middlePath + "reminder_payment_add";
+    public static String api_reminder_list = basePath + middlePath + "reminder_payment_list";
     /*----------------------------------------Goal Manager----------------------------------------*/
     public static String api_goal_list = basePath + middlePath + "MyGoal";
     public static String api_goal_delete = basePath + middlePath + "deletegoal";

@@ -359,9 +359,8 @@ public class AddTransactionActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    snackBarError();
-                    layout_info.setVisibility(View.GONE);
-                    layout_button.setVisibility(View.GONE);
+                    layout_info.setVisibility(View.VISIBLE);
+                    layout_button.setVisibility(View.VISIBLE);
                 }
             }
         }, new Response.ErrorListener() {

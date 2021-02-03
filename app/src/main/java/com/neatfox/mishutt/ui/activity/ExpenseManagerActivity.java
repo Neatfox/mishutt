@@ -40,8 +40,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.neatfox.mishutt.R;
 import com.neatfox.mishutt.singleton.Singleton;
 import com.neatfox.mishutt.ui.adapter.ViewPagerAdapter;
+import com.neatfox.mishutt.ui.fragment.RemindersFragment;
 import com.neatfox.mishutt.ui.fragment.TransactionChartFragment;
-import com.neatfox.mishutt.ui.fragment.TransactionCategoryFragment;
 import com.neatfox.mishutt.ui.fragment.TransactionFragment;
 
 import org.json.JSONException;
@@ -55,6 +55,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.neatfox.mishutt.Constants.REQUEST_SMS_PERMISSION;
+import static com.neatfox.mishutt.Constants.api_add_reminder;
 import static com.neatfox.mishutt.Constants.api_transaction_add;
 import static com.neatfox.mishutt.Constants.api_transaction_msg_date_time_add;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
@@ -113,7 +114,8 @@ public class ExpenseManagerActivity extends MainActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.AddFragment(new TransactionFragment(),"Transactions");
         viewPagerAdapter.AddFragment(new TransactionChartFragment(),"Analyzer");
-        viewPagerAdapter.AddFragment(new TransactionCategoryFragment(),"Settings");
+        viewPagerAdapter.AddFragment(new RemindersFragment(),"Reminders");
+        //viewPagerAdapter.AddFragment(new TransactionCategoryFragment(),"Settings");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.parseColor("#27AE60"),Color.parseColor("#27AE60"));
@@ -131,8 +133,7 @@ public class ExpenseManagerActivity extends MainActivity {
                     fab_add.setVisibility(View.GONE);
 
                 } else if (tab.getPosition() == 2){
-                    fab_add.setVisibility(View.VISIBLE);
-                    animateFab(tab.getPosition());
+                    fab_add.setVisibility(View.GONE);
 
                 } else {
                     fab_add.setVisibility(View.GONE);
@@ -170,6 +171,8 @@ public class ExpenseManagerActivity extends MainActivity {
         else if ("Analyzer".equalsIgnoreCase(type))
             setTab(1);
         else if ("Transaction Category".equalsIgnoreCase(type))
+            setTab(2);
+        else if ("Reminders".equalsIgnoreCase(type))
             setTab(2);
     }
 
@@ -243,7 +246,7 @@ public class ExpenseManagerActivity extends MainActivity {
                 }
 
                 if (address.trim().length()==6 && isAlpha(address)){
-                    if (body.contains("Rs")) {
+                    if (body.contains("Rs") || body.contains("rs")) {
                         if (body.contains("credited")|| body.contains("debited") || body.contains("withdrawn") ||
                                 body.contains("Credited")|| body.contains("Debited") || body.contains("Withdrawn") ||
                                 body.contains("payment") || body.contains("Transaction ID") || body.contains("Txn ID") ||
@@ -259,7 +262,8 @@ public class ExpenseManagerActivity extends MainActivity {
                                 body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
                                 body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
                                 body.contains("EMI") || body.contains("Due") || body.contains("due") ||
-                                body.contains("Reminder") || body.contains("reminder")) {
+                                body.contains("Reminder") || body.contains("reminder") || body.contains("spent") ||
+                                body.contains("Spent") ) {
 
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
@@ -298,17 +302,18 @@ public class ExpenseManagerActivity extends MainActivity {
         /*------------------------------------Transaction Type------------------------------------*/
         String type = "",category;
         if (body.contains("due") || body.contains("Due")  || body.contains("Reminder") || body.contains("reminder")) {
-            type = "Reminders";
+            type = "Reminder";
         } else if (body.contains("debited") || body.contains("withdrawn") || body.contains("payment") ||
-                body.contains("recharge") || body.contains("paid") || body.contains("Debited") ||
-                body.contains("Withdrawn") || body.contains("Payment") || body.contains("Recharge") ||
-                body.contains("Paid") || body.contains("Bill") || body.contains("Rent") ||
-                body.contains("loan") || body.contains("Loan") || body.contains("Premium") ||
-                body.contains("premium") || body.contains("swiggy") || body.contains("Swiggy") ||
-                body.contains("zomato") || body.contains("Zomato") || body.contains("McDonald") ||
-                body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
-                body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
-                body.contains("ATM") || body.contains("EMI")){
+                body.contains("spent") || body.contains("Spent") || body.contains("recharge") ||
+                body.contains("paid") || body.contains("Debited") || body.contains("Withdrawn") ||
+                body.contains("Payment") || body.contains("Recharge") || body.contains("Paid") ||
+                body.contains("Bill") || body.contains("Rent") || body.contains("loan") ||
+                body.contains("Loan") || body.contains("Premium") || body.contains("premium") ||
+                body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
+                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
+                body.contains("Pizza") || body.contains("pizza") || body.contains("ATM") ||
+                body.contains("EMI")){
             type = "Expense";
         } else if (body.contains("credited") || body.contains("added")  || body.contains("received") || body.contains("salary") ||
                 body.contains("Salary") || body.contains("Credited") || body.contains("Added")  || body.contains("Received")) {
@@ -330,7 +335,9 @@ public class ExpenseManagerActivity extends MainActivity {
             category = "Premium";
         } else if (body.contains("ATM")) {
             category = "ATM";
-        } else if (body.contains("Recharge") || body.contains("recharge")) {
+        } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
+                body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
+                body.contains("topup") || body.contains("topUp")) {
             category = "Recharge";
         } else if (body.contains("Bill") || body.contains("bill")) {
             category = "Bill";
@@ -343,29 +350,49 @@ public class ExpenseManagerActivity extends MainActivity {
             category = "Others";
         }
         /*-----------------------------------Transaction Amount-----------------------------------*/
-        if (body.contains("Rs.")){
-            String[] separated = body.split("Rs.");
+        String amount = "0";
+        if (body.contains("INR")){
+            amount = formatter(body,"INR");
+            /*String[] separated = body.split("INR");
             if (separated[1].startsWith(" ")){
                 body = separated[1];
                 String[] _separated = body.split(" ");
                 body = _separated[1].trim();
             }
             else
-                body = separated[1].trim().substring(0,separated[1].indexOf(" "));
+                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
+
+        } else if (body.contains("INR.")){
+            amount = formatter(body,"INR.");
+            
+        } else if (body.contains("₹")){
+            amount = formatter(body,"₹");
+
+        } else if (body.contains("Rs.")){
+            amount = formatter(body,"Rs.");
+            /*String[] separated = body.split("Rs.");
+            if (separated[1].startsWith(" ")){
+                body = separated[1];
+                String[] _separated = body.split(" ");
+                body = _separated[1].trim();
+            }
+            else
+                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
 
         } else if (body.contains("Rs")){
-            String[] separated = body.split("Rs");
+            amount = formatter(body,"Rs");
+            /*String[] separated = body.split("Rs");
             if (separated[1].startsWith(" ")){
                 body = separated[1];
                 String[] _separated = body.split(" ");
                 body = _separated[1].trim();
             }
             else
-                body = separated[1].trim().substring(0,separated[1].indexOf(" "));
+                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
         }
 
         System.out.println("From : "+address);
-        System.out.println("Body : "+body);
+        System.out.println("Body : "+amount);
         System.out.println("Date : "+_date);
 
         if ("Earning".equalsIgnoreCase(type))
@@ -376,13 +403,37 @@ public class ExpenseManagerActivity extends MainActivity {
         if (isNetworkAvailable()) {
             noNetwork();
         } else {
-            submitDetails(_date,type,category,body,address);
+            if (Double.parseDouble(amount) > 0){
+                if ("Reminder".equalsIgnoreCase(type)){
+                    String due_date = formatter(body,"due on");
+                    submitReminder(_date,due_date,category,amount,address,body);
+                } else {
+                    submitDetails(_date,type,category,amount,address, body);
+                }
+            } else {
+                System.out.println();
+            }
         }
-
         sms.add("\nFrom : "+address+"\n\nRs. : "+body +" "+type+"\n\nDate : "+_date+"\n");
     }
+
+    private String formatter(String body, String reg){
+        String[] separated = body.split(reg);
+        if (separated[1].startsWith(" ")){
+            body = separated[1];
+            String[] _separated = body.split(" ");
+            body = _separated[1].trim();
+        }
+        else
+            body = separated[1].trim().substring(0,separated[1].indexOf(" "));
+        if (body.contains(","))
+            body = body.replace(",","");
+
+        return body;
+    }
     /*.......................................Submit Details.......................................*/
-    private void submitDetails(final String date, final String type, final String category, final String amount, final String address){
+    private void submitDetails(final String date, final String type, final String category,
+                               final String amount, final String address, final  String message){
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_add, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -397,7 +448,6 @@ public class ExpenseManagerActivity extends MainActivity {
                 }
                 if (status == 1) {
                     System.out.println("Transaction Info Added Successfully");
-                    //Toast.makeText(TransactionMessagesActivity.this, "Transaction Info Added Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     snackBarError();
                 }
@@ -417,9 +467,54 @@ public class ExpenseManagerActivity extends MainActivity {
                 params.put("expcategory", category);
                 params.put("amount", amount);
                 params.put("type", type);
-                params.put("description", address);
+                params.put("description", message);
                 params.put("remarks", address);
                 params.put("date_time", date);
+                return params;
+            }
+        };
+        int socketTimeout = 5000; //5 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
+        Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+    /*.......................................Submit Details.......................................*/
+    private void submitReminder(final String date, final String due_date, final String category,
+                                final String amount, final String address, final  String message){
+        StringRequest request = new StringRequest(Request.Method.POST, api_add_reminder, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("Reminder>>>", "onResponse::::: " + response);
+                JSONObject resObj;
+                int status = 0;
+                try {
+                    resObj = new JSONObject(response);
+                    status = resObj.getInt("status");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (status == 1) {
+                    System.out.println("Reminder Added Successfully");
+                } else {
+                    snackBarError();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                snackBarError();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", sharedPreference.getString("register_id", ""));
+                params.put("mess_res_date", changeDateFormatDB(date));
+                params.put("amount", amount);
+                params.put("due_date", changeDateFormatDB(due_date));
+                params.put("description", address +"\n"+category);
+                params.put("full_mess", message);
                 return params;
             }
         };
@@ -444,7 +539,6 @@ public class ExpenseManagerActivity extends MainActivity {
                 }
                 if (status == 1) {
                     System.out.println("Date Time Added Successfully");
-                    //Toast.makeText(TransactionMessagesActivity.this, "Transaction Info Added Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     snackBarError();
                 }

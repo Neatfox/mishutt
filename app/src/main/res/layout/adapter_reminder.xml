@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="1dp"
     android:animateLayoutChanges="true"
-    tools:context=".ui.adapter.TransactionAdapter">
+    tools:context=".ui.adapter.ReminderAdapter">
 
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -82,7 +82,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout_earning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -91,36 +90,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.2"
-                        android:text="@string/earning"
+                        android:text="@string/amount"
                         android:textSize="12sp"
                         android:textColor="?attr/textColor" />
 
                     <TextView
-                        android:id="@+id/tv_earning"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="@string/rupee"
-                        android:textSize="12sp"
-                        android:textColor="?attr/textColor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_spending"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.2"
-                        android:text="@string/spending"
-                        android:textSize="12sp"
-                        android:textColor="?attr/textColor" />
-
-                    <TextView
-                        android:id="@+id/tv_spending"
+                        android:id="@+id/tv_amount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -132,8 +107,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
@@ -152,30 +126,6 @@
                         android:textSize="12sp"
                         android:textColor="?attr/textColor" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_remarks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.2"
-                        android:text="@string/remarks"
-                        android:textSize="12sp"
-                        android:textColor="?attr/textColor" />
-
-                    <TextView
-                        android:id="@+id/tv_remarks"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="@string/remarks"
-                        android:textSize="12sp"
-                        android:textColor="?attr/textColor" />
-                </LinearLayout>
             </LinearLayout>
 
             <ImageView
@@ -187,6 +137,7 @@
                 android:background="@drawable/ripple_rectangle"
                 android:src="@drawable/ic_edit"
                 app:tint="?attr/colorPrimary"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/image"/>
 
@@ -197,6 +148,7 @@
                 android:padding="5dp"
                 android:background="@drawable/ripple_rectangle"
                 android:src="@drawable/ic_delete"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/image"/>
         </LinearLayout>
