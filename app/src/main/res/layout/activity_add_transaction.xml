@@ -179,7 +179,8 @@
                         android:hint="@string/description"
                         android:textSize="15sp"
                         android:textColor="?attr/textColor"
-                        android:inputType="textCapWords"
+                        android:inputType="textMultiLine"
+                        android:lineSpacingExtra="5dp"
                         android:selectAllOnFocus="true"
                         android:importantForAutofill="no" />
                 </com.google.android.material.textfield.TextInputLayout>
