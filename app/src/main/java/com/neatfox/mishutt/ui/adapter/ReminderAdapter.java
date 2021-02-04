@@ -16,7 +16,6 @@ import com.neatfox.mishutt.ui.model.Transaction;
 import java.util.ArrayList;
 
 import static com.neatfox.mishutt.Constants.addCommaString;
-import static com.neatfox.mishutt.Constants.changeDateFormatUI;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
@@ -39,7 +38,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Transaction transaction = transaction_list.get(position);
 
-        holder.date.setText(changeDateFormatUI(transaction.getDate()));
+        holder.date.setText(transaction.getDate());
         holder.category.setText(transaction.getCategory());
         holder.amount.setText(String.format("₹%s", addCommaString(transaction.getSpending())));
         holder.description.setText(transaction.getDescription());

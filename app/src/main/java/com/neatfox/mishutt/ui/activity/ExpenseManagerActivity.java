@@ -246,7 +246,7 @@ public class ExpenseManagerActivity extends MainActivity {
                 }
 
                 if (address.trim().length()==6 && isAlpha(address)){
-                    if (body.contains("Rs") || body.contains("rs")) {
+                    if (body.contains("Rs") || body.contains("rs") || body.contains("INR") || body.contains("₹")) {
                         if (body.contains("credited")|| body.contains("debited") || body.contains("withdrawn") ||
                                 body.contains("Credited")|| body.contains("Debited") || body.contains("Withdrawn") ||
                                 body.contains("payment") || body.contains("Transaction ID") || body.contains("Txn ID") ||
@@ -257,13 +257,9 @@ public class ExpenseManagerActivity extends MainActivity {
                                 body.contains("Received") || body.contains("Bill") || body.contains("Rent") ||
                                 body.contains("loan") || body.contains("salary") || body.contains("Salary") ||
                                 body.contains("Loan") || body.contains("Premium") || body.contains("ATM") ||
-                                body.contains("premium") || body.contains("swiggy") || body.contains("Swiggy") ||
-                                body.contains("zomato") || body.contains("Zomato") || body.contains("McDonald") ||
-                                body.contains("subway") || body.contains("Subway") || body.contains("Domino") ||
-                                body.contains("domino") || body.contains("Pizza") || body.contains("pizza") ||
-                                body.contains("EMI") || body.contains("Due") || body.contains("due") ||
-                                body.contains("Reminder") || body.contains("reminder") || body.contains("spent") ||
-                                body.contains("Spent") ) {
+                                body.contains("premium") || body.contains("EMI") || body.contains("Due") ||
+                                body.contains("due") || body.contains("Reminder") || body.contains("reminder") ||
+                                body.contains("spent") || body.contains("Spent") ) {
 
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
@@ -350,7 +346,7 @@ public class ExpenseManagerActivity extends MainActivity {
             category = "Others";
         }
         /*-----------------------------------Transaction Amount-----------------------------------*/
-        String amount = "0";
+        String amount;
         if (body.contains("INR")){
             amount = formatter(body,"INR");
             /*String[] separated = body.split("INR");
@@ -389,7 +385,8 @@ public class ExpenseManagerActivity extends MainActivity {
             }
             else
                 body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
-        }
+        } else
+            amount = "0";
 
         System.out.println("From : "+address);
         System.out.println("Body : "+amount);
@@ -403,7 +400,7 @@ public class ExpenseManagerActivity extends MainActivity {
         if (isNetworkAvailable()) {
             noNetwork();
         } else {
-            if (Double.parseDouble(amount) > 0){
+            if (!"0".equalsIgnoreCase(amount) && type.length() > 1){
                 if ("Reminder".equalsIgnoreCase(type)){
                     String due_date = formatter(body,"due on");
                     submitReminder(_date,due_date,category,amount,address,body);
@@ -512,8 +509,8 @@ public class ExpenseManagerActivity extends MainActivity {
                 params.put("uid", sharedPreference.getString("register_id", ""));
                 params.put("mess_res_date", changeDateFormatDB(date));
                 params.put("amount", amount);
-                params.put("due_date", changeDateFormatDB(due_date));
-                params.put("description", address +"\n"+category);
+                params.put("due_date",due_date);
+                params.put("description", address +"\t\t"+category);
                 params.put("full_mess", message);
                 return params;
             }
