@@ -402,8 +402,10 @@ public class ExpenseManagerActivity extends MainActivity {
         } else {
             if (!"0".equalsIgnoreCase(amount) && type.length() > 1){
                 if ("Reminder".equalsIgnoreCase(type)){
-                    String due_date = formatter(body,"due on");
-                    submitReminder(_date,due_date,category,amount,address,body);
+                    if (body.contains("due on")){
+                        String due_date = formatter(body,"due on");
+                        submitReminder(_date,due_date,category,amount,address,body);
+                    }
                 } else {
                     submitDetails(_date,type,category,amount,address, body);
                 }

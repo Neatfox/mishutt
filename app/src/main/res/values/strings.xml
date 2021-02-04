@@ -92,6 +92,8 @@
     <string name="select_start_end_date">Select Start Date &amp; End Date</string>
     <string name="no_data">No Data Found</string>
     <string name="date">Date</string>
+    <string name="due_date">Due Date</string>
+    <string name="due_amount">Due Amount</string>
     <string name="category">Category</string>
     <string name="earning">Earning(s)</string>
     <string name="spending">Expense(s)</string>

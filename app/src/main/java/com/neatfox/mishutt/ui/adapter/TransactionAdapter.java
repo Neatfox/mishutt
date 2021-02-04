@@ -100,7 +100,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                     intent.putExtra("category", transaction.getCategory());
                     if (Double.parseDouble(transaction.getEarning()) == 0.0){
                         intent.putExtra("amount", transaction.getSpending());
-                        intent.putExtra("transaction_type", "Earning");
+                        intent.putExtra("transaction_type", "Expense");
                     } else {
                         intent.putExtra("amount", transaction.getEarning());
                         intent.putExtra("transaction_type", "Earning");

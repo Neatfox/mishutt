@@ -387,7 +387,6 @@ public class AddTransactionActivity extends AppCompatActivity {
     /*......................................Transaction Type......................................*/
     public void getTransactionType() {
         transaction_type_list = new ArrayList<>();
-
         StringRequest request = new StringRequest(Request.Method.POST, api_transaction_type, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

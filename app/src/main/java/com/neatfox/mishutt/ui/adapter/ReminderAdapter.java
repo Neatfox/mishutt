@@ -43,7 +43,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         holder.amount.setText(String.format("₹%s", addCommaString(transaction.getSpending())));
         holder.description.setText(transaction.getDescription());
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { }
