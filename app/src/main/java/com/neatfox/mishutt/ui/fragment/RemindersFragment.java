@@ -40,8 +40,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -155,12 +159,44 @@ public class RemindersFragment extends Fragment {
                             transaction.setSpending(jsonObject.optString("amount"));
                             transaction.setDescription(jsonObject.optString("full_mess"));
                             transaction.setDate(jsonObject.optString("due_date"));
-                            transaction_list.add(transaction);
+
+                            String _date = jsonObject.optString("due_date");
+                            if (_date.length()>9 && _date.contains("."))
+                                _date = _date.trim().substring(0,_date.indexOf("."));
+                            if (_date.length() == 9){
+                                if (_date.contains("/")){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yy", Locale.getDefault());
+                                    Date mDate = sdf.parse(_date);
+                                    if (new Date().before(mDate)) {
+                                        transaction_list.add(transaction);
+                                    }
+                                } else if (_date.contains("-")){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy", Locale.getDefault());
+                                    Date mDate = sdf.parse(_date);
+                                    if (new Date().before(mDate)) {
+                                        transaction_list.add(transaction);
+                                    }
+                                }
+                            } else if (_date.length() == 8){
+                                if (_date.contains("/")){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+                                    Date mDate = sdf.parse(_date);
+                                    if (new Date().before(mDate)) {
+                                        transaction_list.add(transaction);
+                                    }
+                                } else if (_date.contains("-")){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy", Locale.getDefault());
+                                    Date mDate = sdf.parse(_date);
+                                    if (new Date().before(mDate)) {
+                                        transaction_list.add(transaction);
+                                    }
+                                }
+                            }
                         }
                         recyclerView.setLayoutManager(layoutManager);
                         adapter = new ReminderAdapter(transaction_list,context);
                         recyclerView.setAdapter(adapter);
-                    } catch (JSONException e) {
+                    } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
 

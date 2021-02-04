@@ -37,6 +37,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -163,11 +164,19 @@ public class TransactionChartFragment extends Fragment {
             }
         },2000);
 
+        Legend legend = chart.getLegend();
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //top
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setTextColor(Color.parseColor("#FF000000"));
+        legend.setTextSize(10f);
+
         chart.setDrawHoleEnabled(false);
         chart.getDescription().setEnabled(false);
         chart.animate();
         chart.setEntryLabelColor(Color.BLACK);
-        chart.setEntryLabelTextSize(12f);
+        chart.setEntryLabelTextSize(10f);
+        chart.setExtraOffsets(10, 0, 15, 0);
 
         for (int c : ColorTemplate.MATERIAL_COLORS)
             colors.add(c);
@@ -188,24 +197,7 @@ public class TransactionChartFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinner.setSelection(position);
-                recommendations_suggestions();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    chart_title.setVisibility(View.INVISIBLE);
-                    loading.setVisibility(View.VISIBLE);
-                    layout_alert.setVisibility(View.GONE);
-                    layout_suggestions_earning_spending.setVisibility(View.GONE);
-                    if (position == 0){
-                        getTransactionTotalEarningSpending();
-                    } else if (position == 1) {
-                        getTransactionEarningCategory();
-                    } else {
-                        getTransactionSpendingCategory();
-                    }
-                } else {
-                    loading.setVisibility(View.GONE);
-                    noNetwork();
-                }
+                spinnerSelection(position);
             }
 
             @Override
@@ -245,6 +237,7 @@ public class TransactionChartFragment extends Fragment {
                 if (start_date.length()>1 && end_date.length()>1){
                     if (networkInfo != null && networkInfo.isConnected()) {
                         loading.setVisibility(View.VISIBLE);
+                        chart.clear();
                         getTransactionTotalEarningSpendingByDate();
                     } else {
                         loading.setVisibility(View.GONE);
@@ -282,6 +275,27 @@ public class TransactionChartFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void spinnerSelection(int position){
+        recommendations_suggestions();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            chart_title.setVisibility(View.INVISIBLE);
+            chart.clear();
+            loading.setVisibility(View.VISIBLE);
+            layout_alert.setVisibility(View.GONE);
+            layout_suggestions_earning_spending.setVisibility(View.GONE);
+            if (position == 0){
+                getTransactionTotalEarningSpending();
+            } else if (position == 1) {
+                getTransactionEarningCategory();
+            } else {
+                getTransactionSpendingCategory();
+            }
+        } else {
+            loading.setVisibility(View.GONE);
+            noNetwork();
+        }
     }
 
     private void recommendations_suggestions(){
@@ -420,9 +434,9 @@ public class TransactionChartFragment extends Fragment {
                         entries.add(new PieEntry(total_spending,"Expenses"));
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
+                        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
                         dataSet.setColors(colors);
-                        dataSet.setSliceSpace(5f);
-                        dataSet.setValueTextSize(12f);
+                        dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
                         chart.setData(data);
                         chart.highlightValues(null);
@@ -502,9 +516,9 @@ public class TransactionChartFragment extends Fragment {
                             layout_alert.setVisibility(View.GONE);
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
+                        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
                         dataSet.setColors(colors);
-                        dataSet.setSliceSpace(5f);
-                        dataSet.setValueTextSize(12f);
+                        dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
                         chart.setData(data);
                         chart.highlightValues(null);
@@ -575,9 +589,9 @@ public class TransactionChartFragment extends Fragment {
                                     jsonObject.getString("expcategory")));
                         }
                         PieDataSet dataSet = new PieDataSet(entries, " ");
+                        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
                         dataSet.setColors(colors);
-                        dataSet.setSliceSpace(5f);
-                        dataSet.setValueTextSize(12f);
+                        dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
                         chart.setData(data);
                         chart.highlightValues(null);
@@ -657,9 +671,9 @@ public class TransactionChartFragment extends Fragment {
                             }
                         }
                         PieDataSet dataSet = new PieDataSet(entries, " ");
+                        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
                         dataSet.setColors(colors);
-                        dataSet.setSliceSpace(5f);
-                        dataSet.setValueTextSize(12f);
+                        dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
                         chart.setData(data);
                         chart.highlightValues(null);

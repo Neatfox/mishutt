@@ -38,10 +38,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Transaction transaction = transaction_list.get(position);
 
-        holder.date.setText(transaction.getDate());
-        holder.category.setText(transaction.getCategory());
+        String _date = transaction.getDate();
+        if (_date.length()>9 && _date.contains("."))
+            _date = _date.trim().substring(0,_date.indexOf("."));
+
+        String _category = transaction.getCategory();
+        String[] separated = _category.split("\t\t");
+        _category = separated[1] +" - "+separated[0];
+        holder.date.setText(_date);
+        holder.category.setText(_category);
         holder.amount.setText(String.format("₹%s", addCommaString(transaction.getSpending())));
-        holder.description.setText(transaction.getDescription());
+        holder.description.setText(removeLastLine(transaction.getDescription()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,5 +78,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             edit = itemView.findViewById(R.id.iv_edit);
             delete = itemView.findViewById(R.id.iv_delete);
         }
+    }
+
+    public String removeLastLine(String temp) {
+        temp = temp.substring(0, temp.lastIndexOf(". "));
+        return temp;
     }
 }

@@ -247,19 +247,19 @@ public class ExpenseManagerActivity extends MainActivity {
 
                 if (address.trim().length()==6 && isAlpha(address)){
                     if (body.contains("Rs") || body.contains("rs") || body.contains("INR") || body.contains("₹")) {
-                        if (body.contains("credited")|| body.contains("debited") || body.contains("withdrawn") ||
-                                body.contains("Credited")|| body.contains("Debited") || body.contains("Withdrawn") ||
-                                body.contains("payment") || body.contains("Transaction ID") || body.contains("Txn ID") ||
-                                body.contains("Payment") || body.contains("transaction ID") || body.contains("txn ID") ||
-                                body.contains("recharge") || body.contains("added") || body.contains("paid") ||
-                                body.contains("Recharge") || body.contains("Added") || body.contains("Paid") ||
-                                body.contains("received") || body.contains("bill") || body.contains("rent") ||
-                                body.contains("Received") || body.contains("Bill") || body.contains("Rent") ||
-                                body.contains("loan") || body.contains("salary") || body.contains("Salary") ||
-                                body.contains("Loan") || body.contains("Premium") || body.contains("ATM") ||
-                                body.contains("premium") || body.contains("EMI") || body.contains("Due") ||
-                                body.contains("due") || body.contains("Reminder") || body.contains("reminder") ||
-                                body.contains("spent") || body.contains("Spent") ) {
+                        if (body.contains("Cashback") || body.contains("credited")|| body.contains("debited") ||
+                                body.contains("withdrawn") || body.contains("Credited")|| body.contains("Debited") ||
+                                body.contains("Withdrawn") || body.contains("payment") || body.contains("Transaction ID") ||
+                                body.contains("Txn ID") || body.contains("Payment") || body.contains("transaction ID") ||
+                                body.contains("txn ID") || body.contains("recharge") || body.contains("added") ||
+                                body.contains("paid") || body.contains("Recharge") || body.contains("Added") ||
+                                body.contains("Paid") || body.contains("received") || body.contains("bill") ||
+                                body.contains("rent") || body.contains("Received") || body.contains("Bill") ||
+                                body.contains("Rent") || body.contains("loan") || body.contains("salary") ||
+                                body.contains("Salary") || body.contains("Loan") || body.contains("Premium") ||
+                                body.contains("ATM") || body.contains("premium") || body.contains("EMI") ||
+                                body.contains("Due") || body.contains("due") || body.contains("Reminder") ||
+                                body.contains("reminder") || body.contains("spent") || body.contains("Spent")) {
 
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
@@ -303,32 +303,26 @@ public class ExpenseManagerActivity extends MainActivity {
                 body.contains("spent") || body.contains("Spent") || body.contains("recharge") ||
                 body.contains("paid") || body.contains("Debited") || body.contains("Withdrawn") ||
                 body.contains("Payment") || body.contains("Recharge") || body.contains("Paid") ||
-                body.contains("Bill") || body.contains("Rent") || body.contains("loan") ||
-                body.contains("Loan") || body.contains("Premium") || body.contains("premium") ||
-                body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
-                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
-                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
-                body.contains("Pizza") || body.contains("pizza") || body.contains("ATM") ||
-                body.contains("EMI")){
+                body.contains("Bill") || body.contains("Rent") || body.contains("swiggy") ||
+                body.contains("Swiggy") || body.contains("zomato") || body.contains("Zomato") ||
+                body.contains("McDonald") || body.contains("subway") || body.contains("Subway") ||
+                body.contains("Domino") || body.contains("domino") || body.contains("Pizza") ||
+                body.contains("pizza") || body.contains("ATM") || body.contains("EMI")){
             type = "Expense";
-        } else if (body.contains("credited") || body.contains("added")  || body.contains("received") || body.contains("salary") ||
-                body.contains("Salary") || body.contains("Credited") || body.contains("Added")  || body.contains("Received")) {
+        } else if (body.contains("cashback") || body.contains("Cashback") || body.contains("credited") ||
+                body.contains("added")  || body.contains("received") || body.contains("salary") ||
+                body.contains("Salary") || body.contains("Credited") || body.contains("Added")  ||
+                body.contains("Received")) {
             type = "Earning";
         }
 
-        if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+        if (body.contains("Cashback") || body.contains("cashback")) {
+            category = "Cashback";
+        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
                 body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
                 body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
                 body.contains("Pizza") || body.contains("pizza")) {
             category = "Food";
-        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
-                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
-                body.contains("car") || body.contains("Car") || body.contains("bike") ||
-                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
-            category = "Loan";
-        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
-                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler")) {
-            category = "Premium";
         } else if (body.contains("ATM")) {
             category = "ATM";
         } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
@@ -340,8 +334,22 @@ public class ExpenseManagerActivity extends MainActivity {
         } else if (type.equalsIgnoreCase("Expense") &&
                 (body.contains("card") || body.contains("Card"))){
             category = "Debit/Credit Card Expense";
+        } else if (body.contains("Credit card") || body.contains("Debit Card") ||
+                body.contains("credit card") || body.contains("debit Card")){
+            category = "Debit/Credit Card Expense";
         } else if (body.contains("Rent") || body.contains("rent")) {
             category = "Rent";
+        } else if (body.contains("UPI") || body.contains("upi")) {
+            category = "UPI";
+        }  else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
+                body.contains("car") || body.contains("Car") || body.contains("bike") ||
+                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
+            category = "Loan";
+        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
+                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler") ||
+                body.contains("Premium") || body.contains("premium")) {
+            category = "Premium";
         } else {
             category = "Others";
         }

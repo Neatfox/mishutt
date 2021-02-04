@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -60,11 +61,19 @@ public class EMICalculatorActivity extends MainActivity {
         interest_rate.setText(R.string.r);
         year.setText(R.string.t);
 
+        Legend legend = chart.getLegend();
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //top
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setTextColor(Color.parseColor("#FF000000"));
+        legend.setTextSize(10f);
+
         chart.setDrawHoleEnabled(true);
         chart.getDescription().setEnabled(false);
         chart.animate();
         chart.setEntryLabelColor(Color.BLACK);
         chart.setEntryLabelTextSize(12f);
+        chart.setExtraOffsets(25, 0, 25, 0);
 
         for (int c : ColorTemplate.MATERIAL_COLORS)
             colors.add(c);
@@ -182,7 +191,7 @@ public class EMICalculatorActivity extends MainActivity {
 
         PieDataSet dataSet = new PieDataSet(entries, " ");
         dataSet.setColors(colors);
-        dataSet.setSliceSpace(5f);
+        dataSet.setSliceSpace(2f);
         dataSet.setValueTextSize(12f);
         PieData data = new PieData(dataSet);
         chart.setData(data);
