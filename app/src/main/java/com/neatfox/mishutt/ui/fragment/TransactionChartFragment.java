@@ -162,7 +162,7 @@ public class TransactionChartFragment extends Fragment {
             public void run(){
                 recommendations_suggestions();
             }
-        },2000);
+        },3000);
 
         Legend legend = chart.getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
@@ -278,7 +278,13 @@ public class TransactionChartFragment extends Fragment {
     }
 
     private void spinnerSelection(int position){
-        recommendations_suggestions();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                recommendations_suggestions();
+            }
+        },3000);
+
         if (networkInfo != null && networkInfo.isConnected()) {
             chart_title.setVisibility(View.INVISIBLE);
             chart.clear();
