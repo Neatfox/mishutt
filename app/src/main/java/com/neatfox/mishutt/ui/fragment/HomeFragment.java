@@ -99,8 +99,8 @@ public class HomeFragment extends Fragment {
      ProgressBar loading_expense_manager,loading_goal_manager;
      SliderView sliderView_banner,sliderView_ad;
      ArrayList<ImageSlider> image_list_banner = new ArrayList<>();
-    ArrayList<ImageSlider> image_list_ad = new ArrayList<>();
-    GridView gridViewLess,gridViewMore;
+     ArrayList<ImageSlider> image_list_ad = new ArrayList<>();
+     GridView gridViewLess,gridViewMore;
      GridViewAdapter adapterLess;
      ShimmerFrameLayout mShimmerViewContainer;
      TabLayout tabLayout;

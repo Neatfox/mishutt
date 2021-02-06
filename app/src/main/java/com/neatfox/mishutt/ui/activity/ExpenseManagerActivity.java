@@ -341,6 +341,8 @@ public class ExpenseManagerActivity extends MainActivity {
             category = "Rent";
         } else if (body.contains("UPI") || body.contains("upi")) {
             category = "UPI";
+        } else if (body.contains("Cheque") || body.contains("cheque")) {
+            category = "Cheque";
         }  else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
                 body.contains("Personal") || body.contains("Home") || body.contains("home") ||
                 body.contains("car") || body.contains("Car") || body.contains("bike") ||

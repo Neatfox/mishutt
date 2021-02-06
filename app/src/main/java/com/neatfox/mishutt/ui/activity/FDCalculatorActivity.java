@@ -1,6 +1,7 @@
 package com.neatfox.mishutt.ui.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,12 +68,21 @@ public class FDCalculatorActivity extends MainActivity {
         interest_rate.setText(R.string.r);
         year.setText(R.string.t);
 
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         Legend legend = chart.getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //top
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setTextColor(Color.parseColor("#FF000000"));
         legend.setTextSize(10f);
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            legend.setTextColor(Color.parseColor("#FFFFFFFF"));
+            chart.setHoleColor(Color.parseColor("#FF000000"));
+        } else {
+            legend.setTextColor(Color.parseColor("#FF000000"));
+            chart.setHoleColor(Color.parseColor("#FFFFFFFF"));
+        }
 
         chart.setDrawHoleEnabled(true);
         chart.getDescription().setEnabled(false);

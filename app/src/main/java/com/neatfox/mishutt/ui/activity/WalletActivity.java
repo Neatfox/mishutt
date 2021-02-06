@@ -191,6 +191,65 @@ public class WalletActivity extends MainActivity {
             }
         });
 
+        progressDialog = new ProgressDialog(WalletActivity.this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                checkFlag();
+            }
+        },5000);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isNetworkAvailable()) {
+                    noNetwork();
+                } else {
+                    getWalletBalance();
+                    getTransactionHistory();
+                }
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run(){
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1000);
+            }
+        });
+
+        add_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (WalletActivity.this, AddMoneyActivity.class);
+                intent.putExtra("wallet_balance",wallet_balance.getText().toString().trim());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                WalletActivity.this.startActivity(intent);
+            }
+        });
+
+        transfer_money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(WalletActivity.this,
+                        "This feature will get active in the next release. Thank You",Toast.LENGTH_LONG).show();
+            }
+        });
+        /*....................................Bottom Navigation...................................*/
+        bottom_navigation_id = 4;
+        bottomNavigation.show(bottom_navigation_id,false);
+    }
+
+    private void checkFlag(){
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+
         if ("N".equalsIgnoreCase(_payment_flag)){
             if (_pan_no.trim().length()<10){
                 AlertDialog.Builder builder = new AlertDialog.Builder(WalletActivity.this);
@@ -232,46 +291,6 @@ public class WalletActivity extends MainActivity {
                 getTransactionHistory();
             }
         }
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (isNetworkAvailable()) {
-                    noNetwork();
-                } else {
-                    getWalletBalance();
-                    getTransactionHistory();
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run(){
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                },1000);
-            }
-        });
-
-        add_money.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (WalletActivity.this, AddMoneyActivity.class);
-                intent.putExtra("wallet_balance",wallet_balance.getText().toString().trim());
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                WalletActivity.this.startActivity(intent);
-            }
-        });
-
-        transfer_money.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(WalletActivity.this,
-                        "This feature will get active in the next release. Thank You",Toast.LENGTH_LONG).show();
-            }
-        });
-        /*....................................Bottom Navigation...................................*/
-        bottom_navigation_id = 4;
-        bottomNavigation.show(bottom_navigation_id,false);
     }
     /*......................................Verification Code.....................................*/
     private class GenericTextWatcher implements TextWatcher {

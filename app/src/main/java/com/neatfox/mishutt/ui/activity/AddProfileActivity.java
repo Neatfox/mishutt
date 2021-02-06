@@ -504,7 +504,7 @@ public class AddProfileActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                layout_pan_no.setHelperText("Failed to verify Aadhaar Number");
+                layout_pan_no.setHelperText("Failed to verify PAN No");
                 layout_pan_no.setHelperTextColor(AppCompatResources.getColorStateList(getApplicationContext(),colorRedArray[0]));
                 snackBarError();
             }
@@ -619,10 +619,15 @@ public class AddProfileActivity extends AppCompatActivity {
                         else
                             pan_no.setText(jsonObject.getString("pan_no"));
 
-                        if ("N".equalsIgnoreCase(jsonObject.getString("payment_flag")))
+                        if ("N".equalsIgnoreCase(jsonObject.getString("payment_flag"))){
+                            name.setEnabled(true);
+                            mobile_number.setEnabled(true);
                             pan_no.setEnabled(true);
-                        else if ("Y".equalsIgnoreCase(jsonObject.getString("payment_flag")))
+                        } else if ("Y".equalsIgnoreCase(jsonObject.getString("payment_flag"))){
+                            name.setEnabled(false);
+                            mobile_number.setEnabled(false);
                             pan_no.setEnabled(false);
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

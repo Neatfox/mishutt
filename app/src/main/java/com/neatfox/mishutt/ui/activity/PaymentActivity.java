@@ -230,8 +230,7 @@ public class PaymentActivity extends MainActivity {
                 callback.invoke(origin, true, false);
             }
 
-            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams)
-            {
+            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
                 if (mUploadMessage != null) {
                     mUploadMessage.onReceiveValue(null);
                     mUploadMessage = null;
@@ -240,11 +239,9 @@ public class PaymentActivity extends MainActivity {
                 mUploadMessage = filePathCallback;
 
                 Intent intent = fileChooserParams.createIntent();
-                try
-                {
+                try {
                     startActivityForResult(intent, REQUEST_FILE);
-                } catch (ActivityNotFoundException e)
-                {
+                } catch (ActivityNotFoundException e) {
                     mUploadMessage = null;
                     Toast.makeText(PaymentActivity.this.getApplicationContext(), "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
                     return false;
@@ -356,7 +353,19 @@ public class PaymentActivity extends MainActivity {
             }
         });
 
-        checkFlag();
+        progressDialog = new ProgressDialog(PaymentActivity.this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run(){
+                checkFlag();
+            }
+        },5000);
 
         /*....................................Bottom Navigation...................................*/
         bottom_navigation_id = 1;
@@ -364,6 +373,9 @@ public class PaymentActivity extends MainActivity {
     }
 
     private void checkFlag(){
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+
         if ("N".equalsIgnoreCase(_payment_flag)){
             if (_pan_no.trim().length()<10){
                 AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);

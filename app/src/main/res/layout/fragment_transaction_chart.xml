@@ -125,7 +125,6 @@
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
-                        android:background="@color/white"
                         android:padding="10dp"/>
 
                     <LinearLayout

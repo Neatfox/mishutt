@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +29,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -96,7 +99,7 @@ public class TransactionChartFragment extends Fragment {
     float total_earning = 0,total_spending = 0;
     double double_total_earning,double_total_spending = 0,annual_income = 0.0;
     long milliseconds;
-    int start_date_flag = 0,end_date_flag = 0;
+    int start_date_flag = 0,end_date_flag = 0, nightModeFlags;
     String start_date = "",end_date = "",_earnings,_expenses;
 
     public void noNetwork() {
@@ -164,18 +167,25 @@ public class TransactionChartFragment extends Fragment {
             }
         },3000);
 
+        nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         Legend legend = chart.getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //top
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setTextColor(Color.parseColor("#FF000000"));
         legend.setTextSize(10f);
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            legend.setTextColor(Color.parseColor("#FFFFFFFF"));
+        } else {
+            legend.setTextColor(Color.parseColor("#FF000000"));
+        }
 
         chart.setDrawHoleEnabled(false);
         chart.getDescription().setEnabled(false);
         chart.animate();
-        chart.setEntryLabelColor(Color.BLACK);
         chart.setEntryLabelTextSize(10f);
+        chart.setEntryLabelColor(Color.BLACK);
         chart.setExtraOffsets(10, 0, 15, 0);
 
         for (int c : ColorTemplate.MATERIAL_COLORS)
@@ -441,6 +451,13 @@ public class TransactionChartFragment extends Fragment {
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            //dataSet.setValueLineColor(Color.parseColor("#FFFFFFFF"));
+                            dataSet.setValueTextColor(Color.parseColor("#FFFFFFFF"));
+                        } else {
+                            //dataSet.setValueLineColor(Color.parseColor("#FF000000"));
+                            dataSet.setValueTextColor(Color.parseColor("#FF000000"));
+                        }
                         dataSet.setColors(colors);
                         dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
@@ -523,6 +540,13 @@ public class TransactionChartFragment extends Fragment {
 
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            //dataSet.setValueLineColor(Color.parseColor("#FFFFFFFF"));
+                            dataSet.setValueTextColor(Color.parseColor("#FFFFFFFF"));
+                        } else {
+                            //dataSet.setValueLineColor(Color.parseColor("#FF000000"));
+                            dataSet.setValueTextColor(Color.parseColor("#FF000000"));
+                        }
                         dataSet.setColors(colors);
                         dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
@@ -596,6 +620,13 @@ public class TransactionChartFragment extends Fragment {
                         }
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            //dataSet.setValueLineColor(Color.parseColor("#FFFFFFFF"));
+                            dataSet.setValueTextColor(Color.parseColor("#FFFFFFFF"));
+                        } else {
+                            //dataSet.setValueLineColor(Color.parseColor("#FF000000"));
+                            dataSet.setValueTextColor(Color.parseColor("#FF000000"));
+                        }
                         dataSet.setColors(colors);
                         dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);
@@ -678,6 +709,13 @@ public class TransactionChartFragment extends Fragment {
                         }
                         PieDataSet dataSet = new PieDataSet(entries, " ");
                         dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            //dataSet.setValueLineColor(Color.parseColor("#FFFFFFFF"));
+                            dataSet.setValueTextColor(Color.parseColor("#FFFFFFFF"));
+                        } else {
+                            //dataSet.setValueLineColor(Color.parseColor("#FF000000"));
+                            dataSet.setValueTextColor(Color.parseColor("#FF000000"));
+                        }
                         dataSet.setColors(colors);
                         dataSet.setValueTextSize(10f);
                         PieData data = new PieData(dataSet);

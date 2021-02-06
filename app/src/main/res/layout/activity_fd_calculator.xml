@@ -258,19 +258,19 @@
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 card_view:cardCornerRadius="6dp"
                 card_view:elevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="?attr/itemBackgroundColor"
+                    android:padding="5dp">
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:background="@color/white"
                         android:padding="10dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
