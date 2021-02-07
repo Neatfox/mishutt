@@ -67,17 +67,20 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         final Transaction transaction = transaction_list.get(position);
 
         holder.date.setText(changeDateFormatUI(transaction.getDate()));
-        holder.category.setText(transaction.getCategory());
         holder.earning.setText(String.format("₹%s", addCommaString(transaction.getEarning())));
         holder.spending.setText(String.format("₹%s", addCommaString(transaction.getSpending())));
         holder.description.setText(transaction.getDescription());
         holder.remarks.setText(transaction.getRemarks());
 
+        String body = transaction.getDescription();
+        String _category,type;
 
         if (Double.parseDouble(transaction.getEarning()) == 0.0){
+            type = "Expense";
             holder.layout_earning.setVisibility(View.GONE);
             holder.layout_spending.setVisibility(View.VISIBLE);
         } else {
+            type = "Earning";
             holder.layout_earning.setVisibility(View.VISIBLE);
             holder.layout_spending.setVisibility(View.GONE);
         }
@@ -86,6 +89,48 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.remarks.setVisibility(View.GONE);
         else
             holder.remarks.setVisibility(View.VISIBLE);
+
+        if (body.contains("Cashback") || body.contains("cashback")) {
+            _category = "Cashback";
+        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
+                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
+                body.contains("Pizza") || body.contains("pizza")) {
+            _category = "Food";
+        } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
+                body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
+                body.contains("topup") || body.contains("topUp")) {
+            _category = "Recharge";
+        } else if (body.contains("Bill") || body.contains("bill")) {
+            _category = "Bill";
+        } else if (type.equalsIgnoreCase("Expense") &&
+                (body.contains("card") || body.contains("Card"))){
+            _category = "Debit/Credit Card Expense";
+        } else if (body.contains("Credit card") || body.contains("Debit Card") ||
+                body.contains("credit card") || body.contains("debit Card")){
+            _category = "Debit/Credit Card Expense";
+        } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
+                body.contains("Departure") || body.contains("PNR")){
+            _category = "Travel";
+        } else if (body.contains("Rent") || body.contains("rent")) {
+            _category = "Rent";
+        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
+                body.contains("cheque") || body.contains("ATM")) {
+            _category = "Banking";
+        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
+                body.contains("car") || body.contains("Car") || body.contains("bike") ||
+                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
+            _category = "Loan";
+        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
+                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler") ||
+                body.contains("Premium") || body.contains("premium")) {
+            _category = "Premium";
+        } else {
+            _category = "Others";
+        }
+
+        holder.category.setText(_category);
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override

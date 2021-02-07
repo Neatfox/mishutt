@@ -323,8 +323,6 @@ public class ExpenseManagerActivity extends MainActivity {
                 body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
                 body.contains("Pizza") || body.contains("pizza")) {
             category = "Food";
-        } else if (body.contains("ATM")) {
-            category = "ATM";
         } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
                 body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
                 body.contains("topup") || body.contains("topUp")) {
@@ -337,13 +335,15 @@ public class ExpenseManagerActivity extends MainActivity {
         } else if (body.contains("Credit card") || body.contains("Debit Card") ||
                 body.contains("credit card") || body.contains("debit Card")){
             category = "Debit/Credit Card Expense";
+        } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
+                body.contains("Departure") || body.contains("PNR")){
+            category = "Travel";
         } else if (body.contains("Rent") || body.contains("rent")) {
             category = "Rent";
-        } else if (body.contains("UPI") || body.contains("upi")) {
-            category = "UPI";
-        } else if (body.contains("Cheque") || body.contains("cheque")) {
-            category = "Cheque";
-        }  else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
+                body.contains("cheque") || body.contains("ATM")) {
+            category = "Banking";
+        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
                 body.contains("Personal") || body.contains("Home") || body.contains("home") ||
                 body.contains("car") || body.contains("Car") || body.contains("bike") ||
                 body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
