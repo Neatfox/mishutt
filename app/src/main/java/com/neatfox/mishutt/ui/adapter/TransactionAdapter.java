@@ -130,7 +130,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             _category = "Others";
         }
 
-        holder.category.setText(_category);
+        if ("Others".equalsIgnoreCase(_category) && !_category.equalsIgnoreCase(transaction.getCategory())){
+            holder.category.setText(transaction.getCategory());
+        } else {
+            holder.category.setText(_category);
+        }
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
