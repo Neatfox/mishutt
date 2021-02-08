@@ -42,6 +42,7 @@ import java.util.Objects;
 
 import static com.neatfox.mishutt.Constants.addCommaString;
 import static com.neatfox.mishutt.Constants.api_transaction_delete;
+import static com.neatfox.mishutt.Constants.category;
 import static com.neatfox.mishutt.Constants.changeDateFormatUI;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
@@ -90,45 +91,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         else
             holder.remarks.setVisibility(View.VISIBLE);
 
-        if (body.contains("Cashback") || body.contains("cashback")) {
-            _category = "Cashback";
-        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
-                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
-                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
-                body.contains("Pizza") || body.contains("pizza")) {
-            _category = "Food";
-        } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
-                body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
-                body.contains("topup") || body.contains("topUp")) {
-            _category = "Recharge";
-        } else if (body.contains("Bill") || body.contains("bill")) {
-            _category = "Bill";
-        } else if (type.equalsIgnoreCase("Expense") &&
-                (body.contains("card") || body.contains("Card"))){
-            _category = "Debit/Credit Card Expense";
-        } else if (body.contains("Credit card") || body.contains("Debit Card") ||
-                body.contains("credit card") || body.contains("debit Card")){
-            _category = "Debit/Credit Card Expense";
-        } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
-                body.contains("Departure") || body.contains("PNR")){
-            _category = "Travel";
-        } else if (body.contains("Rent") || body.contains("rent")) {
-            _category = "Rent";
-        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
-                body.contains("cheque") || body.contains("ATM")) {
-            _category = "Banking";
-        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
-                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
-                body.contains("car") || body.contains("Car") || body.contains("bike") ||
-                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
-            _category = "Loan";
-        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
-                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler") ||
-                body.contains("Premium") || body.contains("premium")) {
-            _category = "Premium";
-        } else {
-            _category = "Others";
-        }
+        _category = category(body,type);
 
         if ("Others".equalsIgnoreCase(_category) && !_category.equalsIgnoreCase(transaction.getCategory())){
             holder.category.setText(transaction.getCategory());

@@ -189,4 +189,49 @@ public class Constants {
         // get the base 64 string
         return Base64.encodeToString(byteFormat, Base64.NO_WRAP);
     }
+    /*....................................Transaction Category....................................*/
+    public static String category (String body, String type){
+        String category;
+        if (body.contains("Cashback") || body.contains("cashback")) {
+            category = "Cashback";
+        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
+                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
+                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
+                body.contains("Pizza") || body.contains("pizza")) {
+            category = "Food";
+        } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
+                body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
+                body.contains("topup") || body.contains("topUp")) {
+            category = "Recharge";
+        } else if (body.contains("Bill") || body.contains("bill")) {
+            category = "Bill";
+        } else if (type.equalsIgnoreCase("Expense") &&
+                (body.contains("card") || body.contains("Card"))){
+            category = "Debit/Credit Card Expense";
+        } else if (body.contains("Credit card") || body.contains("Debit Card") ||
+                body.contains("credit card") || body.contains("debit Card")){
+            category = "Debit/Credit Card Expense";
+        } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
+                body.contains("Departure") || body.contains("PNR")){
+            category = "Travel";
+        } else if (body.contains("Rent") || body.contains("rent")) {
+            category = "Rent";
+        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
+                body.contains("cheque") || body.contains("ATM")) {
+            category = "Banking";
+        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
+                body.contains("car") || body.contains("Car") || body.contains("bike") ||
+                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
+            category = "Loan";
+        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
+                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler") ||
+                body.contains("Premium") || body.contains("premium")) {
+            category = "Premium";
+        } else {
+            category = "Others";
+        }
+
+        return category;
+    }
 }

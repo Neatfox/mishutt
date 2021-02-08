@@ -58,6 +58,7 @@ import static com.neatfox.mishutt.Constants.REQUEST_SMS_PERMISSION;
 import static com.neatfox.mishutt.Constants.api_add_reminder;
 import static com.neatfox.mishutt.Constants.api_transaction_add;
 import static com.neatfox.mishutt.Constants.api_transaction_msg_date_time_add;
+import static com.neatfox.mishutt.Constants.category;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
 
 public class ExpenseManagerActivity extends MainActivity {
@@ -297,7 +298,8 @@ public class ExpenseManagerActivity extends MainActivity {
         String _date = sdf.format(Date);
         /*------------------------------------Transaction Type------------------------------------*/
         String type = "",category;
-        if (body.contains("due") || body.contains("Due")  || body.contains("Reminder") || body.contains("reminder")) {
+        if (body.contains("due") || body.contains("Due")  || body.contains("Reminder") ||
+                body.contains("reminder") || body.contains("Pending") || body.contains("pending")) {
             type = "Reminder";
         } else if (body.contains("debited") || body.contains("withdrawn") || body.contains("payment") ||
                 body.contains("spent") || body.contains("Spent") || body.contains("recharge") ||
@@ -316,57 +318,12 @@ public class ExpenseManagerActivity extends MainActivity {
             type = "Earning";
         }
 
-        if (body.contains("Cashback") || body.contains("cashback")) {
-            category = "Cashback";
-        } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
-                body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
-                body.contains("Subway") || body.contains("Domino") || body.contains("domino") ||
-                body.contains("Pizza") || body.contains("pizza")) {
-            category = "Food";
-        } else if (body.contains("Recharge") || body.contains("recharge") || body.contains("Topup") ||
-                body.contains("TopUp") ||  body.contains("Top Up") || body.contains("Top up") ||
-                body.contains("topup") || body.contains("topUp")) {
-            category = "Recharge";
-        } else if (body.contains("Bill") || body.contains("bill")) {
-            category = "Bill";
-        } else if (type.equalsIgnoreCase("Expense") &&
-                (body.contains("card") || body.contains("Card"))){
-            category = "Debit/Credit Card Expense";
-        } else if (body.contains("Credit card") || body.contains("Debit Card") ||
-                body.contains("credit card") || body.contains("debit Card")){
-            category = "Debit/Credit Card Expense";
-        } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
-                body.contains("Departure") || body.contains("PNR")){
-            category = "Travel";
-        } else if (body.contains("Rent") || body.contains("rent")) {
-            category = "Rent";
-        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
-                body.contains("cheque") || body.contains("ATM")) {
-            category = "Banking";
-        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
-                body.contains("Personal") || body.contains("Home") || body.contains("home") ||
-                body.contains("car") || body.contains("Car") || body.contains("bike") ||
-                body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
-            category = "Loan";
-        } else if (body.contains("life") || body.contains("Life") || body.contains("General") ||
-                body.contains("general") || body.contains("two wheeler") || body.contains("Two Wheeler") ||
-                body.contains("Premium") || body.contains("premium")) {
-            category = "Premium";
-        } else {
-            category = "Others";
-        }
+        category = category(body,type);
+
         /*-----------------------------------Transaction Amount-----------------------------------*/
         String amount;
         if (body.contains("INR")){
             amount = formatter(body,"INR");
-            /*String[] separated = body.split("INR");
-            if (separated[1].startsWith(" ")){
-                body = separated[1];
-                String[] _separated = body.split(" ");
-                body = _separated[1].trim();
-            }
-            else
-                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
 
         } else if (body.contains("INR.")){
             amount = formatter(body,"INR.");
@@ -376,25 +333,10 @@ public class ExpenseManagerActivity extends MainActivity {
 
         } else if (body.contains("Rs.")){
             amount = formatter(body,"Rs.");
-            /*String[] separated = body.split("Rs.");
-            if (separated[1].startsWith(" ")){
-                body = separated[1];
-                String[] _separated = body.split(" ");
-                body = _separated[1].trim();
-            }
-            else
-                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
 
         } else if (body.contains("Rs")){
             amount = formatter(body,"Rs");
-            /*String[] separated = body.split("Rs");
-            if (separated[1].startsWith(" ")){
-                body = separated[1];
-                String[] _separated = body.split(" ");
-                body = _separated[1].trim();
-            }
-            else
-                body = separated[1].trim().substring(0,separated[1].indexOf(" "));*/
+
         } else
             amount = "0";
 
