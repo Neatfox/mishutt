@@ -65,9 +65,9 @@ public class EMICalculatorActivity extends MainActivity {
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         Legend legend = chart.getLegend();
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP); //top
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setTextSize(10f);
 
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {

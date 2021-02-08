@@ -58,6 +58,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.neatfox.mishutt.Constants.api_transaction_list;
+import static com.neatfox.mishutt.Constants.changeDateFormatUI;
 
 public class TransactionFragment extends Fragment {
 
@@ -329,17 +330,32 @@ public class TransactionFragment extends Fragment {
                                     _salary.equalsIgnoreCase("0"))
                                 _salary = jsonObject.optString("earning");
 
-                            if (spinner_position == 0)
-                                transaction_list.add(transaction);
-                            else if (spinner_position == 1 && "0.00".equalsIgnoreCase(jsonObject.optString("spent")))
-                                transaction_list.add(transaction);
-                            else if (spinner_position == 2 && "0.00".equalsIgnoreCase(jsonObject.optString("earning")))
-                                transaction_list.add(transaction);
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
+                            String txn_date = changeDateFormatUI(jsonObject.optString("entdate"));
+
+                            if (start_date.length()>2 && end_date.length()>2){
+                                if (Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(start_date)) >= 0 &&
+                                        Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(end_date)) <= 0){
+                                    if (spinner_position == 0)
+                                        transaction_list.add(transaction);
+                                    else if (spinner_position == 1 && "0.00".equalsIgnoreCase(jsonObject.optString("spent")))
+                                        transaction_list.add(transaction);
+                                    else if (spinner_position == 2 && "0.00".equalsIgnoreCase(jsonObject.optString("earning")))
+                                        transaction_list.add(transaction);
+                                }
+                            } else {
+                                if (spinner_position == 0)
+                                    transaction_list.add(transaction);
+                                else if (spinner_position == 1 && "0.00".equalsIgnoreCase(jsonObject.optString("spent")))
+                                    transaction_list.add(transaction);
+                                else if (spinner_position == 2 && "0.00".equalsIgnoreCase(jsonObject.optString("earning")))
+                                    transaction_list.add(transaction);
+                            }
                         }
                         recyclerView.setLayoutManager(layoutManager);
                         adapter = new TransactionAdapter(transaction_list,context);
                         recyclerView.setAdapter(adapter);
-                    } catch (JSONException e) {
+                    } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
                     loading.setVisibility(View.GONE);

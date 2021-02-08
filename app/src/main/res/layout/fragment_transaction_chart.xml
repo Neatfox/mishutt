@@ -124,8 +124,7 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        android:padding="10dp"/>
+                        android:layout_height="370dp" />
 
                     <LinearLayout
                         android:id="@+id/layout_alert"
@@ -159,7 +158,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp"
                         android:visibility="gone"
                         android:animateLayoutChanges="true">
 
@@ -207,7 +205,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp"
                         android:visibility="gone"
                         android:animateLayoutChanges="true">
 
@@ -255,7 +252,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp"
                         android:visibility="gone"
                         android:animateLayoutChanges="true">
 

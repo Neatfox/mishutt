@@ -192,7 +192,7 @@ public class Constants {
     /*....................................Transaction Category....................................*/
     public static String category (String body, String type){
         String category;
-        if (body.contains("Cashback") || body.contains("cashback")) {
+        if (type.equalsIgnoreCase("Earning") && (body.contains("Cashback") || body.contains("cashback"))) {
             category = "Cashback";
         } else if (body.contains("swiggy") || body.contains("Swiggy") || body.contains("zomato") ||
                 body.contains("Zomato") || body.contains("McDonald") || body.contains("subway") ||
@@ -207,10 +207,10 @@ public class Constants {
             category = "Bill";
         } else if (type.equalsIgnoreCase("Expense") &&
                 (body.contains("card") || body.contains("Card"))){
-            category = "Debit/Credit Card Expense";
+            category = "Card";
         } else if (body.contains("Credit card") || body.contains("Debit Card") ||
                 body.contains("credit card") || body.contains("debit Card")){
-            category = "Debit/Credit Card Expense";
+            category = "Card";
         } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
                 body.contains("Departure") || body.contains("PNR")){
             category = "Travel";
