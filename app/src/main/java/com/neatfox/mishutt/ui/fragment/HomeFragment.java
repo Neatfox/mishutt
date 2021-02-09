@@ -223,12 +223,13 @@ public class HomeFragment extends Fragment {
         loading_expense_manager = view.findViewById(R.id.loading_expense_manager);
         loading_goal_manager = view.findViewById(R.id.loading_goal_manager);
 
+        layout_expense_manager.setVisibility(View.GONE);
+        layout_goal_manager.setVisibility(View.GONE);
+        loading_expense_manager.setVisibility(View.VISIBLE);
+        loading_goal_manager.setVisibility(View.VISIBLE);
+        cardView_wallet.setVisibility(View.GONE);
+
         if (networkInfo != null && networkInfo.isConnected()) {
-            layout_expense_manager.setVisibility(View.GONE);
-            layout_goal_manager.setVisibility(View.GONE);
-            loading_expense_manager.setVisibility(View.VISIBLE);
-            loading_goal_manager.setVisibility(View.VISIBLE);
-            cardView_wallet.setVisibility(View.GONE);
             getTransactionTotalEarningSpending();
             getGoalList();
             getWalletBalance();

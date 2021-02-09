@@ -217,7 +217,7 @@ public class Constants {
         } else if (body.contains("Rent") || body.contains("rent")) {
             category = "Rent";
         } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
-                body.contains("cheque") || body.contains("ATM")) {
+                body.contains("cheque") || body.contains("ATM") || body.contains("IMPS")) {
             category = "Banking";
         } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
                 body.contains("Personal") || body.contains("Home") || body.contains("home") ||
