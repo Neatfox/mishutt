@@ -241,17 +241,24 @@ public class Constants {
                 (body.contains("card") || body.contains("Card"))){
             category = "Card";
         } else if (body.contains("Credit card") || body.contains("Debit Card") ||
-                body.contains("credit card") || body.contains("debit Card")){
+                body.contains("credit card") || body.contains("debit Card") || body.contains("ATM")){
             category = "Card";
         } else if (body.contains("Travel") || body.contains("travel") || body.contains("departure") ||
                 body.contains("Departure") || body.contains("PNR")){
             category = "Travel";
         } else if (body.contains("Rent") || body.contains("rent")) {
             category = "Rent";
-        } else if (body.contains("UPI") || body.contains("upi") || body.contains("Cheque") ||
-                body.contains("cheque") || body.contains("ATM") || body.contains("IMPS")) {
-            category = "Banking";
-        } else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
+        } else if (body.contains("UPI") || body.contains("upi")) {
+            category = "UPI";
+        } else if (body.contains("Cheque") || body.contains("cheque")) {
+            category = "Cheque";
+        } else if (body.contains("NEFT")) {
+            category = "NEFT";
+        } else if (body.contains("RTGS")) {
+            category = "RTGS";
+        } else if (body.contains("IMPS")) {
+            category = "IMPS";
+        }   else if (body.contains("loan") || body.contains("Loan") || body.contains("personal") ||
                 body.contains("Personal") || body.contains("Home") || body.contains("home") ||
                 body.contains("car") || body.contains("Car") || body.contains("bike") ||
                 body.contains("Bike") || body.contains("vehicle") || body.contains("Vehicle")) {
