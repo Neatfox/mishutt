@@ -58,6 +58,7 @@ import com.neatfox.mishutt.ui.adapter.ImageSliderAdAdapter;
 import com.neatfox.mishutt.ui.adapter.ImageSliderBannerAdapter;
 import com.neatfox.mishutt.ui.adapter.ImageSliderGoalAdapter;
 import com.neatfox.mishutt.ui.model.ImageSlider;
+import com.neatfox.mishutt.ui.model.Transaction;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -66,6 +67,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,8 +81,10 @@ import static com.neatfox.mishutt.Constants.addCommaString;
 import static com.neatfox.mishutt.Constants.api_ad;
 import static com.neatfox.mishutt.Constants.api_banner;
 import static com.neatfox.mishutt.Constants.api_goal_list;
-import static com.neatfox.mishutt.Constants.api_transaction_earning_spending;
+import static com.neatfox.mishutt.Constants.api_transaction_list;
 import static com.neatfox.mishutt.Constants.api_wallet_balance;
+import static com.neatfox.mishutt.Constants.changeDateFormatUI;
+import static com.neatfox.mishutt.Constants.type;
 import static com.neatfox.mishutt.DescriptionStrings.bank_IFSC_code_description;
 import static com.neatfox.mishutt.DescriptionStrings.cibil_description;
 
@@ -100,10 +104,13 @@ public class HomeFragment extends Fragment {
      SliderView sliderView_banner,sliderView_ad;
      ArrayList<ImageSlider> image_list_banner = new ArrayList<>();
      ArrayList<ImageSlider> image_list_ad = new ArrayList<>();
+     ArrayList<Transaction> transaction_list = new ArrayList<>();
      GridView gridViewLess,gridViewMore;
      GridViewAdapter adapterLess;
      ShimmerFrameLayout mShimmerViewContainer;
      TabLayout tabLayout;
+     float total_earning = 0, total_spending = 0;
+     String start_date = "",end_date = "";
 
      final String[] image_title = { "Loans", "Investment", "Funding", "Student Finance",
              "Start Up Funding", "More"
@@ -230,7 +237,7 @@ public class HomeFragment extends Fragment {
         cardView_wallet.setVisibility(View.GONE);
 
         if (networkInfo != null && networkInfo.isConnected()) {
-            getTransactionTotalEarningSpending();
+            getTransactionList();
             getGoalList();
             getWalletBalance();
         } else {
@@ -634,12 +641,13 @@ public class HomeFragment extends Fragment {
         Singleton.getInstance(context).addToRequestQueue(request);
     }
 
-    private void getTransactionTotalEarningSpending(){
-        StringRequest request = new StringRequest(Request.Method.POST, api_transaction_earning_spending, new Response.Listener<String>() {
+    private void getTransactionList(){
+        transaction_list = new ArrayList<>();
+        StringRequest request = new StringRequest(Request.Method.POST, api_transaction_list, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("EarningSpending>>>", "onResponse::::: " + response);
-                JSONObject resObj = null;
+                Log.i("Transaction List>>>", "onResponse::::: " + response);
+                JSONObject resObj;
                 int status = 0;
                 try {
                     resObj = new JSONObject(response);
@@ -647,14 +655,52 @@ public class HomeFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 if (status == 1) {
+                    if (!transaction_list.isEmpty()) {
+                        transaction_list.clear();
+                    }
                     try {
-                        float total_earning = Float.parseFloat(resObj.getString("total_earnings"));
-                        float total_spending = Float.parseFloat(resObj.getString("total_spents"));
+                        JSONObject jsonRootObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonRootObject.getJSONArray("list");
 
-                        earning.setText(String.format(":\b₹%s", addCommaString(resObj.getString("total_earnings"))));
-                        spending.setText(String.format(":\b₹%s", addCommaString(resObj.getString("total_spents"))));
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Transaction transaction = new Transaction();
+                            transaction.setUser_id(jsonObject.optString("userid"));
+                            transaction.setTransaction_list_id(jsonObject.optString("expenceid"));
+                            transaction.setCategory(jsonObject.optString("expcategory"));
+                            transaction.setDuration(jsonObject.optString("duration"));
+                            transaction.setEarning(jsonObject.optString("earning"));
+                            transaction.setSpending(jsonObject.optString("spent"));
+                            transaction.setDescription(jsonObject.optString("description"));
+                            transaction.setRemarks(jsonObject.optString("remarks"));
+                            transaction.setDate(jsonObject.optString("entdate"));
+
+                            if (type(jsonObject.optString("description"))) {
+
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+                                Calendar firstDayOfCurrentYear = Calendar.getInstance();
+                                firstDayOfCurrentYear.set(Calendar.DATE, 1);
+                                firstDayOfCurrentYear.set(Calendar.MONTH, 0);
+
+                                start_date = sdf.format(firstDayOfCurrentYear.getTime());
+                                end_date = sdf.format(Calendar.getInstance().getTime());
+
+                                String txn_date = changeDateFormatUI(jsonObject.optString("entdate"));
+
+                                if (Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(start_date)) >= 0 &&
+                                        Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(end_date)) <= 0){
+
+                                    total_earning = total_earning + Float.parseFloat(jsonObject.optString("earning"));
+                                    total_spending = total_spending + Float.parseFloat(jsonObject.optString("spent"));
+                                    transaction_list.add(transaction);
+                                }
+                            }
+                        }
+
+                        earning.setText(String.format(":\b₹%s", addCommaString(String.valueOf(total_earning))));
+                        spending.setText(String.format(":\b₹%s", addCommaString(String.valueOf(total_spending))));
 
                         if (total_earning < total_spending){
                             alert.setText(String.format("Your Expenses is more than your earnings by ₹%s", addCommaDouble(total_spending - total_earning)));
@@ -662,18 +708,12 @@ public class HomeFragment extends Fragment {
                         } else
                             alert.setVisibility(View.GONE);
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-                        Calendar firstDayOfCurrentYear = Calendar.getInstance();
-                        firstDayOfCurrentYear.set(Calendar.DATE, 1);
-                        firstDayOfCurrentYear.set(Calendar.MONTH, 0);
-                        System.out.println(sdf.format(firstDayOfCurrentYear.getTime()));
-
-                        date.setText(String.format("%s - %s", sdf.format(firstDayOfCurrentYear.getTime()), sdf.format(Calendar.getInstance().getTime())));
+                        date.setText(String.format("%s - %s", start_date, end_date));
                         layout_expense_manager.setVisibility(View.VISIBLE);
                         no_expense.setVisibility(View.GONE);
                         loading_expense_manager.setVisibility(View.GONE);
-                    } catch (JSONException e) {
+
+                    } catch (JSONException | ParseException e) {
                         e.printStackTrace();
                     }
                 } else {

@@ -75,6 +75,7 @@ import static com.neatfox.mishutt.Constants.api_transaction_spending_category_wi
 import static com.neatfox.mishutt.Constants.category;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
 import static com.neatfox.mishutt.Constants.changeDateFormatUI;
+import static com.neatfox.mishutt.Constants.type;
 import static com.neatfox.mishutt.ui.activity.MainActivity._annual_income;
 import static com.neatfox.mishutt.ui.fragment.TransactionFragment._salary;
 
@@ -807,74 +808,76 @@ public class TransactionChartFragment extends Fragment {
                                     _salary.equalsIgnoreCase("0"))
                                 _salary = jsonObject.optString("earning");
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
+                            if (type(jsonObject.optString("description"))){
 
-                            Calendar firstDayOfCurrentYear = Calendar.getInstance();
-                            firstDayOfCurrentYear.set(Calendar.DATE, 1);
-                            firstDayOfCurrentYear.set(Calendar.MONTH, 0);
-                            //System.out.println(sdf.format(firstDayOfCurrentYear.getTime()));
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
 
-                            if (start_date.length()<2 && end_date.length()<2){
-                                start_date = sdf.format(firstDayOfCurrentYear.getTime());
-                                end_date = sdf.format(Calendar.getInstance().getTime());
-                            }
+                                Calendar firstDayOfCurrentYear = Calendar.getInstance();
+                                firstDayOfCurrentYear.set(Calendar.DATE, 1);
+                                firstDayOfCurrentYear.set(Calendar.MONTH, 0);
+                                //System.out.println(sdf.format(firstDayOfCurrentYear.getTime()));
 
-                            String txn_date = changeDateFormatUI(jsonObject.optString("entdate"));
-
-                            if (Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(start_date)) >= 0 &&
-                                    Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(end_date)) <= 0){
-
-                                System.out.println("TXN Date : "+txn_date);
-
-                                total_earning = total_earning + Float.parseFloat(jsonObject.optString("earning"));
-                                total_spending = total_spending + Float.parseFloat(jsonObject.optString("spent"));
-
-                                String type = "";
-                                if ("0.00".equalsIgnoreCase(jsonObject.optString("earning"))){
-                                    type = "Expense";
-
-                                } else if ("0.00".equalsIgnoreCase(jsonObject.optString("spent"))){
-                                    type = "Earning";
-                                }
-                                String category;
-                                category = category(jsonObject.optString("description"),type);
-                                if ("Others".equalsIgnoreCase(category) &&
-                                        !category.equalsIgnoreCase(jsonObject.optString("expcategory"))){
-                                    category = jsonObject.optString("expcategory");
+                                if (start_date.length()<2 && end_date.length()<2){
+                                    start_date = sdf.format(firstDayOfCurrentYear.getTime());
+                                    end_date = sdf.format(Calendar.getInstance().getTime());
                                 }
 
-                                if (spinner.getSelectedItemPosition() == 1 &&
-                                        "0.00".equalsIgnoreCase(jsonObject.optString("spent"))) {
-                                    if (!categories_list.contains(category)){
-                                        categories_list.add(category);
+                                String txn_date = changeDateFormatUI(jsonObject.optString("entdate"));
+
+                                if (Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(start_date)) >= 0 &&
+                                        Objects.requireNonNull(sdf.parse(txn_date)).compareTo(sdf.parse(end_date)) <= 0){
+
+                                    total_earning = total_earning + Float.parseFloat(jsonObject.optString("earning"));
+                                    total_spending = total_spending + Float.parseFloat(jsonObject.optString("spent"));
+
+                                    String type = "";
+                                    if ("0.00".equalsIgnoreCase(jsonObject.optString("earning"))){
+                                        type = "Expense";
+
+                                    } else if ("0.00".equalsIgnoreCase(jsonObject.optString("spent"))){
+                                        type = "Earning";
                                     }
-                                    for (int j = 0; j < categories_list.size(); j++){
-                                        if (category.equalsIgnoreCase(categories_list.get(j))){
-                                            if (amount_list.isEmpty() || j >= amount_list.size()){
-                                                amount_list.add(Float.parseFloat(jsonObject.optString("earning")));
-                                            } else {
-                                                amount_list.set(j,amount_list.get(j) + Float.parseFloat(jsonObject.optString("earning")));
+                                    String category;
+                                    category = category(jsonObject.optString("description"),type);
+                                    if ("Others".equalsIgnoreCase(category) &&
+                                            !category.equalsIgnoreCase(jsonObject.optString("expcategory"))){
+                                        category = jsonObject.optString("expcategory");
+                                    }
+
+                                    if (spinner.getSelectedItemPosition() == 1 &&
+                                            "0.00".equalsIgnoreCase(jsonObject.optString("spent"))) {
+                                        if (!categories_list.contains(category)){
+                                            categories_list.add(category);
+                                        }
+                                        for (int j = 0; j < categories_list.size(); j++){
+                                            if (category.equalsIgnoreCase(categories_list.get(j))){
+                                                if (amount_list.isEmpty() || j >= amount_list.size()){
+                                                    amount_list.add(Float.parseFloat(jsonObject.optString("earning")));
+                                                } else {
+                                                    amount_list.set(j,amount_list.get(j) + Float.parseFloat(jsonObject.optString("earning")));
+                                                }
+                                                break;
                                             }
-                                            break;
+                                        }
+                                    } else if (spinner.getSelectedItemPosition() == 2 &&
+                                            "0.00".equalsIgnoreCase(jsonObject.optString("earning"))){
+                                        if (!categories_list.contains(category)){
+                                            categories_list.add(category);
+                                        }
+                                        for (int j = 0; j < categories_list.size(); j++){
+                                            if (category.equalsIgnoreCase(categories_list.get(j))){
+                                                if (amount_list.isEmpty() || j >= amount_list.size()){
+                                                    amount_list.add(Float.parseFloat(jsonObject.optString("spent")));
+                                                } else {
+                                                    amount_list.set(j,amount_list.get(j) + Float.parseFloat(jsonObject.optString("spent")));
+                                                }
+                                                break;
+                                            }
                                         }
                                     }
-                                } else if (spinner.getSelectedItemPosition() == 2 &&
-                                        "0.00".equalsIgnoreCase(jsonObject.optString("earning"))){
-                                    if (!categories_list.contains(category)){
-                                        categories_list.add(category);
-                                    }
-                                    for (int j = 0; j < categories_list.size(); j++){
-                                        if (category.equalsIgnoreCase(categories_list.get(j))){
-                                            if (amount_list.isEmpty() || j >= amount_list.size()){
-                                                amount_list.add(Float.parseFloat(jsonObject.optString("spent")));
-                                            } else {
-                                                amount_list.set(j,amount_list.get(j) + Float.parseFloat(jsonObject.optString("spent")));
-                                            }
-                                            break;
-                                        }
-                                    }
                                 }
                             }
+
                             transaction_list.add(transaction);
                         }
                         chartTitle();

@@ -189,6 +189,38 @@ public class Constants {
         // get the base 64 string
         return Base64.encodeToString(byteFormat, Base64.NO_WRAP);
     }
+    /*......................................Transaction Type......................................*/
+    public static boolean type(String body){
+        if (((body.contains("get") || body.contains("Get")) &&
+                (body.contains("loan") || body.contains("Loan"))) ||
+                ((body.contains("expired") || body.contains("Expired")) &&
+                        (body.contains("loan") || body.contains("Loan") ||
+                        body.contains("insurance") || body.contains("Insurance") ||
+                        body.contains("premium") || body.contains("Premium"))) ||
+                body.contains("requested")){
+            return false;
+        }
+        else return body.contains("cashback") || body.contains("Cashback") ||
+                body.contains("credited") || body.contains("Credited") ||
+                body.contains("debited") || body.contains("Debited") ||
+                body.contains("withdrawn") || body.contains("Withdrawn") ||
+                body.contains("payment") || body.contains("Payment") ||
+                body.contains("spent") || body.contains("Spent") ||
+                body.contains("added") || body.contains("Added") ||
+                body.contains("paid") || body.contains("Paid") ||
+                body.contains("received") || body.contains("Received") ||
+                body.contains("txn ID") || body.contains("Txn ID") ||
+                body.contains("transaction ID") || body.contains("Transaction ID") ||
+                body.contains("recharge") || body.contains("Recharge") ||
+                body.contains("bill") || body.contains("Bill") ||
+                body.contains("rent") || body.contains("Rent") ||
+                body.contains("loan") || body.contains("Loan") ||
+                body.contains("salary") || body.contains("Salary") ||
+                body.contains("premium") || body.contains("Premium") ||
+                body.contains("due") || body.contains("Due") ||
+                body.contains("reminder") || body.contains("Reminder") ||
+                body.contains("ATM") || body.contains("EMI");
+    }
     /*....................................Transaction Category....................................*/
     public static String category (String body, String type){
         String category;

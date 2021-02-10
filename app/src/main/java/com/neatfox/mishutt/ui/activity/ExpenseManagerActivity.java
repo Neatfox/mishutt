@@ -60,6 +60,7 @@ import static com.neatfox.mishutt.Constants.api_transaction_add;
 import static com.neatfox.mishutt.Constants.api_transaction_msg_date_time_add;
 import static com.neatfox.mishutt.Constants.category;
 import static com.neatfox.mishutt.Constants.changeDateFormatDB;
+import static com.neatfox.mishutt.Constants.type;
 
 public class ExpenseManagerActivity extends MainActivity {
 
@@ -248,20 +249,7 @@ public class ExpenseManagerActivity extends MainActivity {
 
                 if (address.trim().length()==6 && isAlpha(address)){
                     if (body.contains("Rs") || body.contains("rs") || body.contains("INR") || body.contains("₹")) {
-                        if (body.contains("Cashback") || body.contains("credited")|| body.contains("debited") ||
-                                body.contains("withdrawn") || body.contains("Credited")|| body.contains("Debited") ||
-                                body.contains("Withdrawn") || body.contains("payment") || body.contains("Transaction ID") ||
-                                body.contains("Txn ID") || body.contains("Payment") || body.contains("transaction ID") ||
-                                body.contains("txn ID") || body.contains("recharge") || body.contains("added") ||
-                                body.contains("paid") || body.contains("Recharge") || body.contains("Added") ||
-                                body.contains("Paid") || body.contains("received") || body.contains("bill") ||
-                                body.contains("rent") || body.contains("Received") || body.contains("Bill") ||
-                                body.contains("Rent") || body.contains("loan") || body.contains("salary") ||
-                                body.contains("Salary") || body.contains("Loan") || body.contains("Premium") ||
-                                body.contains("ATM") || body.contains("premium") || body.contains("EMI") ||
-                                body.contains("Due") || body.contains("due") || body.contains("Reminder") ||
-                                body.contains("reminder") || body.contains("spent") || body.contains("Spent")) {
-
+                        if (type(body)) {
                             long message_date = sharedPreference.getLong("message_date", 0);
                             if (message_date == 0){
                                 getMessage(address,body,dateFormat);
@@ -357,6 +345,8 @@ public class ExpenseManagerActivity extends MainActivity {
                     if (body.contains("due on")){
                         String due_date = formatter(body,"due on");
                         submitReminder(_date,due_date,category,amount,address,body);
+                    } else {
+                        submitReminder(_date,_date,category,amount,address,body);
                     }
                 } else {
                     submitDetails(_date,type,category,amount,address, body);
