@@ -10,6 +10,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#27AE60</color>
     <color name="grey">#17202A</color>
+    <color name="blue">#000E47</color>
 
     <color name="colorHint">#c5877f7f</color>
     <color name="rippleColor">#80BFBFBF</color>

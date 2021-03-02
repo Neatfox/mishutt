@@ -237,8 +237,9 @@ public class WalletActivity extends MainActivity {
         transfer_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WalletActivity.this,
-                        "This feature will get active in the next release. Thank You",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent (WalletActivity.this, BeneficiaryListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                WalletActivity.this.startActivity(intent);
             }
         });
         /*....................................Bottom Navigation...................................*/
@@ -539,7 +540,7 @@ public class WalletActivity extends MainActivity {
                 if (status == 1) {
                     System.out.println("OTP Verified");
                     dialog_otp.dismiss();
-                    onboardFlag();
+                    onBoardFlag();
                 } else {
                     if ("All Fields Are Mandatory".equalsIgnoreCase(msg))
                         Toast.makeText(WalletActivity.this, "Update Profile Details First", Toast.LENGTH_SHORT).show();
@@ -547,8 +548,6 @@ public class WalletActivity extends MainActivity {
                         Toast.makeText(WalletActivity.this, msg, Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(WalletActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-                    //Toast.makeText(WalletActivity.this,"OTP Mismatch", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -581,11 +580,11 @@ public class WalletActivity extends MainActivity {
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
-    public void onboardFlag(){
+    public void onBoardFlag(){
         StringRequest request = new StringRequest(Request.Method.POST, api_add_onboarding_flag, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Onboard Flag>>>",response);
+                Log.d("On Board Flag>>>",response);
                 JSONObject resObj;
                 int status = 0;
                 try {

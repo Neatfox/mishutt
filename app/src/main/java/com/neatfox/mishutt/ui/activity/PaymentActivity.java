@@ -862,7 +862,7 @@ public class PaymentActivity extends MainActivity {
                 if (status == 1) {
                     System.out.println("OTP Verified");
                     dialog_otp.dismiss();
-                    onboardFlag();
+                    onBoardFlag();
                 } else {
                     if ("All Fields Are Mandatory".equalsIgnoreCase(msg))
                         Toast.makeText(PaymentActivity.this, "Update Profile Details First", Toast.LENGTH_SHORT).show();
@@ -903,12 +903,12 @@ public class PaymentActivity extends MainActivity {
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
-    public void onboardFlag(){
+    public void onBoardFlag(){
         loading.setVisibility(View.VISIBLE);
         StringRequest request = new StringRequest(Request.Method.POST, api_add_onboarding_flag, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Onboard Flag>>>",response);
+                Log.d("On Board Flag>>>",response);
                 JSONObject resObj;
                 int status = 0;
                 try {

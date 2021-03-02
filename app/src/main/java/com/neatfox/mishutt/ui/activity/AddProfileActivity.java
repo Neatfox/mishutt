@@ -68,7 +68,7 @@ public class AddProfileActivity extends AppCompatActivity {
             wedding_anniversary,number_of_children,profession,annual_income,number_of_dependents,
             aadhaar_number,pan_no;
     Button update_profile;
-    boolean valid_aadhar_number = false,valid_pan_no = false;
+    boolean valid_aadhaar_number = false,valid_pan_no = false;
     String emailPattern,date_picker_type;
     int backPress = 0;
 
@@ -203,7 +203,7 @@ public class AddProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                valid_aadhar_number = false;
+                valid_aadhaar_number = false;
                 if(s.length()==12){
                     if (isNetworkAvailable()) noNetwork();
                     else {
@@ -409,7 +409,7 @@ public class AddProfileActivity extends AppCompatActivity {
             aadhaar_number.requestFocus();
             Snackbar.make(view, R.string.enter_aadhaar_number, Snackbar.LENGTH_SHORT).show();
             return false;
-        } else if (aadhaar_number.getText().toString().trim().length()==10 && !valid_aadhar_number) {
+        } else if (aadhaar_number.getText().toString().trim().length()==10 && !valid_aadhaar_number) {
             aadhaar_number.requestFocus();
             Snackbar.make(view, R.string.invalid_aadhaar_number, Snackbar.LENGTH_SHORT).show();
             return false;
@@ -447,7 +447,7 @@ public class AddProfileActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (status == 1) {
-                    valid_aadhar_number = true;
+                    valid_aadhaar_number = true;
                     layout_aadhaar_number.setHelperText("Aadhaar Number Verified");
                     layout_aadhaar_number.setHelperTextColor(AppCompatResources.getColorStateList(getApplicationContext(),colorGreenArray[0]));
                 } else {

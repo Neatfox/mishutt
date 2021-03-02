@@ -121,6 +121,13 @@ public class Constants {
     public static String api_wallet_balance = billDeskBasePath + middlePath + "wallet";
     public static String api_wallet_transaction_list = billDeskBasePath + middlePath + "transaction_list";
     public static String api_wallet_add_money = billDeskBasePath + middlePath + "mishutt_instantpay_payment";
+    /*-----------------------------------------Send Money-----------------------------------------*/
+    public static String api_beneficiary_list = billDeskBasePath + middlePath + "remitter_list";
+    public static String api_beneficiary_mobile_check = billDeskBasePath + middlePath + "remitter_mobile_check";
+    public static String api_beneficiary_otp = billDeskBasePath + middlePath + "domestic_remitter_registration_otp";
+    public static String api_beneficiary_add = billDeskBasePath + middlePath + "domestic_remitter_registration";
+    public static String api_beneficiary_register = billDeskBasePath + middlePath + "domestic_beneficiary_registration";
+    public static String api_beneficiary_money_transfer = billDeskBasePath + middlePath + "domestic_fund_transfer";
     /*--------------------------------------------ITR---------------------------------------------*/
     public static String api_itr = basePath + middlePath + "sendleads";
     /*-------------------------------------------About--------------------------------------------*/
