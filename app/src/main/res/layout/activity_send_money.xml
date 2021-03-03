@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".ui.activity.MoneyTransferActivity">
+    tools:context=".ui.activity.SendMoneyActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -117,6 +117,50 @@
                         android:textColor="?attr/textColor"
                         android:inputType="number"
                         android:maxLength="10"
+                        android:enabled="false"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_account_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/account_number"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="number"
+                        android:maxLength="20"
+                        android:enabled="false"
+                        android:selectAllOnFocus="true"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/textColor"
+                    android:textColorHint="?attr/metaHintColor"
+                    app:errorEnabled="true">
+
+                    <EditText
+                        android:id="@+id/et_ifsc_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/ifsc_code"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="11"
                         android:enabled="false"
                         android:selectAllOnFocus="true"
                         android:importantForAutofill="no" />

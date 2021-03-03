@@ -52,7 +52,6 @@ public class AddBeneficiaryInfoActivity extends AppCompatActivity {
     EditText name,mobile_number,account_number,ifsc_code;
     Button submit;
     ProgressDialog progressDialog;
-    String _beneficiary_id = "",_beneficiaryId = "";
     int backPress = 0;
 
     private boolean isNetworkAvailable() {
@@ -89,6 +88,9 @@ public class AddBeneficiaryInfoActivity extends AppCompatActivity {
         account_number = findViewById(R.id.et_account_number);
         ifsc_code = findViewById(R.id.et_ifsc_code);
         submit = findViewById(R.id.button_submit);
+
+        name.setText(getIntent().getStringExtra("name"));
+        mobile_number.setText(getIntent().getStringExtra("mobile_number"));
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,8 +186,7 @@ public class AddBeneficiaryInfoActivity extends AppCompatActivity {
                     Toast.makeText(AddBeneficiaryInfoActivity.this, "Beneficiary Details Added Successfully", Toast.LENGTH_SHORT).show();
                     backPressed();
                 } else {
-                    System.out.println(msg);
-                    snackBarError();
+                    Toast.makeText(AddBeneficiaryInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -203,8 +204,8 @@ public class AddBeneficiaryInfoActivity extends AppCompatActivity {
                 params.put("mobile", mobile_number.getText().toString().trim());
                 params.put("account", account_number.getText().toString().trim());
                 params.put("ifsc", ifsc_code.getText().toString().trim());
-                params.put("remitterid", _beneficiary_id);
-                params.put("remitter_id", _beneficiaryId);
+                params.put("remitterid", getIntent().getStringExtra("remitterId"));
+                params.put("remitter_id", getIntent().getStringExtra("remitter_id"));
                 return params;
             }
         };

@@ -71,7 +71,7 @@
         <activity android:name=".ui.activity.BeneficiaryListActivity" />
         <activity android:name=".ui.activity.AddBeneficiaryActivity" />
         <activity android:name=".ui.activity.AddBeneficiaryInfoActivity" />
-        <activity android:name=".ui.activity.MoneyTransferActivity" />
+        <activity android:name=".ui.activity.SendMoneyActivity" />
         <activity android:name=".ui.activity.PaymentActivity" />
         <activity
             android:name=".image_cropper.ImageCropper"

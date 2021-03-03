@@ -166,15 +166,21 @@ public class BeneficiaryListActivity extends AppCompatActivity {
                     }
                     try {
                         JSONObject jsonRootObject = new JSONObject(response);
-                        JSONArray jsonArray = jsonRootObject.getJSONArray("pro_list");
+                        JSONArray jsonArray = jsonRootObject.getJSONArray("list");
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Beneficiary beneficiary = new Beneficiary();
-                            beneficiary.setFirst_name(jsonObject.optString("uid"));
-                            beneficiary.setLast_name(jsonObject.optString("id"));
-                            beneficiary.setMobile_number(jsonObject.optString("pname"));
-                            beneficiary.setPin_code(jsonObject.optString("investment"));
+                            beneficiary.setFirst_name(jsonObject.optString("name"));
+                            beneficiary.setLast_name(jsonObject.optString("surname"));
+                            beneficiary.setMobile_number(jsonObject.optString("mobile"));
+                            beneficiary.setPin_code(jsonObject.optString("pincode"));
+                            beneficiary.setBeneficiary_id(jsonObject.optString("beneficiaryid"));
+                            beneficiary.setHas_account_info(jsonObject.optString("beneficiary_flag"));
+                            beneficiary.setRemitter_id(jsonObject.optString("remitter_id"));
+                            beneficiary.setRemitterId(jsonObject.optString("remitterid"));
+                            beneficiary.setAccount_number(jsonObject.optString("account"));
+                            beneficiary.setIfsc_code(jsonObject.optString("ifsc"));
                             beneficiary_list.add(beneficiary);
                         }
                         recyclerView.setLayoutManager(layoutManager);

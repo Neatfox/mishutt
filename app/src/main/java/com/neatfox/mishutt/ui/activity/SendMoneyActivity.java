@@ -44,14 +44,14 @@ import java.util.Objects;
 
 import static com.neatfox.mishutt.Constants.api_beneficiary_money_transfer;
 
-public class MoneyTransferActivity extends AppCompatActivity {
+public class SendMoneyActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreference;
     SharedPreferences.Editor editor;
     ConstraintLayout layout;
     LinearLayout layout_back;
     ImageButton ib_back;
-    EditText name,mobile_number,amount;
+    EditText name,mobile_number,account_number,ifsc_code,amount;
     AppCompatAutoCompleteTextView transaction_mode;
     Button submit;
     ProgressDialog progressDialog;
@@ -75,9 +75,9 @@ public class MoneyTransferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money_transfer);
+        setContentView(R.layout.activity_send_money);
 
-        MoneyTransferActivity.this.getWindow().setSoftInputMode(
+        SendMoneyActivity.this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         sharedPreference = getApplicationContext().getSharedPreferences("user_pref", 0);
@@ -89,12 +89,19 @@ public class MoneyTransferActivity extends AppCompatActivity {
         ib_back = findViewById(R.id.ib_back);
         name = findViewById(R.id.et_name);
         mobile_number = findViewById(R.id.et_mobile_number);
+        account_number = findViewById(R.id.et_account_number);
+        ifsc_code = findViewById(R.id.et_ifsc_code);
         amount = findViewById(R.id.et_amount);
         transaction_mode = findViewById(R.id.et_transaction_mode);
         submit = findViewById(R.id.button_submit);
 
+        name.setText(getIntent().getStringExtra("name"));
+        mobile_number.setText(getIntent().getStringExtra("mobile_number"));
+        account_number.setText(getIntent().getStringExtra("account_number"));
+        ifsc_code.setText(getIntent().getStringExtra("ifsc_code"));
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                MoneyTransferActivity.this, R.array.transaction_mode, R.layout.adapter_spinner_item);
+                SendMoneyActivity.this, R.array.transaction_mode, R.layout.adapter_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         transaction_mode.setAdapter(adapter);
 
@@ -119,7 +126,8 @@ public class MoneyTransferActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkName(view) &&  checkMobileNumber(view) && checkAmount(view) && checkTransactionMode(view)){
+                if (checkName(view) &&  checkMobileNumber(view) && checkAccountNumber(view) &&
+                        checkIFSCCode(view) && checkAmount(view) && checkTransactionMode(view)){
                     if (isNetworkAvailable()) {
                         noNetwork();
                     } else {
@@ -163,6 +171,24 @@ public class MoneyTransferActivity extends AppCompatActivity {
         } else
             return true;
     }
+    /*....................................Check Account Number....................................*/
+    public boolean checkAccountNumber (View view) {
+        if (account_number.getText().toString().trim().length()<1){
+            account_number.requestFocus();
+            Snackbar.make(view, R.string.enter_account_number, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
+    }
+    /*.......................................Check IFSC Code......................................*/
+    public boolean checkIFSCCode (View view) {
+        if (ifsc_code.getText().toString().trim().length()<1){
+            ifsc_code.requestFocus();
+            Snackbar.make(view, R.string.enter_ifsc_code, Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else
+            return true;
+    }
     /*........................................Check Amount........................................*/
     public boolean checkAmount (View view) {
         if (amount.getText().toString().trim().length()<1){
@@ -188,7 +214,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
     }
     /*.......................................Sending Money........................................*/
     private void submit(){
-        progressDialog = new ProgressDialog(MoneyTransferActivity.this);
+        progressDialog = new ProgressDialog(SendMoneyActivity.this);
         progressDialog.setMessage("Sending Money...");
         progressDialog.setIndeterminate(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -198,7 +224,7 @@ public class MoneyTransferActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, api_beneficiary_money_transfer, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("Money Transferred>>>", "onResponse::::: " + response);
+                Log.i("Money Transfer>>>", "onResponse::::: " + response);
                 JSONObject resObj;
                 int status = 0;
                 String msg = "";
@@ -211,11 +237,10 @@ public class MoneyTransferActivity extends AppCompatActivity {
                 }
                 progressDialog.dismiss();
                 if (status == 1) {
-                    Toast.makeText(MoneyTransferActivity.this, "Money Transferred Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendMoneyActivity.this, "Money Transferred Successfully", Toast.LENGTH_SHORT).show();
                     backPressed();
                 } else {
-                    System.out.println(msg);
-                    snackBarError();
+                    Toast.makeText(SendMoneyActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -255,9 +280,9 @@ public class MoneyTransferActivity extends AppCompatActivity {
     }
 
     public void backPressed(){
-        Intent intent = new Intent (MoneyTransferActivity.this, BeneficiaryListActivity.class);
+        Intent intent = new Intent (SendMoneyActivity.this, BeneficiaryListActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        MoneyTransferActivity.this.startActivity(intent);
+        SendMoneyActivity.this.startActivity(intent);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }

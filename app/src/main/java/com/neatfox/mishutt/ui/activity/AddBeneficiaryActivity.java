@@ -162,6 +162,10 @@ public class AddBeneficiaryActivity extends AppCompatActivity {
                                 has_otp = true;
                                 submit.setText(R.string.register);
                                 layout_otp.setVisibility(View.VISIBLE);
+                                first_name.setEnabled(false);
+                                last_name.setEnabled(false);
+                                mobile_number.setEnabled(false);
+                                pin_code.setEnabled(false);
                                 startTimer();
                                 sent_otp();
                             }
@@ -393,8 +397,7 @@ public class AddBeneficiaryActivity extends AppCompatActivity {
                     Toast.makeText(AddBeneficiaryActivity.this, "Beneficiary Details Added Successfully", Toast.LENGTH_SHORT).show();
                     backPressed();
                 } else {
-                    System.out.println(msg);
-                    snackBarError();
+                    Toast.makeText(AddBeneficiaryActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {

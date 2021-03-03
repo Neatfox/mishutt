@@ -104,11 +104,59 @@
                         android:textSize="12sp"
                         android:textColor="?attr/textColor" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/account_number"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_account_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/account_number"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/ifsc_code"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+
+                    <TextView
+                        android:id="@+id/tv_ifsc_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/ifsc_code"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColor" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_marginStart="10dp"
                 android:orientation="vertical">
 
@@ -120,7 +168,7 @@
                     android:text="@string/register"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="@color/blue"/>
+                    android:textColor="?attr/backgroundColor"/>
 
                 <Button
                     android:id="@+id/button_transfer_money"
@@ -130,7 +178,7 @@
                     android:text="@string/transfer"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="@color/blue"/>
+                    android:textColor="?attr/backgroundColor"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.neatfox.mishutt.R;
 import com.neatfox.mishutt.ui.activity.AddBeneficiaryInfoActivity;
-import com.neatfox.mishutt.ui.activity.MoneyTransferActivity;
+import com.neatfox.mishutt.ui.activity.SendMoneyActivity;
 import com.neatfox.mishutt.ui.model.Beneficiary;
 
 import java.util.ArrayList;
@@ -47,21 +47,46 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
         holder.mobile_number.setText(beneficiary.getMobile_number());
         holder.pin_code.setText(beneficiary.getPin_code());
 
+        if (beneficiary.getHas_account_info().equalsIgnoreCase("Y")){
+            holder.account_number.setText(beneficiary.getAccount_number());
+            holder.ifsc_code.setText(beneficiary.getIfsc_code());
+            holder.register.setVisibility(View.GONE);
+            holder.transfer_money.setVisibility(View.VISIBLE);
+        } else {
+            String _string = "Not Added Yet";
+            holder.account_number.setText(_string);
+            holder.ifsc_code.setText(_string);
+            holder.register.setVisibility(View.VISIBLE);
+            holder.transfer_money.setVisibility(View.GONE);
+        }
+
         holder.register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (context, AddBeneficiaryInfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("name",beneficiary.getFirst_name());
+                intent.putExtra("mobile_number",beneficiary.getMobile_number());
+                intent.putExtra("remitterId",beneficiary.getRemitterId());
+                intent.putExtra("remitter_id",beneficiary.getRemitter_id());
                 context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
 
         holder.transfer_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (context, MoneyTransferActivity.class);
+                Intent intent = new Intent (context, SendMoneyActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("name",beneficiary.getFirst_name());
+                intent.putExtra("mobile_number",beneficiary.getMobile_number());
+                intent.putExtra("beneficiary_id",beneficiary.getBeneficiary_id());
+                intent.putExtra("remitter_id",beneficiary.getRemitter_id());
+                intent.putExtra("account_number",beneficiary.getAccount_number());
+                intent.putExtra("ifsc_code",beneficiary.getIfsc_code());
                 context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
 
@@ -79,7 +104,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         Context context;
         ArrayList<Beneficiary> beneficiary_list;
-        TextView name,mobile_number,pin_code;
+        TextView name,mobile_number,pin_code,account_number,ifsc_code;
         Button register,transfer_money;
 
         ViewHolder(View itemView, Context context, ArrayList<Beneficiary> beneficiary_list) {
@@ -89,6 +114,8 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             name = itemView.findViewById(R.id.tv_name);
             mobile_number = itemView.findViewById(R.id.tv_mobile_number);
             pin_code = itemView.findViewById(R.id.tv_pin_code);
+            account_number = itemView.findViewById(R.id.tv_account_number);
+            ifsc_code = itemView.findViewById(R.id.tv_ifsc_code);
             register = itemView.findViewById(R.id.button_register);
             transfer_money = itemView.findViewById(R.id.button_transfer_money);
         }

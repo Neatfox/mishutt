@@ -76,7 +76,7 @@ public class WalletActivity extends MainActivity {
     static final long START_TIME_IN_MILLIS = 120000;
     long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     String verification_code = "";
-    TextView name,mobile_number_wallet,wallet_balance,add_money,transfer_money;
+    TextView name,mobile_number_wallet,wallet_balance,add_money,send_money;
     ShimmerFrameLayout mShimmerViewContainer;
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView.LayoutManager layoutManager;
@@ -102,7 +102,7 @@ public class WalletActivity extends MainActivity {
         mobile_number_wallet = findViewById(R.id.tv_mobile_number);
         wallet_balance = findViewById(R.id.tv_wallet_balance);
         add_money = findViewById(R.id.tv_add_money);
-        transfer_money = findViewById(R.id.tv_transfer_money);
+        send_money = findViewById(R.id.tv_send_money);
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         layoutManager = new LinearLayoutManager(WalletActivity.this);
         recyclerView = findViewById(R.id.recyclerView);
@@ -114,7 +114,7 @@ public class WalletActivity extends MainActivity {
         wallet_balance.setText(String.format("₹%s", addCommaString("0")));
 
         swipeRefreshLayout.setEnabled(false);
-        wallet_balance.setVisibility(View.INVISIBLE);
+        wallet_balance.setVisibility(View.GONE);
         add_money.setVisibility(View.GONE);
         mShimmerViewContainer.setVisibility(View.VISIBLE);
 
@@ -234,7 +234,7 @@ public class WalletActivity extends MainActivity {
             }
         });
 
-        transfer_money.setOnClickListener(new View.OnClickListener() {
+        send_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (WalletActivity.this, BeneficiaryListActivity.class);
