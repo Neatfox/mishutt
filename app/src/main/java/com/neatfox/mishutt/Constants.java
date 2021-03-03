@@ -204,7 +204,7 @@ public class Constants {
                         (body.contains("loan") || body.contains("Loan") ||
                         body.contains("insurance") || body.contains("Insurance") ||
                         body.contains("premium") || body.contains("Premium"))) ||
-                body.contains("requested")){
+                body.contains("requested") || body.contains("OTP") || body.contains("otp")){
             return false;
         }
         else return body.contains("cashback") || body.contains("Cashback") ||
@@ -245,7 +245,7 @@ public class Constants {
         } else if (body.contains("Bill") || body.contains("bill")) {
             category = "Bill";
         } else if (type.equalsIgnoreCase("Expense") &&
-                (body.contains("card") || body.contains("Card"))){
+                (body.contains("card") || body.contains("Card") || body.contains("CARD"))){
             category = "Card";
         } else if (body.contains("Credit card") || body.contains("Debit Card") ||
                 body.contains("credit card") || body.contains("debit Card") || body.contains("ATM")){
