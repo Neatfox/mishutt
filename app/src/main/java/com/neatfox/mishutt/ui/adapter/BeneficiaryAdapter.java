@@ -51,13 +51,13 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             holder.account_number.setText(beneficiary.getAccount_number());
             holder.ifsc_code.setText(beneficiary.getIfsc_code());
             holder.register.setVisibility(View.GONE);
-            holder.transfer_money.setVisibility(View.VISIBLE);
+            holder.send_money.setVisibility(View.VISIBLE);
         } else {
             String _string = "Not Added Yet";
             holder.account_number.setText(_string);
             holder.ifsc_code.setText(_string);
             holder.register.setVisibility(View.VISIBLE);
-            holder.transfer_money.setVisibility(View.GONE);
+            holder.send_money.setVisibility(View.GONE);
         }
 
         holder.register.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             }
         });
 
-        holder.transfer_money.setOnClickListener(new View.OnClickListener() {
+        holder.send_money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (context, SendMoneyActivity.class);
@@ -105,7 +105,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
         Context context;
         ArrayList<Beneficiary> beneficiary_list;
         TextView name,mobile_number,pin_code,account_number,ifsc_code;
-        Button register,transfer_money;
+        Button register,send_money;
 
         ViewHolder(View itemView, Context context, ArrayList<Beneficiary> beneficiary_list) {
             super(itemView);
@@ -117,7 +117,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             account_number = itemView.findViewById(R.id.tv_account_number);
             ifsc_code = itemView.findViewById(R.id.tv_ifsc_code);
             register = itemView.findViewById(R.id.button_register);
-            transfer_money = itemView.findViewById(R.id.button_transfer_money);
+            send_money = itemView.findViewById(R.id.button_send_money);
         }
     }
 }

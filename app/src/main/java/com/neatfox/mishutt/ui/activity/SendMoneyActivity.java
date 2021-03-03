@@ -11,8 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,7 +22,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.AuthFailureError;
@@ -52,10 +52,9 @@ public class SendMoneyActivity extends AppCompatActivity {
     LinearLayout layout_back;
     ImageButton ib_back;
     EditText name,mobile_number,account_number,ifsc_code,amount;
-    AppCompatAutoCompleteTextView transaction_mode;
+    CheckBox imps,neft;
     Button submit;
     ProgressDialog progressDialog;
-    String _beneficiary_id = "",_beneficiaryId = "";
     int backPress = 0;
 
     private boolean isNetworkAvailable() {
@@ -92,7 +91,8 @@ public class SendMoneyActivity extends AppCompatActivity {
         account_number = findViewById(R.id.et_account_number);
         ifsc_code = findViewById(R.id.et_ifsc_code);
         amount = findViewById(R.id.et_amount);
-        transaction_mode = findViewById(R.id.et_transaction_mode);
+        imps = findViewById(R.id.cb_imps);
+        neft = findViewById(R.id.cb_neft);
         submit = findViewById(R.id.button_submit);
 
         name.setText(getIntent().getStringExtra("name"));
@@ -100,25 +100,20 @@ public class SendMoneyActivity extends AppCompatActivity {
         account_number.setText(getIntent().getStringExtra("account_number"));
         ifsc_code.setText(getIntent().getStringExtra("ifsc_code"));
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                SendMoneyActivity.this, R.array.transaction_mode, R.layout.adapter_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        transaction_mode.setAdapter(adapter);
-
-        transaction_mode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        imps.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    transaction_mode.showDropDown();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    neft.setChecked(false);
                 }
             }
         });
 
-        transaction_mode.setOnClickListener(new View.OnClickListener() {
+        neft.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (transaction_mode.getText().toString().trim().length()<3){
-                    transaction_mode.showDropDown();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    imps.setChecked(false);
                 }
             }
         });
@@ -200,17 +195,12 @@ public class SendMoneyActivity extends AppCompatActivity {
     }
     /*...................................Check Transaction Mode...................................*/
     public boolean checkTransactionMode(View view) {
-        if (transaction_mode.getText().toString().trim().length() >= 1) {
-            for (int i = 0; i < transaction_mode.getAdapter().getCount(); i++) {
-                if (transaction_mode.getText().toString().trim().equalsIgnoreCase(transaction_mode.getAdapter().getItem(i).toString())) {
-                    return true;
-                }
-            }
-            transaction_mode.setText("");
+        if (imps.isChecked() || neft.isChecked()){
+            return true;
+        } else {
+            Snackbar.make(view, R.string.select_transaction_mode, Snackbar.LENGTH_SHORT).show();
+            return false;
         }
-        transaction_mode.requestFocus();
-        Snackbar.make(view, R.string.select_transaction_mode, Snackbar.LENGTH_SHORT).show();
-        return false;
     }
     /*.......................................Sending Money........................................*/
     private void submit(){
@@ -257,13 +247,16 @@ public class SendMoneyActivity extends AppCompatActivity {
                 params.put("name", name.getText().toString().trim());
                 params.put("mobile", mobile_number.getText().toString().trim());
                 params.put("amount", amount.getText().toString().trim());
-                params.put("mode", transaction_mode.getText().toString().trim());
-                params.put("beneficiaryid", _beneficiary_id);
-                params.put("remitter_id", _beneficiaryId);
+                if (imps.isChecked())
+                    params.put("mode", "IMPS");
+                else if (neft.isChecked())
+                    params.put("mode", "NEFT");
+                params.put("beneficiaryid", getIntent().getStringExtra("beneficiary_id"));
+                params.put("remitter_id", getIntent().getStringExtra("remitter_id"));
                 return params;
             }
         };
-        int socketTimeout = 5000; //5 seconds - change to what you want
+        int socketTimeout = 120000; //120 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(request);

@@ -47,7 +47,7 @@
                 android:layout_marginEnd="60dp"
                 android:gravity="center"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/transfer_money"
+                android:text="@string/send_money"
                 android:textColor="@color/white"
                 android:textSize="20sp"/>
         </LinearLayout>
@@ -189,6 +189,40 @@
                         android:importantForAutofill="no" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/transaction_mode"
+                        android:textSize="15sp"
+                        android:textColor="?attr/colorAccent"/>
+
+                    <CheckBox
+                        android:id="@+id/cb_imps"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/imps"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"/>
+
+                    <CheckBox
+                        android:id="@+id/cb_neft"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/neft"
+                        android:textSize="15sp"
+                        android:textColor="?attr/textColor"/>
+                </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -207,6 +241,7 @@
                         android:textColor="?attr/textColor"
                         android:inputType="textCapWords"
                         android:cursorVisible="false"
+                        android:visibility="gone"
                         android:selectAllOnFocus="true"
                         android:importantForAutofill="no" />
                 </com.google.android.material.textfield.TextInputLayout>
