@@ -289,7 +289,7 @@ public class AddMoneyActivity extends AppCompatActivity {
                 }
                 dialog.dismiss();
                 if (status == 1) {
-                    Toast.makeText(AddMoneyActivity.this, "Transaction Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMoneyActivity.this, "Transaction Successful", Toast.LENGTH_LONG).show();
                     backPressed();
                 } else {
                     snackBarError();
