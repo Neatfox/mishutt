@@ -281,9 +281,11 @@ public class AddMoneyActivity extends AppCompatActivity {
                 Log.d("Add Money>>>",response);
                 JSONObject resObj;
                 int status = 0;
+                String msg = "";
                 try {
                     resObj = new JSONObject(response);
                     status = resObj.getInt("status");
+                    msg = resObj.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -292,7 +294,7 @@ public class AddMoneyActivity extends AppCompatActivity {
                     Toast.makeText(AddMoneyActivity.this, "Transaction Successful", Toast.LENGTH_LONG).show();
                     backPressed();
                 } else {
-                    snackBarError();
+                    Toast.makeText(AddMoneyActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
