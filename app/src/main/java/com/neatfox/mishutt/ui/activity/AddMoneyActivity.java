@@ -232,10 +232,14 @@ public class AddMoneyActivity extends AppCompatActivity {
             }
             if (status.equals("success")) {
                 // Toast.makeText(PaymentOptionsActivity.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
-                Log.d("UPI", "responseStr: "+approvalRefNo);
+                Log.d("UPI", "responseStr: "+str);
+                String[] separated = str.split("txnId=");
+                String[] _separated = separated[1].split("&");
+                String txn_id = _separated[0];
+                System.out.println(txn_id);
                 if (isConnectionAvailable(AddMoneyActivity.this)){
                     System.out.println("TXN_SUCCESS");
-                    sendPaymentSummary(approvalRefNo);
+                    sendPaymentSummary(txn_id);
                 } else {
                     snackBarError();
                 }
