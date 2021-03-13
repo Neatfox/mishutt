@@ -515,7 +515,7 @@
     <string name="otp">OTP</string>
     <string name="send_otp">Send OTP</string>
     <string name="add_beneficiary_info">Add Beneficiary Info</string>
-    <string name="account_number">Account Number</string>
+    <string name="account_number">A/C Number</string>
     <string name="ifsc_code">IFSC Code</string>
     <string name="enter_account_number">Enter Account Number</string>
     <string name="enter_ifsc_code">Enter IFSC Code</string>

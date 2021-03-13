@@ -128,6 +128,8 @@ public class Constants {
     public static String api_beneficiary_add = billDeskBasePath + middlePath + "domestic_remitter_registration";
     public static String api_beneficiary_register = billDeskBasePath + middlePath + "domestic_beneficiary_registration";
     public static String api_beneficiary_money_transfer = billDeskBasePath + middlePath + "domestic_fund_transfer";
+    public static String api_beneficiary_remove_send_otp = billDeskBasePath + middlePath + "domestic_beneficiary_remove";
+    public static String api_beneficiary_remove_verify_otp = billDeskBasePath + middlePath + "domestic_beneficiary_remove_by_instantpay";
     /*--------------------------------------------ITR---------------------------------------------*/
     public static String api_itr = basePath + middlePath + "sendleads";
     /*-------------------------------------------About--------------------------------------------*/
