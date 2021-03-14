@@ -2,6 +2,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -182,13 +183,14 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_delete"
+                android:id="@+id/iv_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:padding="5dp"
                 android:background="@drawable/ripple_rectangle"
-                android:src="@drawable/ic_delete"
+                android:src="@drawable/ic_edit"
+                app:tint="?attr/colorPrimary"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/image"/>
         </LinearLayout>

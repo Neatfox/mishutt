@@ -174,14 +174,14 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             holder.ifsc_code.setText(beneficiary.getIfsc_code());
             holder.register.setVisibility(View.GONE);
             holder.send_money.setVisibility(View.VISIBLE);
-            holder.delete.setVisibility(View.VISIBLE);
+            holder.edit.setVisibility(View.VISIBLE);
         } else {
             String _string = "Not Added Yet";
             holder.account_number.setText(_string);
             holder.ifsc_code.setText(_string);
             holder.register.setVisibility(View.VISIBLE);
             holder.send_money.setVisibility(View.GONE);
-            holder.delete.setVisibility(View.INVISIBLE);
+            holder.edit.setVisibility(View.INVISIBLE);
         }
 
         holder.register.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +214,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             }
         });
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 if (isNetworkAvailable()){
@@ -256,7 +256,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
         ArrayList<Beneficiary> beneficiary_list;
         TextView name,mobile_number,pin_code,account_number,ifsc_code;
         Button register,send_money;
-        ImageView delete;
+        ImageView edit;
 
         ViewHolder(View itemView, Context context, ArrayList<Beneficiary> beneficiary_list) {
             super(itemView);
@@ -269,7 +269,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
             ifsc_code = itemView.findViewById(R.id.tv_ifsc_code);
             register = itemView.findViewById(R.id.button_register);
             send_money = itemView.findViewById(R.id.button_send_money);
-            delete = itemView.findViewById(R.id.iv_delete);
+            edit = itemView.findViewById(R.id.iv_edit);
         }
     }
 
@@ -373,9 +373,11 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
                 Log.i("Send OTP>>>", "onResponse::::: " + response);
                 JSONObject resObj;
                 int status = 0;
+                String msg = "";
                 try {
                     resObj = new JSONObject(response);
                     status = resObj.getInt("status");
+                    msg = resObj.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -384,7 +386,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
                     dialog_otp.show();
                     startTimer();
                 } else {
-                    snackBarError();
+                    Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -424,9 +426,11 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
                 Log.i("Verify OTP>>>", "onResponse::::: " + response);
                 JSONObject resObj;
                 int status = 0;
+                String msg = "";
                 try {
                     resObj = new JSONObject(response);
                     status = resObj.getInt("status");
+                    msg = resObj.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -437,7 +441,7 @@ public class BeneficiaryAdapter extends RecyclerView.Adapter<BeneficiaryAdapter.
                     context.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 } else {
-                    snackBarError();
+                    Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
