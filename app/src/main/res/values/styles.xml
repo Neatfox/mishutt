@@ -1,5 +1,5 @@
-<resources>
 
+<resources>
     <!-- Light base activity theme -->
     <style name="AppThemeLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">#27AE60</item>
