@@ -52,7 +52,7 @@
         app:mbn_backgroundBottomColor="?attr/bottomBackgroundColor"
         app:mbn_defaultIconColor="?attr/defaultIconColor"
         app:mbn_selectedIconColor="?attr/selectedIconColor"
-        app:mbn_shadowColor="?attr/shadowColor"
+        app:mbn_shadowColor="@color/colorTransparent"
         app:mbn_countBackgroundColor="?attr/countBackgroundColor"
         app:mbn_countTextColor="?attr/countTextColor"/>
 
